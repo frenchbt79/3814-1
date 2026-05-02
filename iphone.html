@@ -9562,6 +9562,14 @@ window.rankerToggle = function(btn) {
 })();
 
 
+// PRELOAD door registry — call wall renderers once so their side-effect
+// (registerDoorWallData) populates DOOR_REGISTRY. Without this, the
+// individual D1..D22 slides show "door data not loaded".
+['elev-lower-left', 'elev-top', 'elev-upper-left', 'elev-right', 'elev-freezers'].forEach(function(t) {
+  try { if (typeof renderers !== 'undefined' && renderers[t]) renderers[t](); }
+  catch (e) { console.warn('Preload ' + t + ':', e); }
+});
+
 // Init
 renderNav();
 renderSlides();
