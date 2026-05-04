@@ -1,0 +1,184 @@
+[
+  {
+    "file": "7up-12oz-can.png",
+    "path": "products/7up-12oz-can.png",
+    "brand": "7up",
+    "format": "12 oz can",
+    "zone": "D1"
+  },
+  {
+    "file": "7up-20oz-bottle.png",
+    "path": "products/7up-20oz-bottle.png",
+    "brand": "7up",
+    "format": "20 oz bottle",
+    "zone": "D1"
+  },
+  {
+    "file": "7up-2l.png",
+    "path": "products/7up-2l.png",
+    "brand": "7up",
+    "format": "2 L bottle",
+    "zone": "D1"
+  },
+  {
+    "file": "aw-rootbeer-12oz-can.png",
+    "path": "products/aw-rootbeer-12oz-can.png",
+    "brand": "A&W Root Beer",
+    "format": "12 oz can",
+    "zone": "D1"
+  },
+  {
+    "file": "aw-rootbeer-20oz-bottle.png",
+    "path": "products/aw-rootbeer-20oz-bottle.png",
+    "brand": "A&W Root Beer",
+    "format": "20 oz bottle",
+    "zone": "D1"
+  },
+  {
+    "file": "canada-dry-12oz-can.png",
+    "path": "products/canada-dry-12oz-can.png",
+    "brand": "Canada Dry",
+    "format": "12 oz can",
+    "zone": "D1"
+  },
+  {
+    "file": "canada-dry-2l.png",
+    "path": "products/canada-dry-2l.png",
+    "brand": "Canada Dry",
+    "format": "2 L bottle",
+    "zone": "D1"
+  },
+  {
+    "file": "coca-cola-12oz-can.png",
+    "path": "products/coca-cola-12oz-can.png",
+    "brand": "Coca Cola",
+    "format": "12 oz can",
+    "zone": "D1"
+  },
+  {
+    "file": "coca-cola-20oz-bottle.png",
+    "path": "products/coca-cola-20oz-bottle.png",
+    "brand": "Coca Cola",
+    "format": "20 oz bottle",
+    "zone": "D1"
+  },
+  {
+    "file": "coca-cola-2l.png",
+    "path": "products/coca-cola-2l.png",
+    "brand": "Coca Cola",
+    "format": "2 L bottle",
+    "zone": "D1"
+  },
+  {
+    "file": "coke-zero-20oz-bottle.png",
+    "path": "products/coke-zero-20oz-bottle.png",
+    "brand": "Coke Zero",
+    "format": "20 oz bottle",
+    "zone": "D1"
+  },
+  {
+    "file": "diet-coke-12oz-can.png",
+    "path": "products/diet-coke-12oz-can.png",
+    "brand": "Diet Coke",
+    "format": "12 oz can",
+    "zone": "D1"
+  },
+  {
+    "file": "diet-coke-20oz-bottle.png",
+    "path": "products/diet-coke-20oz-bottle.png",
+    "brand": "Diet Coke",
+    "format": "20 oz bottle",
+    "zone": "D1"
+  },
+  {
+    "file": "dr-pepper-12oz-can.png",
+    "path": "products/dr-pepper-12oz-can.png",
+    "brand": "Dr Pepper",
+    "format": "12 oz can",
+    "zone": "D1"
+  },
+  {
+    "file": "dr-pepper-20oz-bottle.png",
+    "path": "products/dr-pepper-20oz-bottle.png",
+    "brand": "Dr Pepper",
+    "format": "20 oz bottle",
+    "zone": "D1"
+  },
+  {
+    "file": "minute-maid-lemonade-20oz-bottle.png",
+    "path": "products/minute-maid-lemonade-20oz-bottle.png",
+    "brand": "Minute Maid Lemonade",
+    "format": "20 oz bottle",
+    "zone": "D1"
+  },
+  {
+    "file": "mountain-dew-12oz-can.png",
+    "path": "products/mountain-dew-12oz-can.png",
+    "brand": "Mountain Dew",
+    "format": "12 oz can",
+    "zone": "D1"
+  },
+  {
+    "file": "mountain-dew-20oz-bottle.png",
+    "path": "products/mountain-dew-20oz-bottle.png",
+    "brand": "Mountain Dew",
+    "format": "20 oz bottle",
+    "zone": "D1"
+  },
+  {
+    "file": "mountain-dew-2l.png",
+    "path": "products/mountain-dew-2l.png",
+    "brand": "Mountain Dew",
+    "format": "2 L bottle",
+    "zone": "D1"
+  },
+  {
+    "file": "pepsi-12oz-can.png",
+    "path": "products/pepsi-12oz-can.png",
+    "brand": "Pepsi",
+    "format": "12 oz can",
+    "zone": "D1"
+  },
+  {
+    "file": "pepsi-20oz-bottle.png",
+    "path": "products/pepsi-20oz-bottle.png",
+    "brand": "Pepsi",
+    "format": "20 oz bottle",
+    "zone": "D1"
+  },
+  {
+    "file": "sprite-12oz-can.png",
+    "path": "products/sprite-12oz-can.png",
+    "brand": "Sprite",
+    "format": "12 oz can",
+    "zone": "D1"
+  },
+  {
+    "file": "sprite-20oz-bottle.png",
+    "path": "products/sprite-20oz-bottle.png",
+    "brand": "Sprite",
+    "format": "20 oz bottle",
+    "zone": "D1"
+  },
+  {
+    "file": "sprite-2l.png",
+    "path": "products/sprite-2l.png",
+    "brand": "Sprite",
+    "format": "2 L bottle",
+    "zone": "D1"
+  },
+  {
+    "file": "squirt-2l.png",
+    "path": "products/squirt-2l.png",
+    "brand": "Squirt",
+    "format": "2 L bottle",
+    "zone": "D1"
+  },
+  {
+    "file": "sunkist-12oz-can.png",
+    "path": "products/sunkist-12oz-can.png",
+    "brand": "Sunkist",
+    "format": "12 oz can",
+    "zone": "D1"
+  }
+]

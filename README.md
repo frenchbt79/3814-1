@@ -4,7 +4,7 @@ Single-file HTML investor / distributor presentation for the East Lakeview Food 
 
 **Owner:** Bradley French · 3814 Clark LLC
 
-**Current version:** v37 · 2026-05-04 (Phase 22 — G3 face Chocolate / Cleaning / Paper / Pet)
+**Current version:** v.260504-r70 · 2026-05-04 (Phase 70 — visual fixes, iPhone polish, GitHub-ready)
 
 ---
 
@@ -33,7 +33,7 @@ Both decks are self-contained single HTML files (no external assets, fonts, or s
 
 ## What's in the deck
 
-- **70+ slides** covering hero, repositioning thesis, market trends, floor plan, planograms, distributor packets, financials
+- **91 slides** organized in 11 sections: Vision & Thesis · Inventory & Economics · Store Strategy · Cooler Wall (D1–D22) · Freezers · Center Gondolas · Counter & Wall Shelves · Distributor Packets · Building & Construction · Financials · Action
 - **Interactive floor plan** with clickable fixtures (D1–D22 cooler doors, F1–F3 freezers, G1–G4 gondolas + endcaps, S1–S7 wall shelves, OC-1, BC-1, ATM)
 - **Drag/resize/rotate floor plan editor** with localStorage persistence (Phase 13)
 - **Per-fixture planograms** — BEFORE / AFTER shelf-by-shelf SKU layouts at 18 px/inch fixed scale
@@ -47,7 +47,18 @@ Both decks are self-contained single HTML files (no external assets, fonts, or s
 - **Ancillary revenue stack** — ATM, lottery, parking sublet, late-night extension, THC bev
 - **Financials** — 5-yr historical from tax returns + 36-mo forward projection + 5-yr future P&L
 
-**340 SKUs · 7 distributors · v37**
+**91 slides · 9 distributors · v.260504-r70**
+
+### New since v37 (Phases 48–70)
+
+- **D1–D6 real-scale continuous wall** — 180" × 71" SVG with photo-accurate product silhouettes (real bottle/can shapes, brand colors, vertical-rotated labels, depth shading)
+- **Per-door inventory** — single 9-column scrollable table with searchable DOOR / PRODUCT / FORMAT / STATUS / F×S×D / UNITS / $/UNIT / TOTAL columns; click a product on the wall to scroll-and-highlight its inventory row
+- **7 new gap-fill slides** — competitive set + pricing matrix, Wrigley game-day demand model, margin by category, break-even monthly revenue, working capital + 90-day buffer, insurance stack, Cubs playoff pre-buy
+- **Wrigley 2026 calendar** — all 81 home games + 11 concert/special events scrollable with search filter
+- **Sidebar regroup** — 11 logical sections with collapsible groups, count badges, and click-to-collapse persistence
+- **Version badge** top-right of every slide (`v.260504-rNN`) — click to copy the version string for revert references
+- **iPhone polish** — 100dvh, 16px form inputs (no zoom), pinch-zoom on SVG/tables, faster tap response, 36px tap targets, version badge moves to bottom-right on narrow screens
+- **Photo-accurate D1–D6 source data** — full audit pass against photos in `Existing Busines Photos/`, with corrections to D3 (Red Bull on top), D4 SH2 (AriZona row), D6 SH4 (Pure juice not Gatorade), D5 SH1 (dairy), D1 SH1 (correct 2L lineup)
 
 ---
 
