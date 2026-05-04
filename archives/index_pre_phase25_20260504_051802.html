@@ -8,6 +8,21 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="3814 Clark">
+<script>
+  // Phase 6 C1 — Mobile users land on iphone.html instead of broken desktop layout.
+  // Honors a session opt-out: if user explicitly came back to index.html,
+  // sessionStorage skip flag prevents bounce loop.
+  (function () {
+    try {
+      var isMobile = window.matchMedia('(max-width: 768px)').matches;
+      var alreadyOnMobile = location.pathname.endsWith('iphone.html');
+      var skip = sessionStorage.getItem('skipMobileRedirect') === '1';
+      if (isMobile && !alreadyOnMobile && !skip) {
+        location.replace('iphone.html');
+      }
+    } catch (e) { /* matchMedia or storage blocked — fall through to desktop */ }
+  })();
+</script>
 <style>
   :root {
     --bg: #0f1419;
@@ -85,6 +100,23 @@
     from { opacity: 0; transform: translateY(4px); }
     to { opacity: 1; transform: translateY(0); }
   }
+
+  /* Phase 6 H3 — Tables overflow horizontally on narrow viewports
+     instead of forcing a body-level horizontal scroll. */
+  #slide-container table {
+    max-width: 100%;
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  /* But preserve table layout for the row/cell structure inside the scroll box */
+  #slide-container table > thead, #slide-container table > tbody { display: table-row-group; }
+  #slide-container table > * > tr { display: table-row; }
+  #slide-container table > * > tr > * { display: table-cell; }
+
+  /* Phase 6 H2 — Touch devices: after touchend, manually trigger any inline
+     onmouseout handler to clear stuck hover-style highlights on tap-away. */
+  /* (The actual JS handler is added at the end of the document.) */
 
   /* Footer / nav controls */
   #footer {
@@ -321,132 +353,9 @@
   ::-webkit-scrollbar-track { background: var(--bg); }
   ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
   ::-webkit-scrollbar-thumb:hover { background: var(--dim); }
-
-  /* ============================================================ */
-  /* iPhone / mobile overrides — only loaded by iphone.html.      */
-  /* Desktop index.html stays untouched.                          */
-  /* All rules use !important + left positioning for reliability. */
-  /* ============================================================ */
-  /* Hamburger toggle — visible at all viewport sizes (professional app pattern) */
-  #mobile-menu-btn {
-    display: flex; align-items: center; justify-content: center;
-    position: fixed; top: 10px; left: 10px;
-    width: 44px; height: 44px;
-    background: var(--panel-2); border: 1px solid var(--border);
-    border-radius: 8px; color: var(--text);
-    font-size: 22px; line-height: 1; cursor: pointer; z-index: 200;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.4);
-    font-weight: 600;
-    transition: left 0.25s ease, background 0.15s ease;
-  }
-  #mobile-menu-btn:hover { background: var(--accent); color: var(--bg); }
-  #mobile-menu-btn:active { opacity: 0.8; }
-  /* When sidebar is open on desktop, push the hamburger to sit just inside the sidebar edge */
-  body:not(.sidebar-collapsed) #mobile-menu-btn { left: 196px; }
-  body.sidebar-collapsed #mobile-menu-btn { left: 10px; }
-
-  /* Desktop sidebar collapse — shrinks the 240px flex column to 0,
-     letting the slide-container expand to full width. */
-  #sidebar {
-    transition: width 0.25s ease, min-width 0.25s ease, opacity 0.2s ease;
-  }
-  body.sidebar-collapsed #sidebar {
-    width: 0 !important;
-    min-width: 0 !important;
-    border-right: 0 !important;
-    opacity: 0;
-    pointer-events: none;
-  }
-  #mobile-menu-btn:active { opacity: 0.7; }
-  #mobile-overlay {
-    display: none; position: fixed; inset: 0;
-    background: rgba(0,0,0,0.55); z-index: 90;
-    -webkit-tap-highlight-color: transparent;
-  }
-  #mobile-overlay.open { display: block; }
-
-  @media (max-width: 768px) {
-    #mobile-menu-btn { display: flex !important; align-items: center; justify-content: center; left: 10px !important; }
-    /* On mobile, hamburger stays at left:10px regardless of sidebar state */
-    body:not(.sidebar-collapsed) #mobile-menu-btn { left: 10px !important; }
-    /* Disable desktop-collapse styles on mobile — sidebar uses position:fixed slide instead */
-    body.sidebar-collapsed #sidebar { width: 82vw !important; min-width: 240px !important; opacity: 1 !important; pointer-events: auto !important; }
-    body { display: block !important; }
-    #sidebar {
-      position: fixed !important;
-      top: 0 !important;
-      left: -340px !important;
-      right: auto !important;
-      bottom: 0 !important;
-      height: 100vh !important;
-      width: 82vw !important;
-      max-width: 320px !important;
-      min-width: 240px !important;
-      flex-shrink: 0 !important;
-      z-index: 100 !important;
-      transition: left 0.25s ease !important;
-      box-shadow: 4px 0 18px rgba(0,0,0,0.5) !important;
-      transform: none !important;
-    }
-    #sidebar.open { left: 0 !important; }
-    #main { width: 100% !important; height: 100vh !important; display: flex !important; flex-direction: column !important; }
-    #slide-container {
-      padding: 64px 14px 14px 14px !important;
-      -webkit-overflow-scrolling: touch;
-    }
-    #footer { height: 60px !important; padding: 0 14px !important; }
-    .btn { padding: 10px 14px !important; font-size: 13px !important; min-height: 40px; }
-    h2.slide-title { font-size: 22px !important; line-height: 1.2 !important; }
-    .slide-subtitle { font-size: 13px !important; margin-bottom: 18px !important; }
-    h3 { font-size: 14px !important; }
-    .hero { padding: 16px 4px !important; }
-    .hero h1 { font-size: 30px !important; line-height: 1.1 !important; letter-spacing: -0.8px !important; }
-    .hero-sub { font-size: 14px !important; }
-    .hero-meta { grid-template-columns: 1fr 1fr !important; gap: 10px !important; }
-    .hero-grid { grid-template-columns: 1fr !important; gap: 14px !important; }
-    .hero-operator { grid-template-columns: 1fr !important; gap: 6px !important; padding: 12px 14px !important; }
-    .stat-grid { grid-template-columns: 1fr 1fr !important; gap: 10px !important; }
-    .stat .val { font-size: 18px !important; }
-    .two-col, .three-col { grid-template-columns: 1fr !important; gap: 14px !important; }
-    div[style*="grid-template-columns:repeat(5,1fr)"],
-    div[style*="grid-template-columns: repeat(5, 1fr)"],
-    div[style*="grid-template-columns:repeat(4,1fr)"],
-    div[style*="grid-template-columns: repeat(4, 1fr)"],
-    div[style*="grid-template-columns:repeat(3,1fr)"],
-    div[style*="grid-template-columns: repeat(3, 1fr)"] {
-      grid-template-columns: 1fr 1fr !important;
-      gap: 10px !important;
-    }
-    div[style*="grid-template-columns:1fr 1fr 1fr"] { grid-template-columns: 1fr !important; gap: 10px !important; }
-    div[style*="grid-template-columns:34px 1fr 1fr"] { grid-template-columns: 1fr !important; }
-    .card.accent > div[style*="grid"] { grid-template-columns: 1fr 1fr !important; gap: 10px !important; }
-    table { font-size: 11px !important; }
-    th, td { padding: 6px 5px !important; }
-    main table { display: block !important; overflow-x: auto !important; white-space: nowrap !important; }
-    .card { padding: 12px 14px !important; }
-    div[style*="display:inline-block"][style*="width:fit-content"] { max-width: 100% !important; }
-    svg { max-width: 100%; height: auto; }
-    .floor-plan, .floor-plan-wrapper { overflow-x: auto !important; -webkit-overflow-scrolling: touch; }
-    span[onclick] { min-height: 32px; padding: 6px 10px !important; display: inline-flex !important; align-items: center; }
-    span[style*="font-size:36px"] { font-size: 24px !important; }
-    span[style*="font-size:32px"] { font-size: 22px !important; }
-    span[style*="font-size:30px"] { font-size: 22px !important; }
-    span[style*="font-size:28px"] { font-size: 20px !important; }
-    div[style*="max-height:160px"] { max-height: 240px !important; }
-  }
-
-  @media (max-width: 400px) {
-    h2.slide-title { font-size: 19px !important; }
-    .stat-grid { grid-template-columns: 1fr !important; }
-    .hero-meta { grid-template-columns: 1fr !important; }
-  }
 </style>
 </head>
 <body>
-
-<!-- Mobile-only: hamburger toggle + overlay backdrop -->
-<button id="mobile-menu-btn" aria-label="Open menu" onclick="window.toggleMobileMenu()">&#9776;</button>
-<div id="mobile-overlay" onclick="window.toggleMobileMenu()"></div>
 
 <aside id="sidebar">
   <h1>3814 N Clark</h1>
@@ -514,12 +423,6 @@ const slides = [
     section: 'Overview',
     label: '📋 Master Fixture Sheet',
     type: 'master-sheet',
-  },
-  {
-    id: 'not-to-keep',
-    section: 'Overview',
-    label: '🚫 Products NOT to Keep',
-    type: 'not-to-keep',
   },
   {
     id: 'uptown-store',
@@ -4314,36 +4217,6 @@ const renderers = {
       <div id="ms-content-after" style="display:none;">${renderForMode('after')}</div>`;
   },
 
-  'not-to-keep': () => {
-    return `
-      <h2 class="slide-title">Products NOT to Keep — Existing Inventory</h2>
-      <p class="slide-subtitle">Per the <strong style="color:#5dcaa5;">Uptown-precedent preservation policy</strong>, every legacy SKU that overlaps with the Uptown Store (Clark Haus) reference catalog stays in inventory. This slide lists only the <strong style="color:#cc6666;">23 items</strong> we will exclude — random store-brands, paraphernalia, obsolete electronics, bottom-shelf wines, and slow-mover 30-pk macro beer. Backup products shown as simple box counts (no SKU-level inventory).</p>
-
-      <div style="display:grid;grid-template-columns:1.1fr 1fr;gap:18px;margin-top:14px;">
-
-        <div style="background:rgba(140,50,50,0.06);border:1.5px solid rgba(204,102,102,0.30);border-radius:8px;padding:16px;">
-          <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px;border-bottom:2px solid #cc6666;padding-bottom:8px;">
-            <h3 style="font-size:14px;color:#cc6666;letter-spacing:0.8px;">🚫 EXCLUDE — Not in Uptown's catalog</h3>
-            <span style="font-size:10.5px;color:#888;font-family:monospace;">23 items</span>
-          </div>
-          <div style="margin-bottom:16px;"><h4 style="font-size:12.5px;color:#cc6666;letter-spacing:0.8px;font-family:monospace;text-transform:uppercase;border-bottom:1.5px solid rgba(204,102,102,0.45);padding-bottom:5px;margin-bottom:8px;">Energy + Sport <span style="color:#888;font-weight:400;font-size:10px;">(2 items)</span></h4><table style="width:100%;border-collapse:collapse;background:rgba(140,50,50,0.07);"><thead><tr style="background:rgba(140,50,50,0.18);"><th style="padding:6px 10px;text-align:left;font-size:10px;color:#cc6666;font-family:monospace;letter-spacing:0.8px;">PRODUCT</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#cc6666;font-family:monospace;letter-spacing:0.8px;">FORMAT</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#cc6666;font-family:monospace;letter-spacing:0.8px;">DIST.</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#cc6666;font-family:monospace;letter-spacing:0.8px;">ZONE</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#cc6666;font-family:monospace;letter-spacing:0.8px;">WHY EXCLUDED</th></tr></thead><tbody><tr><td style="padding:7px 10px;font-size:11.5px;color:#fff;font-weight:600;">Storm Energy</td><td style="padding:7px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;">12oz can</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">Direct</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">D3</td><td style="padding:7px 10px;font-size:10.5px;color:#888;line-height:1.35;">Generic store-brand energy — Uptown carries Red Bull, Celsius, Liquid Death, Ghost</td></tr><tr><td style="padding:7px 10px;font-size:11.5px;color:#fff;font-weight:600;">Storm Lime Energy</td><td style="padding:7px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;">12oz can</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">Direct</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">D3</td><td style="padding:7px 10px;font-size:10.5px;color:#888;line-height:1.35;">Generic store-brand energy</td></tr></tbody></table></div><div style="margin-bottom:16px;"><h4 style="font-size:12.5px;color:#cc6666;letter-spacing:0.8px;font-family:monospace;text-transform:uppercase;border-bottom:1.5px solid rgba(204,102,102,0.45);padding-bottom:5px;margin-bottom:8px;">Counter / OC-1 <span style="color:#888;font-weight:400;font-size:10px;">(4 items)</span></h4><table style="width:100%;border-collapse:collapse;background:rgba(140,50,50,0.07);"><thead><tr style="background:rgba(140,50,50,0.18);"><th style="padding:6px 10px;text-align:left;font-size:10px;color:#cc6666;font-family:monospace;letter-spacing:0.8px;">PRODUCT</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#cc6666;font-family:monospace;letter-spacing:0.8px;">FORMAT</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#cc6666;font-family:monospace;letter-spacing:0.8px;">DIST.</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#cc6666;font-family:monospace;letter-spacing:0.8px;">ZONE</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#cc6666;font-family:monospace;letter-spacing:0.8px;">WHY EXCLUDED</th></tr></thead><tbody><tr><td style="padding:7px 10px;font-size:11.5px;color:#fff;font-weight:600;">Hookah / Shisha</td><td style="padding:7px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;">Loose-pack tobacco</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">EBY-BROWN</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">OC-1</td><td style="padding:7px 10px;font-size:10.5px;color:#888;line-height:1.35;">Smoke-shop category — Uptown does not carry</td></tr><tr><td style="padding:7px 10px;font-size:11.5px;color:#fff;font-weight:600;">Pipe screens + glass pipes</td><td style="padding:7px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;">Display rack</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">EBY-BROWN</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">OC-1</td><td style="padding:7px 10px;font-size:10.5px;color:#888;line-height:1.35;">Paraphernalia — premium bodega exclusion</td></tr><tr><td style="padding:7px 10px;font-size:11.5px;color:#fff;font-weight:600;">CD holders</td><td style="padding:7px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;">20-CD case</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">Direct</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">OC-1</td><td style="padding:7px 10px;font-size:10.5px;color:#888;line-height:1.35;">Obsolete electronics category</td></tr><tr><td style="padding:7px 10px;font-size:11.5px;color:#fff;font-weight:600;">Wired earbuds</td><td style="padding:7px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;">Generic 3.5mm</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">Direct</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">OC-1</td><td style="padding:7px 10px;font-size:10.5px;color:#888;line-height:1.35;">Generic accessory — Uptown stocks premium audio only</td></tr></tbody></table></div><div style="margin-bottom:16px;"><h4 style="font-size:12.5px;color:#cc6666;letter-spacing:0.8px;font-family:monospace;text-transform:uppercase;border-bottom:1.5px solid rgba(204,102,102,0.45);padding-bottom:5px;margin-bottom:8px;">Wine — Bottom-shelf <span style="color:#888;font-weight:400;font-size:10px;">(7 items)</span></h4><table style="width:100%;border-collapse:collapse;background:rgba(140,50,50,0.07);"><thead><tr style="background:rgba(140,50,50,0.18);"><th style="padding:6px 10px;text-align:left;font-size:10px;color:#cc6666;font-family:monospace;letter-spacing:0.8px;">PRODUCT</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#cc6666;font-family:monospace;letter-spacing:0.8px;">FORMAT</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#cc6666;font-family:monospace;letter-spacing:0.8px;">DIST.</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#cc6666;font-family:monospace;letter-spacing:0.8px;">ZONE</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#cc6666;font-family:monospace;letter-spacing:0.8px;">WHY EXCLUDED</th></tr></thead><tbody><tr><td style="padding:7px 10px;font-size:11.5px;color:#fff;font-weight:600;">Taylor Port</td><td style="padding:7px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;">750ml</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">BREAKTHRU</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">G4</td><td style="padding:7px 10px;font-size:10.5px;color:#888;line-height:1.35;">Value port — Uptown wine wall starts at premium tier</td></tr><tr><td style="padding:7px 10px;font-size:11.5px;color:#fff;font-weight:600;">Capriccio Bubbly Sangria</td><td style="padding:7px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;">750ml</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">BREAKTHRU</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">G4</td><td style="padding:7px 10px;font-size:10.5px;color:#888;line-height:1.35;">Bottom-shelf sparkling sangria</td></tr><tr><td style="padding:7px 10px;font-size:11.5px;color:#fff;font-weight:600;">Sutter Home White Zinfandel</td><td style="padding:7px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;">750ml</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">BREAKTHRU</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">G4</td><td style="padding:7px 10px;font-size:10.5px;color:#888;line-height:1.35;">Entry-level White Zin — not in Uptown catalog</td></tr><tr><td style="padding:7px 10px;font-size:11.5px;color:#fff;font-weight:600;">Beringer White Zinfandel</td><td style="padding:7px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;">750ml</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">BREAKTHRU</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">G4</td><td style="padding:7px 10px;font-size:10.5px;color:#888;line-height:1.35;">Entry-level White Zin — not in Uptown catalog</td></tr><tr><td style="padding:7px 10px;font-size:11.5px;color:#fff;font-weight:600;">Hot Chicks Riesling</td><td style="padding:7px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;">750ml</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">BREAKTHRU</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">G4</td><td style="padding:7px 10px;font-size:10.5px;color:#888;line-height:1.35;">Novelty/joke label — not premium</td></tr><tr><td style="padding:7px 10px;font-size:11.5px;color:#fff;font-weight:600;">Mirassou Pinot Noir</td><td style="padding:7px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;">750ml</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">BREAKTHRU</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">G4</td><td style="padding:7px 10px;font-size:10.5px;color:#888;line-height:1.35;">Value-tier producer</td></tr><tr><td style="padding:7px 10px;font-size:11.5px;color:#fff;font-weight:600;">Frexnet sparkling</td><td style="padding:7px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;">750ml</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">BREAKTHRU</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">G4</td><td style="padding:7px 10px;font-size:10.5px;color:#888;line-height:1.35;">Random sparkling — not in Uptown</td></tr></tbody></table></div><div style="margin-bottom:16px;"><h4 style="font-size:12.5px;color:#cc6666;letter-spacing:0.8px;font-family:monospace;text-transform:uppercase;border-bottom:1.5px solid rgba(204,102,102,0.45);padding-bottom:5px;margin-bottom:8px;">Beer — slow-mover macro packs <span style="color:#888;font-weight:400;font-size:10px;">(5 items)</span></h4><table style="width:100%;border-collapse:collapse;background:rgba(140,50,50,0.07);"><thead><tr style="background:rgba(140,50,50,0.18);"><th style="padding:6px 10px;text-align:left;font-size:10px;color:#cc6666;font-family:monospace;letter-spacing:0.8px;">PRODUCT</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#cc6666;font-family:monospace;letter-spacing:0.8px;">FORMAT</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#cc6666;font-family:monospace;letter-spacing:0.8px;">DIST.</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#cc6666;font-family:monospace;letter-spacing:0.8px;">ZONE</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#cc6666;font-family:monospace;letter-spacing:0.8px;">WHY EXCLUDED</th></tr></thead><tbody><tr><td style="padding:7px 10px;font-size:11.5px;color:#fff;font-weight:600;">Old Style 30-pk</td><td style="padding:7px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;">30-pk can</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">CBS</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">D10</td><td style="padding:7px 10px;font-size:10.5px;color:#888;line-height:1.35;">Volume macro — Uptown stocks 6/12-pk only</td></tr><tr><td style="padding:7px 10px;font-size:11.5px;color:#fff;font-weight:600;">Busch Light 30-pk</td><td style="padding:7px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;">30-pk can</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">CBS</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">D10</td><td style="padding:7px 10px;font-size:10.5px;color:#888;line-height:1.35;">Value 30-pk — not in Uptown format range</td></tr><tr><td style="padding:7px 10px;font-size:11.5px;color:#fff;font-weight:600;">Coors Light 30-pk</td><td style="padding:7px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;">30-pk can</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">CBS</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">D10</td><td style="padding:7px 10px;font-size:10.5px;color:#888;line-height:1.35;">Value 30-pk — not in Uptown format range</td></tr><tr><td style="padding:7px 10px;font-size:11.5px;color:#fff;font-weight:600;">Miller Genuine Draft 12-pk</td><td style="padding:7px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;">12-pk btl</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">CBS</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">D10</td><td style="padding:7px 10px;font-size:10.5px;color:#888;line-height:1.35;">Slow-mover bottle pack</td></tr><tr><td style="padding:7px 10px;font-size:11.5px;color:#fff;font-weight:600;">Bud Ice</td><td style="padding:7px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;">24oz can</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">CBS</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">D2</td><td style="padding:7px 10px;font-size:10.5px;color:#888;line-height:1.35;">Discontinued / niche SKU</td></tr></tbody></table></div><div style="margin-bottom:16px;"><h4 style="font-size:12.5px;color:#cc6666;letter-spacing:0.8px;font-family:monospace;text-transform:uppercase;border-bottom:1.5px solid rgba(204,102,102,0.45);padding-bottom:5px;margin-bottom:8px;">Juice + Pantry — off-brand <span style="color:#888;font-weight:400;font-size:10px;">(3 items)</span></h4><table style="width:100%;border-collapse:collapse;background:rgba(140,50,50,0.07);"><thead><tr style="background:rgba(140,50,50,0.18);"><th style="padding:6px 10px;text-align:left;font-size:10px;color:#cc6666;font-family:monospace;letter-spacing:0.8px;">PRODUCT</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#cc6666;font-family:monospace;letter-spacing:0.8px;">FORMAT</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#cc6666;font-family:monospace;letter-spacing:0.8px;">DIST.</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#cc6666;font-family:monospace;letter-spacing:0.8px;">ZONE</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#cc6666;font-family:monospace;letter-spacing:0.8px;">WHY EXCLUDED</th></tr></thead><tbody><tr><td style="padding:7px 10px;font-size:11.5px;color:#fff;font-weight:600;">Pure Lemon-Lime juice</td><td style="padding:7px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;">15.2oz btl</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">Direct</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">D6</td><td style="padding:7px 10px;font-size:10.5px;color:#888;line-height:1.35;">Generic store-brand juice</td></tr><tr><td style="padding:7px 10px;font-size:11.5px;color:#fff;font-weight:600;">Pure Fruit Punch juice</td><td style="padding:7px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;">15.2oz btl</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">Direct</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">D6</td><td style="padding:7px 10px;font-size:10.5px;color:#888;line-height:1.35;">Generic store-brand juice</td></tr><tr><td style="padding:7px 10px;font-size:11.5px;color:#fff;font-weight:600;">Imperial Spread (margarine)</td><td style="padding:7px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;">1lb sticks</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">KEHE</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">D6</td><td style="padding:7px 10px;font-size:10.5px;color:#888;line-height:1.35;">Value butter substitute — Uptown stocks Kerrygold, Vital Farms</td></tr></tbody></table></div><div style="margin-bottom:16px;"><h4 style="font-size:12.5px;color:#cc6666;letter-spacing:0.8px;font-family:monospace;text-transform:uppercase;border-bottom:1.5px solid rgba(204,102,102,0.45);padding-bottom:5px;margin-bottom:8px;">Unreadable / degraded legacy stock <span style="color:#888;font-weight:400;font-size:10px;">(2 items)</span></h4><table style="width:100%;border-collapse:collapse;background:rgba(140,50,50,0.07);"><thead><tr style="background:rgba(140,50,50,0.18);"><th style="padding:6px 10px;text-align:left;font-size:10px;color:#cc6666;font-family:monospace;letter-spacing:0.8px;">PRODUCT</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#cc6666;font-family:monospace;letter-spacing:0.8px;">FORMAT</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#cc6666;font-family:monospace;letter-spacing:0.8px;">DIST.</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#cc6666;font-family:monospace;letter-spacing:0.8px;">ZONE</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#cc6666;font-family:monospace;letter-spacing:0.8px;">WHY EXCLUDED</th></tr></thead><tbody><tr><td style="padding:7px 10px;font-size:11.5px;color:#fff;font-weight:600;">Unreadable beer 6-pk</td><td style="padding:7px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;">6-pk btl</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">CBS</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">D2</td><td style="padding:7px 10px;font-size:10.5px;color:#888;line-height:1.35;">Audit photo unreadable — verify at walkthrough</td></tr><tr><td style="padding:7px 10px;font-size:11.5px;color:#fff;font-weight:600;">Unreadable can 12-pk</td><td style="padding:7px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;">12-pk can</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">CBS</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">D8</td><td style="padding:7px 10px;font-size:10.5px;color:#888;line-height:1.35;">Audit photo unreadable — verify at walkthrough</td></tr></tbody></table></div>
-        </div>
-
-        <div style="background:rgba(93,202,165,0.04);border:1.5px solid rgba(93,202,165,0.30);border-radius:8px;padding:16px;">
-          <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px;border-bottom:2px solid #5dcaa5;padding-bottom:8px;">
-            <h3 style="font-size:14px;color:#5dcaa5;letter-spacing:0.8px;">📦 KEEP — Backup product boxes</h3>
-            <span style="font-size:10.5px;color:#888;font-family:monospace;">46 SKUs · 142 boxes</span>
-          </div>
-          <div style="margin-bottom:14px;"><h4 style="font-size:12.5px;color:#5dcaa5;letter-spacing:0.8px;font-family:monospace;text-transform:uppercase;border-bottom:1.5px solid rgba(93,202,165,0.45);padding-bottom:5px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:baseline;"><span>Snacks (chips + cookies)</span><span style="color:#888;font-weight:400;font-size:10px;">23 boxes total</span></h4><div style="display:flex;flex-wrap:wrap;gap:7px;"><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Doritos Nacho Cheese</span><span style="color:#888;font-family:monospace;font-size:10px;">1.75oz bag</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(4) boxes</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Doritos Cool Ranch</span><span style="color:#888;font-family:monospace;font-size:10px;">1.75oz bag</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(3) boxes</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Lay's Classic</span><span style="color:#888;font-family:monospace;font-size:10px;">1oz bag</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(4) boxes</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Cheetos Crunchy</span><span style="color:#888;font-family:monospace;font-size:10px;">2oz bag</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(3) boxes</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Fritos Original</span><span style="color:#888;font-family:monospace;font-size:10px;">1oz bag</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(2) boxes</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Cheez-It</span><span style="color:#888;font-family:monospace;font-size:10px;">1.5oz</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(3) boxes</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Oreo Original</span><span style="color:#888;font-family:monospace;font-size:10px;">5.25oz pack</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(2) boxes</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Chips Ahoy</span><span style="color:#888;font-family:monospace;font-size:10px;">9.5oz pack</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(2) boxes</span></div></div></div><div style="margin-bottom:14px;"><h4 style="font-size:12.5px;color:#5dcaa5;letter-spacing:0.8px;font-family:monospace;text-transform:uppercase;border-bottom:1.5px solid rgba(93,202,165,0.45);padding-bottom:5px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:baseline;"><span>Candy + sweets</span><span style="color:#888;font-weight:400;font-size:10px;">24 boxes total</span></h4><div style="display:flex;flex-wrap:wrap;gap:7px;"><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Snickers single</span><span style="color:#888;font-family:monospace;font-size:10px;">1.86oz</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(6) boxes</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">M&M's Peanut</span><span style="color:#888;font-family:monospace;font-size:10px;">1.74oz</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(4) boxes</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Reese's Peanut Butter Cups</span><span style="color:#888;font-family:monospace;font-size:10px;">1.5oz 2-pk</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(4) boxes</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Twix</span><span style="color:#888;font-family:monospace;font-size:10px;">1.79oz</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(3) boxes</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Skittles Original</span><span style="color:#888;font-family:monospace;font-size:10px;">2.17oz</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(3) boxes</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Hershey's Milk Bar</span><span style="color:#888;font-family:monospace;font-size:10px;">1.55oz</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(2) boxes</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Kit Kat</span><span style="color:#888;font-family:monospace;font-size:10px;">1.5oz</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(2) boxes</span></div></div></div><div style="margin-bottom:14px;"><h4 style="font-size:12.5px;color:#5dcaa5;letter-spacing:0.8px;font-family:monospace;text-transform:uppercase;border-bottom:1.5px solid rgba(93,202,165,0.45);padding-bottom:5px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:baseline;"><span>Soda / CSD (cans)</span><span style="color:#888;font-weight:400;font-size:10px;">38 boxes total</span></h4><div style="display:flex;flex-wrap:wrap;gap:7px;"><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Coca-Cola 12oz</span><span style="color:#888;font-family:monospace;font-size:10px;">12-pk box</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(8) boxes</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Diet Coke 12oz</span><span style="color:#888;font-family:monospace;font-size:10px;">12-pk box</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(6) boxes</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Coke Zero 12oz</span><span style="color:#888;font-family:monospace;font-size:10px;">12-pk box</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(4) boxes</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Sprite 12oz</span><span style="color:#888;font-family:monospace;font-size:10px;">12-pk box</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(4) boxes</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Pepsi 12oz</span><span style="color:#888;font-family:monospace;font-size:10px;">12-pk box</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(6) boxes</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Diet Pepsi 12oz</span><span style="color:#888;font-family:monospace;font-size:10px;">12-pk box</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(4) boxes</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Mountain Dew 12oz</span><span style="color:#888;font-family:monospace;font-size:10px;">12-pk box</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(3) boxes</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Dr Pepper 12oz</span><span style="color:#888;font-family:monospace;font-size:10px;">12-pk box</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(3) boxes</span></div></div></div><div style="margin-bottom:14px;"><h4 style="font-size:12.5px;color:#5dcaa5;letter-spacing:0.8px;font-family:monospace;text-transform:uppercase;border-bottom:1.5px solid rgba(93,202,165,0.45);padding-bottom:5px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:baseline;"><span>Beer (singles + 6-pk)</span><span style="color:#888;font-weight:400;font-size:10px;">21 boxes total</span></h4><div style="display:flex;flex-wrap:wrap;gap:7px;"><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Modelo Especial</span><span style="color:#888;font-family:monospace;font-size:10px;">12oz can case (24)</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(4) boxes</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Corona Extra</span><span style="color:#888;font-family:monospace;font-size:10px;">12oz btl case (24)</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(3) boxes</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Pacifico</span><span style="color:#888;font-family:monospace;font-size:10px;">12oz btl case (24)</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(2) boxes</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Bud Light</span><span style="color:#888;font-family:monospace;font-size:10px;">12oz can case (24)</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(4) boxes</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Miller Lite</span><span style="color:#888;font-family:monospace;font-size:10px;">12oz can case (24)</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(3) boxes</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Coors Light</span><span style="color:#888;font-family:monospace;font-size:10px;">12oz can case (24)</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(3) boxes</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Heineken</span><span style="color:#888;font-family:monospace;font-size:10px;">12oz btl case (24)</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(2) boxes</span></div></div></div><div style="margin-bottom:14px;"><h4 style="font-size:12.5px;color:#5dcaa5;letter-spacing:0.8px;font-family:monospace;text-transform:uppercase;border-bottom:1.5px solid rgba(93,202,165,0.45);padding-bottom:5px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:baseline;"><span>Energy + Sport</span><span style="color:#888;font-weight:400;font-size:10px;">13 boxes total</span></h4><div style="display:flex;flex-wrap:wrap;gap:7px;"><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Red Bull 8.4oz</span><span style="color:#888;font-family:monospace;font-size:10px;">24-can case</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(3) boxes</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Celsius variety</span><span style="color:#888;font-family:monospace;font-size:10px;">12oz box (12)</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(4) boxes</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Liquid Death Mountain</span><span style="color:#888;font-family:monospace;font-size:10px;">16.9oz box (12)</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(3) boxes</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Gatorade 28oz variety</span><span style="color:#888;font-family:monospace;font-size:10px;">12-btl box</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(3) boxes</span></div></div></div><div style="margin-bottom:14px;"><h4 style="font-size:12.5px;color:#5dcaa5;letter-spacing:0.8px;font-family:monospace;text-transform:uppercase;border-bottom:1.5px solid rgba(93,202,165,0.45);padding-bottom:5px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:baseline;"><span>RTD cocktails (cans)</span><span style="color:#888;font-weight:400;font-size:10px;">12 boxes total</span></h4><div style="display:flex;flex-wrap:wrap;gap:7px;"><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">High Noon Variety 8-pk</span><span style="color:#888;font-family:monospace;font-size:10px;">8-pk can</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(4) boxes</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">White Claw Variety</span><span style="color:#888;font-family:monospace;font-size:10px;">12-pk box</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(3) boxes</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Cutwater Margarita</span><span style="color:#888;font-family:monospace;font-size:10px;">4-pk can</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(3) boxes</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Surfside Iced Tea Vodka</span><span style="color:#888;font-family:monospace;font-size:10px;">4-pk can</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(2) boxes</span></div></div></div><div style="margin-bottom:14px;"><h4 style="font-size:12.5px;color:#5dcaa5;letter-spacing:0.8px;font-family:monospace;text-transform:uppercase;border-bottom:1.5px solid rgba(93,202,165,0.45);padding-bottom:5px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:baseline;"><span>Spirits — value liquor</span><span style="color:#888;font-weight:400;font-size:10px;">6 boxes total</span></h4><div style="display:flex;flex-wrap:wrap;gap:7px;"><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Tito's Vodka</span><span style="color:#888;font-family:monospace;font-size:10px;">1.75L case (6)</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(1) box</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Jameson Irish</span><span style="color:#888;font-family:monospace;font-size:10px;">750ml case (6)</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(1) box</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Fireball mini</span><span style="color:#888;font-family:monospace;font-size:10px;">50ml flask 60-pk</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(3) boxes</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Crown Royal</span><span style="color:#888;font-family:monospace;font-size:10px;">750ml case (6)</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(1) box</span></div></div></div><div style="margin-bottom:14px;"><h4 style="font-size:12.5px;color:#5dcaa5;letter-spacing:0.8px;font-family:monospace;text-transform:uppercase;border-bottom:1.5px solid rgba(93,202,165,0.45);padding-bottom:5px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:baseline;"><span>Wine — premium curated</span><span style="color:#888;font-weight:400;font-size:10px;">5 boxes total</span></h4><div style="display:flex;flex-wrap:wrap;gap:7px;"><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Apothic Red</span><span style="color:#888;font-family:monospace;font-size:10px;">750ml case (12)</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(1) box</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Josh Cellars Cab</span><span style="color:#888;font-family:monospace;font-size:10px;">750ml case (12)</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(2) boxes</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Whispering Angel Rosé</span><span style="color:#888;font-family:monospace;font-size:10px;">750ml case (12)</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(1) box</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Decoy Cabernet</span><span style="color:#888;font-family:monospace;font-size:10px;">750ml case (12)</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(1) box</span></div></div></div>
-        </div>
-
-      </div>
-
-      <div class="card" style="border-left:3px solid var(--amber);padding:12px 18px;margin-top:14px;font-size:12px;color:var(--muted);">
-        <strong style="color:var(--amber);">Buyer note:</strong> Final exclusions subject to walkthrough verification. Any item in this exclusion list that Seller can document as actively selling at &gt;1 unit/week may be re-added to KEEP at Buyer discretion. Backup box counts shown as round-number estimates — full SKU-level breakdown lives on the <span onclick="window.goToSlide('inventory')" style="cursor:pointer;color:var(--accent);text-decoration:underline;">Inventory & Cost</span> slide.
-      </div>`;
-  },
-
   inventory: () => {
     // Helper: clickable zone tag → jumps to elevation
     const zone = (tag, elevSlide) => `<span onclick="window.goToSlide('${elevSlide}')" style="cursor:pointer;font-family:monospace;font-size:11px;background:rgba(139,158,255,0.15);color:#a4b3ff;padding:2px 6px;border-radius:3px;border:1px solid rgba(139,158,255,0.3);">${tag}</span>`;
@@ -4668,8 +4541,8 @@ const renderers = {
     };
     const click = (tag) => {
       const slide = zoneToElev[tag];
-      if (!slide) return '';
-      return `style="cursor:pointer;" onclick="window.goToSlide('${slide}')"`;
+      if (!slide) return `data-fixture-tag="${tag}"`;
+      return `style="cursor:pointer;" onclick="window.cwFixtureRoute&&window.cwFixtureRoute('${tag}','${slide}',event)" data-fixture-tag="${tag}" data-fixture-slide="${slide}"`;
     };
 
     // ============================================================
@@ -5349,6 +5222,14 @@ const renderers = {
     return `
     <h2 class="slide-title">Floor plan \u2014 Existing vs. Repositioned</h2>
     <p class="slide-subtitle">735 SF, identical fixture geometry per architectural CAD. The same physical store; different SKU mix. Click any zone in the AFTER plan to jump to its detailed elevation.</p>
+
+    <!-- PHASE 13 \u2014 Floor plan editor toolbar -->
+    <div id="cw-fp-toolbar" style="display:flex;gap:8px;align-items:center;margin-bottom:12px;padding:8px 12px;background:rgba(20,28,42,0.5);border:1px solid var(--border);border-radius:6px;font-family:'SF Mono',Consolas,monospace;font-size:11px;">
+      <button id="cw-edit-toggle" onclick="window.cwEditor&&window.cwEditor.toggle()" style="background:rgba(139,158,255,0.12);border:1px solid var(--accent);color:var(--accent);padding:5px 12px;border-radius:4px;cursor:pointer;font-family:inherit;font-size:11px;font-weight:600;">EDIT MODE</button>
+      <button id="cw-edit-reset" onclick="window.cwEditor&&window.cwEditor.reset()" style="background:rgba(240,153,123,0.10);border:1px solid var(--coral);color:var(--coral);padding:5px 12px;border-radius:4px;cursor:pointer;font-family:inherit;font-size:11px;">RESET ALL</button>
+      <button id="cw-edit-export" onclick="window.cwEditor&&window.cwEditor.exportCoords()" style="background:rgba(93,202,165,0.10);border:1px solid var(--teal);color:var(--teal);padding:5px 12px;border-radius:4px;cursor:pointer;font-family:inherit;font-size:11px;">EXPORT JSON</button>
+      <span id="cw-edit-status" style="color:var(--muted);margin-left:auto;">Click EDIT MODE to enable drag/resize/rotate on fixtures</span>
+    </div>
 
     <div class="floor-plan-wrapper">
     <!-- Stacked floor plans (vertical) -->
@@ -11010,45 +10891,6 @@ document.getElementById('prev-btn').addEventListener('click', () => goTo(current
 document.getElementById('next-btn').addEventListener('click', () => goTo(currentSlide + 1));
 
 // Expose goTo globally for inline onclick handlers from rendered HTML
-
-// ============================================================
-// MOBILE — sidebar drawer toggle + auto-close on nav tap
-// ============================================================
-window.toggleMobileMenu = function() {
-  var sb = document.getElementById('sidebar');
-  var ov = document.getElementById('mobile-overlay');
-  var body = document.body;
-  if (!sb || !ov) { console.warn('Sidebar/overlay missing'); return; }
-  var isMobile = window.matchMedia('(max-width: 768px)').matches;
-  if (isMobile) {
-    // Mobile: slide-in overlay drawer
-    var isOpen = sb.classList.toggle('open');
-    ov.classList.toggle('open', isOpen);
-  } else {
-    // Desktop: shrink the sidebar to width 0 (flex flow), let main expand
-    body.classList.toggle('sidebar-collapsed');
-    try { localStorage.setItem('sidebarCollapsed', body.classList.contains('sidebar-collapsed') ? '1' : '0'); } catch (e) {}
-  }
-};
-
-// Restore desktop sidebar collapsed state on load
-(function restoreSidebarState() {
-  try {
-    if (localStorage.getItem('sidebarCollapsed') === '1' && !window.matchMedia('(max-width: 768px)').matches) {
-      document.body.classList.add('sidebar-collapsed');
-    }
-  } catch (e) {}
-})();
-document.addEventListener('click', function(e) {
-  if (!e.target || !e.target.closest) return;
-  var navItem = e.target.closest('#sidebar .nav-item');
-  if (navItem && window.matchMedia('(max-width: 768px)').matches) {
-    var sb = document.getElementById('sidebar');
-    var ov = document.getElementById('mobile-overlay');
-    if (sb) sb.classList.remove('open');
-    if (ov) ov.classList.remove('open');
-  }
-});
 window.goToSlide = function(slideId) {
   const idx = slides.findIndex(s => s.id === slideId);
   if (idx >= 0) {
@@ -11065,6 +10907,23 @@ window.goToSlide = function(slideId) {
     }, 50);
   }
 };
+
+// Phase 6 H2 — Touch devices: after touchend, fire any inline onmouseout
+// handler so the stuck-hover highlight clears 250ms after the user taps.
+// Without this, every tappable row/chip stays highlighted until the user taps
+// somewhere else.
+document.addEventListener('touchend', function (e) {
+  if (!e.target || !e.target.closest) return;
+  var el = e.target.closest('[onmouseout]');
+  if (!el) return;
+  setTimeout(function () {
+    try {
+      var attr = el.getAttribute('onmouseout');
+      if (attr) new Function(attr).call(el);
+    } catch (err) { /* swallow — best-effort hover-reset */ }
+  }, 250);
+}, { passive: true });
+
 
 // ============================================================
 // PHASE 13 — Floor Plan Editor (drag / resize / rotate gizmos)
@@ -11729,6 +11588,7 @@ window.cwEditor = (function () {
 
   window.cwUptown = { sortBy, sortByCol, exportCsv, render, highlightCat, _init: tryInit };
 })();
+
 
 
 

@@ -8,6 +8,21 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="3814 Clark">
+<script>
+  // Phase 6 C1 — Mobile users land on iphone.html instead of broken desktop layout.
+  // Honors a session opt-out: if user explicitly came back to index.html,
+  // sessionStorage skip flag prevents bounce loop.
+  (function () {
+    try {
+      var isMobile = window.matchMedia('(max-width: 768px)').matches;
+      var alreadyOnMobile = location.pathname.endsWith('iphone.html');
+      var skip = sessionStorage.getItem('skipMobileRedirect') === '1';
+      if (isMobile && !alreadyOnMobile && !skip) {
+        location.replace('iphone.html');
+      }
+    } catch (e) { /* matchMedia or storage blocked — fall through to desktop */ }
+  })();
+</script>
 <style>
   :root {
     --bg: #0f1419;
@@ -85,6 +100,23 @@
     from { opacity: 0; transform: translateY(4px); }
     to { opacity: 1; transform: translateY(0); }
   }
+
+  /* Phase 6 H3 — Tables overflow horizontally on narrow viewports
+     instead of forcing a body-level horizontal scroll. */
+  #slide-container table {
+    max-width: 100%;
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  /* But preserve table layout for the row/cell structure inside the scroll box */
+  #slide-container table > thead, #slide-container table > tbody { display: table-row-group; }
+  #slide-container table > * > tr { display: table-row; }
+  #slide-container table > * > tr > * { display: table-cell; }
+
+  /* Phase 6 H2 — Touch devices: after touchend, manually trigger any inline
+     onmouseout handler to clear stuck hover-style highlights on tap-away. */
+  /* (The actual JS handler is added at the end of the document.) */
 
   /* Footer / nav controls */
   #footer {
@@ -321,132 +353,9 @@
   ::-webkit-scrollbar-track { background: var(--bg); }
   ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
   ::-webkit-scrollbar-thumb:hover { background: var(--dim); }
-
-  /* ============================================================ */
-  /* iPhone / mobile overrides — only loaded by iphone.html.      */
-  /* Desktop index.html stays untouched.                          */
-  /* All rules use !important + left positioning for reliability. */
-  /* ============================================================ */
-  /* Hamburger toggle — visible at all viewport sizes (professional app pattern) */
-  #mobile-menu-btn {
-    display: flex; align-items: center; justify-content: center;
-    position: fixed; top: 10px; left: 10px;
-    width: 44px; height: 44px;
-    background: var(--panel-2); border: 1px solid var(--border);
-    border-radius: 8px; color: var(--text);
-    font-size: 22px; line-height: 1; cursor: pointer; z-index: 200;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.4);
-    font-weight: 600;
-    transition: left 0.25s ease, background 0.15s ease;
-  }
-  #mobile-menu-btn:hover { background: var(--accent); color: var(--bg); }
-  #mobile-menu-btn:active { opacity: 0.8; }
-  /* When sidebar is open on desktop, push the hamburger to sit just inside the sidebar edge */
-  body:not(.sidebar-collapsed) #mobile-menu-btn { left: 196px; }
-  body.sidebar-collapsed #mobile-menu-btn { left: 10px; }
-
-  /* Desktop sidebar collapse — shrinks the 240px flex column to 0,
-     letting the slide-container expand to full width. */
-  #sidebar {
-    transition: width 0.25s ease, min-width 0.25s ease, opacity 0.2s ease;
-  }
-  body.sidebar-collapsed #sidebar {
-    width: 0 !important;
-    min-width: 0 !important;
-    border-right: 0 !important;
-    opacity: 0;
-    pointer-events: none;
-  }
-  #mobile-menu-btn:active { opacity: 0.7; }
-  #mobile-overlay {
-    display: none; position: fixed; inset: 0;
-    background: rgba(0,0,0,0.55); z-index: 90;
-    -webkit-tap-highlight-color: transparent;
-  }
-  #mobile-overlay.open { display: block; }
-
-  @media (max-width: 768px) {
-    #mobile-menu-btn { display: flex !important; align-items: center; justify-content: center; left: 10px !important; }
-    /* On mobile, hamburger stays at left:10px regardless of sidebar state */
-    body:not(.sidebar-collapsed) #mobile-menu-btn { left: 10px !important; }
-    /* Disable desktop-collapse styles on mobile — sidebar uses position:fixed slide instead */
-    body.sidebar-collapsed #sidebar { width: 82vw !important; min-width: 240px !important; opacity: 1 !important; pointer-events: auto !important; }
-    body { display: block !important; }
-    #sidebar {
-      position: fixed !important;
-      top: 0 !important;
-      left: -340px !important;
-      right: auto !important;
-      bottom: 0 !important;
-      height: 100vh !important;
-      width: 82vw !important;
-      max-width: 320px !important;
-      min-width: 240px !important;
-      flex-shrink: 0 !important;
-      z-index: 100 !important;
-      transition: left 0.25s ease !important;
-      box-shadow: 4px 0 18px rgba(0,0,0,0.5) !important;
-      transform: none !important;
-    }
-    #sidebar.open { left: 0 !important; }
-    #main { width: 100% !important; height: 100vh !important; display: flex !important; flex-direction: column !important; }
-    #slide-container {
-      padding: 64px 14px 14px 14px !important;
-      -webkit-overflow-scrolling: touch;
-    }
-    #footer { height: 60px !important; padding: 0 14px !important; }
-    .btn { padding: 10px 14px !important; font-size: 13px !important; min-height: 40px; }
-    h2.slide-title { font-size: 22px !important; line-height: 1.2 !important; }
-    .slide-subtitle { font-size: 13px !important; margin-bottom: 18px !important; }
-    h3 { font-size: 14px !important; }
-    .hero { padding: 16px 4px !important; }
-    .hero h1 { font-size: 30px !important; line-height: 1.1 !important; letter-spacing: -0.8px !important; }
-    .hero-sub { font-size: 14px !important; }
-    .hero-meta { grid-template-columns: 1fr 1fr !important; gap: 10px !important; }
-    .hero-grid { grid-template-columns: 1fr !important; gap: 14px !important; }
-    .hero-operator { grid-template-columns: 1fr !important; gap: 6px !important; padding: 12px 14px !important; }
-    .stat-grid { grid-template-columns: 1fr 1fr !important; gap: 10px !important; }
-    .stat .val { font-size: 18px !important; }
-    .two-col, .three-col { grid-template-columns: 1fr !important; gap: 14px !important; }
-    div[style*="grid-template-columns:repeat(5,1fr)"],
-    div[style*="grid-template-columns: repeat(5, 1fr)"],
-    div[style*="grid-template-columns:repeat(4,1fr)"],
-    div[style*="grid-template-columns: repeat(4, 1fr)"],
-    div[style*="grid-template-columns:repeat(3,1fr)"],
-    div[style*="grid-template-columns: repeat(3, 1fr)"] {
-      grid-template-columns: 1fr 1fr !important;
-      gap: 10px !important;
-    }
-    div[style*="grid-template-columns:1fr 1fr 1fr"] { grid-template-columns: 1fr !important; gap: 10px !important; }
-    div[style*="grid-template-columns:34px 1fr 1fr"] { grid-template-columns: 1fr !important; }
-    .card.accent > div[style*="grid"] { grid-template-columns: 1fr 1fr !important; gap: 10px !important; }
-    table { font-size: 11px !important; }
-    th, td { padding: 6px 5px !important; }
-    main table { display: block !important; overflow-x: auto !important; white-space: nowrap !important; }
-    .card { padding: 12px 14px !important; }
-    div[style*="display:inline-block"][style*="width:fit-content"] { max-width: 100% !important; }
-    svg { max-width: 100%; height: auto; }
-    .floor-plan, .floor-plan-wrapper { overflow-x: auto !important; -webkit-overflow-scrolling: touch; }
-    span[onclick] { min-height: 32px; padding: 6px 10px !important; display: inline-flex !important; align-items: center; }
-    span[style*="font-size:36px"] { font-size: 24px !important; }
-    span[style*="font-size:32px"] { font-size: 22px !important; }
-    span[style*="font-size:30px"] { font-size: 22px !important; }
-    span[style*="font-size:28px"] { font-size: 20px !important; }
-    div[style*="max-height:160px"] { max-height: 240px !important; }
-  }
-
-  @media (max-width: 400px) {
-    h2.slide-title { font-size: 19px !important; }
-    .stat-grid { grid-template-columns: 1fr !important; }
-    .hero-meta { grid-template-columns: 1fr !important; }
-  }
 </style>
 </head>
 <body>
-
-<!-- Mobile-only: hamburger toggle + overlay backdrop -->
-<button id="mobile-menu-btn" aria-label="Open menu" onclick="window.toggleMobileMenu()">&#9776;</button>
-<div id="mobile-overlay" onclick="window.toggleMobileMenu()"></div>
 
 <aside id="sidebar">
   <h1>3814 N Clark</h1>
@@ -514,12 +423,6 @@ const slides = [
     section: 'Overview',
     label: '📋 Master Fixture Sheet',
     type: 'master-sheet',
-  },
-  {
-    id: 'not-to-keep',
-    section: 'Overview',
-    label: '🚫 Products NOT to Keep',
-    type: 'not-to-keep',
   },
   {
     id: 'uptown-store',
@@ -836,7 +739,7 @@ const SKUDB = [
   {zone:'D5', fixture:'cooler', dist:'REYES', shelf:3, sku:'Revolution Fist City', size:'6-pk', qty:12, unitCost:9.50, status:'NEW'},
   {zone:'D5', fixture:'cooler', dist:'REYES', shelf:4, sku:'Maplewood Brewing variety', size:'6-pk', qty:6, unitCost:11.50, status:'NEW'},
   {zone:'D5', fixture:'cooler', dist:'REYES', shelf:4, sku:'Pipeworks variety', size:'6-pk', qty:6, unitCost:11.50, status:'NEW'},
-  {zone:'D5', fixture:'cooler', dist:'CBS', shelf:5, sku:'Old Style tallboy', size:'25oz', qty:96, unitCost:1.65, status:'KEEP'},
+  {zone:'D5', fixture:'cooler', dist:'CBS', shelf:5, sku:'Old Style tallboy', size:'25oz', qty:96, unitCost:1.65, status:'REMOVE'},
 
   // D4 — N.A. Craft Beer (NEW — Reyes for Athletic, CBS for HOP WTR/Lagunitas IPNA)
   {zone:'D4', fixture:'cooler', dist:'REYES', shelf:1, sku:'Athletic Free Wave Hazy IPA', size:'6-pk', qty:12, unitCost:10.50, status:'NEW'},
@@ -860,7 +763,7 @@ const SKUDB = [
 
   // D2 — Domestic + Variety (CBS)
   {zone:'D2', fixture:'cooler', dist:'CBS', shelf:1, sku:'Bud Light 12-pk cans', size:'12oz', qty:12, unitCost:12.50, status:'CURRENT'},
-  {zone:'D2', fixture:'cooler', dist:'CBS', shelf:1, sku:'Bud Light singles', size:'24oz', qty:36, unitCost:1.65, status:'KEEP'},
+  {zone:'D2', fixture:'cooler', dist:'CBS', shelf:1, sku:'Bud Light singles', size:'24oz', qty:36, unitCost:1.65, status:'REMOVE'},
   {zone:'D2', fixture:'cooler', dist:'CBS', shelf:2, sku:'Coors Light 12-pk', size:'12oz', qty:8, unitCost:12.50, status:'CURRENT'},
   {zone:'D2', fixture:'cooler', dist:'CBS', shelf:2, sku:'Miller Lite 12-pk', size:'12oz', qty:8, unitCost:12.50, status:'CURRENT'},
   {zone:'D2', fixture:'cooler', dist:'CBS', shelf:3, sku:'Michelob Ultra 12-pk', size:'12oz', qty:8, unitCost:13.00, status:'CURRENT'},
@@ -904,7 +807,7 @@ const SKUDB = [
   {zone:'D8', fixture:'cooler', dist:'REYES', shelf:4, sku:'Hop WTR', size:'6-pk can', qty:4, unitCost:9.00, status:'CURRENT'},
   {zone:'D8', fixture:'cooler', dist:'REYES', shelf:4, sku:'Revolution Anti-Hero', size:'6-pk can', qty:6, unitCost:9.00, status:'CURRENT'},
   {zone:'D8', fixture:'cooler', dist:'CBS', shelf:5, sku:'Coors Light', size:'18-pk can', qty:6, unitCost:17.50, status:'CURRENT'},
-  {zone:'D8', fixture:'cooler', dist:'CBS', shelf:5, sku:'Busch Light', size:'30-pk can', qty:4, unitCost:18.50, status:'KEEP'},
+  {zone:'D8', fixture:'cooler', dist:'CBS', shelf:5, sku:'Busch Light', size:'30-pk can', qty:4, unitCost:18.50, status:'REMOVE'},
 
   // D9 — Craft + Imports + Macro lagers
   {zone:'D9', fixture:'cooler', dist:'CBS', shelf:1, sku:'Heineken', size:'6-pk btl', qty:8, unitCost:9.50, status:'CURRENT'},
@@ -922,15 +825,15 @@ const SKUDB = [
   {zone:'D10', fixture:'cooler', dist:'CBS', shelf:1, sku:'Modelo Especial', size:'12-pk can', qty:8, unitCost:15.50, status:'CURRENT'},
   {zone:'D10', fixture:'cooler', dist:'CBS', shelf:1, sku:'Heineken', size:'6-pk btl', qty:6, unitCost:9.00, status:'CURRENT'},
   {zone:'D10', fixture:'cooler', dist:'CBS', shelf:2, sku:'Heineken', size:'4-pk btl', qty:6, unitCost:7.00, status:'CURRENT'},
-  {zone:'D10', fixture:'cooler', dist:'CBS', shelf:3, sku:'Miller Genuine Draft', size:'12-pk btl', qty:4, unitCost:12.00, status:'KEEP'},
+  {zone:'D10', fixture:'cooler', dist:'CBS', shelf:3, sku:'Miller Genuine Draft', size:'12-pk btl', qty:4, unitCost:12.00, status:'REMOVE'},
   {zone:'D10', fixture:'cooler', dist:'REYES', shelf:3, sku:'Athletic Run Wild IPA', size:'NA 6-pk', qty:6, unitCost:10.50, status:'NEW'},
   {zone:'D10', fixture:'cooler', dist:'REYES', shelf:3, sku:'Athletic Free Wave Hazy', size:'NA 6-pk', qty:6, unitCost:10.50, status:'NEW'},
   {zone:'D10', fixture:'cooler', dist:'REYES', shelf:3, sku:'Athletic Upside Dawn', size:'NA Golden 6-pk', qty:4, unitCost:10.50, status:'NEW'},
   {zone:'D10', fixture:'cooler', dist:'CBS', shelf:4, sku:'Coors Light', size:'18-pk can', qty:6, unitCost:17.50, status:'CURRENT'},
   {zone:'D10', fixture:'cooler', dist:'CBS', shelf:4, sku:'Miller Lite', size:'18-pk can', qty:6, unitCost:17.50, status:'CURRENT'},
-  {zone:'D10', fixture:'cooler', dist:'CBS', shelf:5, sku:'Old Style', size:'30-pk can', qty:4, unitCost:17.50, status:'KEEP'},
-  {zone:'D10', fixture:'cooler', dist:'CBS', shelf:5, sku:'Busch Light', size:'30-pk can', qty:4, unitCost:17.00, status:'KEEP'},
-  {zone:'D10', fixture:'cooler', dist:'CBS', shelf:5, sku:'Coors Light', size:'30-pk can', qty:4, unitCost:21.00, status:'KEEP'},
+  {zone:'D10', fixture:'cooler', dist:'CBS', shelf:5, sku:'Old Style', size:'30-pk can', qty:4, unitCost:17.50, status:'REMOVE'},
+  {zone:'D10', fixture:'cooler', dist:'CBS', shelf:5, sku:'Busch Light', size:'30-pk can', qty:4, unitCost:17.00, status:'REMOVE'},
+  {zone:'D10', fixture:'cooler', dist:'CBS', shelf:5, sku:'Coors Light', size:'30-pk can', qty:4, unitCost:21.00, status:'REMOVE'},
   {zone:'D10', fixture:'cooler', dist:'CBS', shelf:5, sku:'Modelo Variety', size:'12-pk can', qty:4, unitCost:16.50, status:'NEW'},
   {zone:'D10', fixture:'cooler', dist:'CBS', shelf:5, sku:'Corona Premier', size:'12-pk can', qty:4, unitCost:16.00, status:'NEW'},
 
@@ -1037,61 +940,15 @@ const SKUDB = [
   {zone:'G2', fixture:'gondola', dist:'EBY-BROWN', shelf:4, sku:'Doritos Nacho Cheese', size:'2.75oz', qty:24, unitCost:1.50, status:'CURRENT'},
   {zone:'G2', fixture:'gondola', dist:'EBY-BROWN', shelf:5, sku:'Cheez-It Snap\'d', size:'7oz', qty:12, unitCost:2.95, status:'CURRENT'},
 
-  // G3 — REPOSITIONED face: A=Chocolate (KEHE) + B=Cleaning (EBY) + C1=Paper (EBY) + C2=Pet (EBY) — all NEW (Phase 22)
-  // ----- G3A: Premium chocolate (KEHE) -----
-  {zone:'G3', fixture:'gondola', dist:'KEHE', shelf:5, sku:'Tony\u2019s Chocolonely Caramel Sea Salt', size:'6.35oz', qty:24, unitCost:3.49, status:'NEW'},
-  {zone:'G3', fixture:'gondola', dist:'KEHE', shelf:5, sku:'Tony\u2019s Chocolonely Hazelnut', size:'6.35oz', qty:24, unitCost:3.49, status:'NEW'},
-  {zone:'G3', fixture:'gondola', dist:'KEHE', shelf:5, sku:'Endangered Species Sea Salt Almond', size:'3oz', qty:24, unitCost:2.79, status:'NEW'},
-  {zone:'G3', fixture:'gondola', dist:'KEHE', shelf:5, sku:'Hu Kitchen Crunchy Mint Dark', size:'2.1oz', qty:18, unitCost:3.49, status:'NEW'},
-  {zone:'G3', fixture:'gondola', dist:'KEHE', shelf:4, sku:'Tony\u2019s Chocolonely Milk Chocolate', size:'6.35oz', qty:24, unitCost:3.15, status:'NEW'},
-  {zone:'G3', fixture:'gondola', dist:'KEHE', shelf:4, sku:'Tony\u2019s Chocolonely Dark Almond Sea Salt', size:'6.35oz', qty:24, unitCost:3.49, status:'NEW'},
-  {zone:'G3', fixture:'gondola', dist:'KEHE', shelf:3, sku:'Lily\u2019s Sweets Dark Choc Stevia', size:'3oz', qty:18, unitCost:3.15, status:'NEW'},
-  {zone:'G3', fixture:'gondola', dist:'KEHE', shelf:3, sku:'Justin\u2019s Dark Choc PB Cups', size:'1.4oz', qty:24, unitCost:1.79, status:'NEW'},
-  {zone:'G3', fixture:'gondola', dist:'KEHE', shelf:1, sku:'Tony\u2019s Chocolonely 6-pack box (gift)', size:'6x6.35oz', qty:8, unitCost:19.50, status:'NEW'},
-
-  // ----- G3B: Cleaning essentials (EBY-BROWN) -----
-  {zone:'G3', fixture:'gondola', dist:'EBY-BROWN', shelf:5, sku:'Lysol Disinfecting Wipes Lemon', size:'80-ct canister', qty:12, unitCost:4.20, status:'NEW'},
-  {zone:'G3', fixture:'gondola', dist:'EBY-BROWN', shelf:5, sku:'Clorox Disinfecting Wipes Fresh', size:'75-ct', qty:12, unitCost:4.20, status:'NEW'},
-  {zone:'G3', fixture:'gondola', dist:'EBY-BROWN', shelf:5, sku:'Mr. Clean Magic Eraser Original', size:'4-ct', qty:12, unitCost:3.49, status:'NEW'},
-  {zone:'G3', fixture:'gondola', dist:'EBY-BROWN', shelf:4, sku:'Dawn Dish Soap Original', size:'12.6oz', qty:24, unitCost:2.45, status:'NEW'},
-  {zone:'G3', fixture:'gondola', dist:'EBY-BROWN', shelf:4, sku:'Bounty Paper Towels Select-a-Size 1-roll', size:'1-roll', qty:24, unitCost:2.79, status:'NEW'},
-  {zone:'G3', fixture:'gondola', dist:'EBY-BROWN', shelf:4, sku:'Lysol Spray Disinfectant', size:'12.5oz', qty:12, unitCost:4.89, status:'NEW'},
-  {zone:'G3', fixture:'gondola', dist:'EBY-BROWN', shelf:3, sku:'Glass Plus Glass Cleaner', size:'32oz', qty:12, unitCost:3.15, status:'NEW'},
-  {zone:'G3', fixture:'gondola', dist:'EBY-BROWN', shelf:3, sku:'409 Multi-Surface Cleaner', size:'32oz', qty:12, unitCost:3.49, status:'NEW'},
-  {zone:'G3', fixture:'gondola', dist:'EBY-BROWN', shelf:3, sku:'Scotch-Brite Sponges', size:'2-pk', qty:24, unitCost:2.10, status:'NEW'},
-  {zone:'G3', fixture:'gondola', dist:'EBY-BROWN', shelf:2, sku:'Clorox Bleach Concentrate', size:'32oz', qty:12, unitCost:2.45, status:'NEW'},
-  {zone:'G3', fixture:'gondola', dist:'EBY-BROWN', shelf:2, sku:'Pine-Sol Original', size:'28oz', qty:12, unitCost:3.49, status:'NEW'},
-  {zone:'G3', fixture:'gondola', dist:'EBY-BROWN', shelf:1, sku:'Hefty Kitchen Trash Bags', size:'13gal 30-ct', qty:12, unitCost:6.30, status:'NEW'},
-  {zone:'G3', fixture:'gondola', dist:'EBY-BROWN', shelf:1, sku:'Glad Small Trash Bags', size:'4gal 30-ct', qty:12, unitCost:2.45, status:'NEW'},
-
-  // ----- G3C1: Paper goods (EBY-BROWN) — 3' x 5 shelves -----
-  {zone:'G3', fixture:'gondola', dist:'EBY-BROWN', shelf:5, sku:'Solo Red Plastic Cups', size:'18oz 16-ct', qty:24, unitCost:3.15, status:'NEW'},
-  {zone:'G3', fixture:'gondola', dist:'EBY-BROWN', shelf:5, sku:'Solo Clear Plastic Cups', size:'12oz 20-ct', qty:24, unitCost:2.79, status:'NEW'},
-  {zone:'G3', fixture:'gondola', dist:'EBY-BROWN', shelf:4, sku:'Dixie Heavyweight Paper Plates', size:'8.5" 22-ct', qty:24, unitCost:2.45, status:'NEW'},
-  {zone:'G3', fixture:'gondola', dist:'EBY-BROWN', shelf:4, sku:'Bounty White Napkins', size:'200-ct', qty:18, unitCost:2.79, status:'NEW'},
-  {zone:'G3', fixture:'gondola', dist:'EBY-BROWN', shelf:3, sku:'Hefty Plastic Forks Heavy-Duty', size:'48-ct', qty:24, unitCost:2.10, status:'NEW'},
-  {zone:'G3', fixture:'gondola', dist:'EBY-BROWN', shelf:3, sku:'Hefty Plastic Spoons Heavy-Duty', size:'48-ct', qty:24, unitCost:2.10, status:'NEW'},
-  {zone:'G3', fixture:'gondola', dist:'EBY-BROWN', shelf:3, sku:'Hefty Plastic Knives Heavy-Duty', size:'48-ct', qty:24, unitCost:2.10, status:'NEW'},
-  {zone:'G3', fixture:'gondola', dist:'EBY-BROWN', shelf:2, sku:'Reynolds Wrap Aluminum Foil', size:'25 sq ft', qty:24, unitCost:2.45, status:'NEW'},
-  {zone:'G3', fixture:'gondola', dist:'EBY-BROWN', shelf:2, sku:'Glad Cling Wrap', size:'200 sq ft', qty:18, unitCost:2.79, status:'NEW'},
-  {zone:'G3', fixture:'gondola', dist:'EBY-BROWN', shelf:2, sku:'Ziploc Sandwich Bags', size:'50-ct', qty:24, unitCost:2.45, status:'NEW'},
-  {zone:'G3', fixture:'gondola', dist:'EBY-BROWN', shelf:2, sku:'Ziploc Storage Bags Quart', size:'25-ct', qty:18, unitCost:2.79, status:'NEW'},
-  {zone:'G3', fixture:'gondola', dist:'EBY-BROWN', shelf:1, sku:'Bounty Paper Towels Select-a-Size 2-roll', size:'2-roll', qty:18, unitCost:5.25, status:'NEW'},
-
-  // ----- G3C2: Pet / Bodega Animal Supplies (EBY-BROWN) — 3' x 5 shelves -----
-  {zone:'G3', fixture:'gondola', dist:'EBY-BROWN', shelf:5, sku:'Greenies Dental Treats Regular', size:'6oz', qty:18, unitCost:4.89, status:'NEW'},
-  {zone:'G3', fixture:'gondola', dist:'EBY-BROWN', shelf:5, sku:'Beggin\u2019 Strips Bacon', size:'6oz', qty:24, unitCost:3.49, status:'NEW'},
-  {zone:'G3', fixture:'gondola', dist:'EBY-BROWN', shelf:4, sku:'Friskies Pate Liver & Chicken', size:'5.5oz', qty:48, unitCost:0.69, status:'NEW'},
-  {zone:'G3', fixture:'gondola', dist:'EBY-BROWN', shelf:4, sku:'Fancy Feast Classic Pate Tuna', size:'3oz', qty:48, unitCost:1.05, status:'NEW'},
-  {zone:'G3', fixture:'gondola', dist:'EBY-BROWN', shelf:3, sku:'Pedigree Adult Roasted Chicken Dry', size:'3.5lb bag', qty:8, unitCost:5.59, status:'NEW'},
-  {zone:'G3', fixture:'gondola', dist:'EBY-BROWN', shelf:3, sku:'Friskies Surfin\u2019 & Turfin\u2019 Dry', size:'3.15lb bag', qty:8, unitCost:4.89, status:'NEW'},
-  {zone:'G3', fixture:'gondola', dist:'EBY-BROWN', shelf:2, sku:'Milk-Bone Original Small', size:'24oz', qty:18, unitCost:3.49, status:'NEW'},
-  {zone:'G3', fixture:'gondola', dist:'EBY-BROWN', shelf:2, sku:'Pup-Peroni Original Beef', size:'5.6oz', qty:18, unitCost:3.49, status:'NEW'},
-  {zone:'G3', fixture:'gondola', dist:'EBY-BROWN', shelf:2, sku:'Temptations Cat Treats Variety', size:'3oz', qty:24, unitCost:1.75, status:'NEW'},
-  {zone:'G3', fixture:'gondola', dist:'EBY-BROWN', shelf:2, sku:'Catnip Mouse Plush Toy', size:'single', qty:24, unitCost:2.79, status:'NEW'},
-  {zone:'G3', fixture:'gondola', dist:'EBY-BROWN', shelf:1, sku:'Tidy Cats Clumping Litter', size:'7lb jug', qty:8, unitCost:6.30, status:'NEW'},
-  {zone:'G3', fixture:'gondola', dist:'EBY-BROWN', shelf:1, sku:'Frisco Training Potty Pads', size:'10-ct', qty:12, unitCost:4.89, status:'NEW'},
-  {zone:'G3', fixture:'gondola', dist:'EBY-BROWN', shelf:1, sku:'Purina Cat Chow Complete Dry', size:'3.15lb bag', qty:8, unitCost:5.59, status:'NEW'},
+  // G3 — Protein Bar Wall (KEHE — NEW)
+  {zone:'G3', fixture:'gondola', dist:'KEHE', shelf:1, sku:'RXBAR (Chocolate Sea Salt/PB Choc/Mixed Berry)', size:'1.83oz', qty:48, unitCost:1.85, status:'NEW'},
+  {zone:'G3', fixture:'gondola', dist:'KEHE', shelf:2, sku:'David Protein bar (28g)', size:'each', qty:36, unitCost:3.50, status:'NEW'},
+  {zone:'G3', fixture:'gondola', dist:'KEHE', shelf:3, sku:'Built Bar (Birthday Cake/Brownie)', size:'1.55oz', qty:36, unitCost:2.20, status:'NEW'},
+  {zone:'G3', fixture:'gondola', dist:'KEHE', shelf:3, sku:'Quest Bar', size:'2.12oz', qty:24, unitCost:1.85, status:'NEW'},
+  {zone:'G3', fixture:'gondola', dist:'KEHE', shelf:4, sku:'Barebells (Caramel Cashew/Choc Dough)', size:'1.9oz', qty:24, unitCost:2.45, status:'NEW'},
+  {zone:'G3', fixture:'gondola', dist:'KEHE', shelf:4, sku:'ONE Bar', size:'2.12oz', qty:18, unitCost:2.10, status:'NEW'},
+  {zone:'G3', fixture:'gondola', dist:'KEHE', shelf:5, sku:'Kind Protein bar', size:'1.76oz', qty:18, unitCost:1.95, status:'NEW'},
+  {zone:'G3', fixture:'gondola', dist:'KEHE', shelf:5, sku:'Aloha + GoMacro', size:'each', qty:18, unitCost:2.45, status:'NEW'},
 
   // G4 — Curated Wine 220 SKU reset (BREAKTHRU)
   {zone:'G4', fixture:'gondola', dist:'BREAKTHRU', shelf:1, sku:'Natural / biodynamic (15 SKUs)', size:'750ml', qty:24, unitCost:18, status:'NEW'},
@@ -1461,7 +1318,7 @@ function renderDistPacket(packetKey) {
 
     <div class="card accent" style="margin-top:18px;">
       <h3>Why we're committing to this with you</h3>
-      <p style="font-size:13px;">${packetKey === 'CBS' ? 'CBS is the largest single beer/RTD distributor commitment in the store. The Constellation portfolio (Modelo, Corona, Pacifico, Estrella) anchors the imports wall — Wrigleyville is one of the highest-velocity Mexican beer markets in the city given Hispanic baseball fan demographics. The hard seltzer + variety pack lineup serves the bar-close late-night window. Adding Athletic Brewing through CBS captures the fastest-growing beer category in America (4%→19% NA share in 3 years).' : packetKey === 'BREAKTHRU' ? 'Breakthru is our largest first-order commitment in dollars. The premium tequila gifting shelf (Casamigos, Don Julio, Clase Azul) is the highest-margin category on the back wall. The G4 wine wall layers a curated 200-SKU premium addition (natural/biodynamic/grower-producer) on top of the legacy commodity wine base — not replacing it. Per Uptown-precedent preservation policy, all wine SKUs in Uptown’s reference catalog (incl. Yellow Tail, Barefoot, Apothic, Josh Cellars) remain in inventory. Premium chilled rosé and grower Champagne (D19/D20) are net-new categories serving Hotel Zachary and Airbnb stocking demand. <strong style="color:#f0997b;">Schedule A note:</strong> the basement wine cellar (~$20K of legacy commodity stock) transfers with the business under preservation policy — Buyer reserves walkthrough amendment rights only for clearly degraded or off-vintage stock.' : packetKey === 'SG' ? "Southern Glazer's anchors the value liquor program (Tito's 1.75L, Jameson, Crown Royal, Hennessy) plus the mini-bottle wall — these are the highest-velocity SKUs in the entire store. Fireball alone is a top-3 SKU in zip code 60613 according to your own velocity reports. <strong style=\"color:#f0997b;\">Backstock transfer:</strong> the Downstairs Office spirits library (~$2,400 at 2-month velocity cap: Tito's, Patron Silver/Anejo, Bombay, Tanqueray, Skrewball, Bacardi, Maker's, Malibu, Tullamore Dew) transfers with the business at close. Value-fighter spirits backstock (Skol, Burnett’s, Gordon’s, Early Times, Seagram’s VO — ~$585) transfers with the business under Uptown-precedent preservation policy — the Uptown reference catalog confirms value-tier spirits demand at this price point." : packetKey === 'EBY-BROWN' ? "Eby-Brown is the second-largest first-order commitment. The Zyn pouch wall on top of OC-1 plus the vape mod glass case below are the highest dollar-density-per-SF zones in the store. Cigarettes, cigars, lottery, energy shots all run through this account. Tobacco license transfers with the business — this is the structural margin advantage over Jewel-Osco." : packetKey === 'REYES' ? "Reyes carries the Athletic Brewing line (D4 — fastest-growing beer category, 32% of total category growth) plus regional craft (Goose Island, Half Acre, Revolution, Maplewood, Pipeworks). Reyes also brings the full Coca-Cola/Vitaminwater/Topo Chico CSD program to the cooler walls and back room cooler reserves." : packetKey === 'KEHE' ? "KeHE/UNFI delivers the entire bodega-format repositioning: D11 functional beverage wall (Olipop full set, Liquid Death, kombucha, cold brew, protein shakes), D12 fresh food cooler (sandwiches, salads, charcuterie, yogurt), G3 protein bar wall (RXBAR, David, Built, Quest), G2.5 hangover-recovery + functional shots end-cap (Liquid IV, LMNT, Magic Mind, Recess). This account is the differentiator from every other Wrigleyville convenience store. <strong style=\"color:#5dcaa5;\">Day-1 fill-in:</strong> approximately $1,904 in first-order specialty across functional bev, fresh food, premium snacks, and hangover recovery — paid Net-30 after credit approval, no Day-1 cash hit beyond the $2,434 backstock specialty already coded." : packetKey === 'THC DIRECT' ? "THC Beverage is our highest-margin category (~55% gross margin). D13 + D14 dedicated cooler doors create a premium category presentation. Illinois hemp-derived Delta-9 under 0.3% by dry weight is federally legal — and Wrigleyville/Lakeview has zero adult-use cannabis dispensary competition within walk distance, so the 21+ THC beverage moat is structural." : packetKey === 'RED BULL' ? "Red Bull is a direct DSD account with a dedicated merchandiser managing the D21 face. We're maintaining the existing program at $454 base inventory with the standard rep visit cadence and seasonal Edition rotations. Game-day volume driver April-October." : 'Strategic commitment to the repositioning thesis.'}</p>
+      <p style="font-size:13px;">${packetKey === 'CBS' ? 'CBS is the largest single beer/RTD distributor commitment in the store. The Constellation portfolio (Modelo, Corona, Pacifico, Estrella) anchors the imports wall — Wrigleyville is one of the highest-velocity Mexican beer markets in the city given Hispanic baseball fan demographics. The hard seltzer + variety pack lineup serves the bar-close late-night window. Adding Athletic Brewing through CBS captures the fastest-growing beer category in America (4%→19% NA share in 3 years).' : packetKey === 'BREAKTHRU' ? 'Breakthru is our largest first-order commitment in dollars. The premium tequila gifting shelf (Casamigos, Don Julio, Clase Azul) is the highest-margin category on the back wall. The 220-SKU curated wine reset on G4 is a complete repositioning away from commodity wine (Yellow Tail, Barefoot — being removed under Schedule A) into natural/biodynamic/grower-producer. Premium chilled rosé and grower Champagne (D19/D20) are net-new categories serving Hotel Zachary and Airbnb stocking demand. <strong style="color:#f0997b;">Schedule A note:</strong> the basement wine cellar (~$20K of legacy commodity stock from prior Breakthru orders) is also defaulting to removal under premium positioning. Buyer reserves walkthrough amendment rights for any premium aged bottles Seller can document with provenance.' : packetKey === 'SG' ? "Southern Glazer's anchors the value liquor program (Tito's 1.75L, Jameson, Crown Royal, Hennessy) plus the mini-bottle wall — these are the highest-velocity SKUs in the entire store. Fireball alone is a top-3 SKU in zip code 60613 according to your own velocity reports. <strong style=\"color:#f0997b;\">Backstock transfer:</strong> the Downstairs Office spirits library (~$2,400 at 2-month velocity cap: Tito's, Patron Silver/Anejo, Bombay, Tanqueray, Skrewball, Bacardi, Maker's, Malibu, Tullamore Dew) transfers with the business at close. Value-fighter spirits backstock (Skol, Burnett's, Gordon's, Early Times, Seagram's VO — ~$585) defaults to Schedule A removal under premium repositioning." : packetKey === 'EBY-BROWN' ? "Eby-Brown is the second-largest first-order commitment. The Zyn pouch wall on top of OC-1 plus the vape mod glass case below are the highest dollar-density-per-SF zones in the store. Cigarettes, cigars, lottery, energy shots all run through this account. Tobacco license transfers with the business — this is the structural margin advantage over Jewel-Osco." : packetKey === 'REYES' ? "Reyes carries the Athletic Brewing line (D4 — fastest-growing beer category, 32% of total category growth) plus regional craft (Goose Island, Half Acre, Revolution, Maplewood, Pipeworks). Reyes also brings the full Coca-Cola/Vitaminwater/Topo Chico CSD program to the cooler walls and back room cooler reserves." : packetKey === 'KEHE' ? "KeHE/UNFI delivers the entire bodega-format repositioning: D11 functional beverage wall (Olipop full set, Liquid Death, kombucha, cold brew, protein shakes), D12 fresh food cooler (sandwiches, salads, charcuterie, yogurt), G3 protein bar wall (RXBAR, David, Built, Quest), G2.5 hangover-recovery + functional shots end-cap (Liquid IV, LMNT, Magic Mind, Recess). This account is the differentiator from every other Wrigleyville convenience store. <strong style=\"color:#5dcaa5;\">Day-1 fill-in:</strong> approximately $1,904 in first-order specialty across functional bev, fresh food, premium snacks, and hangover recovery — paid Net-30 after credit approval, no Day-1 cash hit beyond the $2,434 backstock specialty already coded." : packetKey === 'THC DIRECT' ? "THC Beverage is our highest-margin category (~55% gross margin). D13 + D14 dedicated cooler doors create a premium category presentation. Illinois hemp-derived Delta-9 under 0.3% by dry weight is federally legal — and Wrigleyville/Lakeview has zero adult-use cannabis dispensary competition within walk distance, so the 21+ THC beverage moat is structural." : packetKey === 'RED BULL' ? "Red Bull is a direct DSD account with a dedicated merchandiser managing the D21 face. We're maintaining the existing program at $454 base inventory with the standard rep visit cadence and seasonal Edition rotations. Game-day volume driver April-October." : 'Strategic commitment to the repositioning thesis.'}</p>
     </div>`;
 }
 
@@ -3545,7 +3402,7 @@ const renderers = {
         <h3 style="color: var(--coral);">What's broken</h3>
         <ul>
           <li>Store reads as a 1990s liquor + convenience-grocery box</li>
-          <li>Schedule A scope reduced under Uptown-precedent preservation policy — only items NOT carried by the Uptown reference store (Clark Haus) are excluded. Initial estimate: ~$2,400 (degraded stock + obsolete SKUs). Buyer reserves walkthrough adjustment rights.</li>
+          <li>$31,028 in Schedule A removal (incl. $20K basement wine cellar default + $8,065 sales-floor + $2,963 other backstock)</li>
           <li>Liquor program leans value (Burnett's, Popov, McCormick) at 20–24% margin</li>
           <li>Wine is commodity (Yellow Tail, Barefoot) — no curation</li>
           <li>Zero non-alcoholic craft beer despite a major sober-curious demo shift</li>
@@ -4263,7 +4120,7 @@ const renderers = {
       const gondolasBack = [
         staticCard('G3','Back gondola — front face (Chocolate · Cleaning · Paper 3′ + Pet 3′)','EBY-BROWN / KEHE','gondolas-back', 900, 1740, 110, 70, mode),
         staticCard('G3.5','Adaptogen Discovery endcap','KEHE','endcap-g35', 280, 280, 32, 12, mode),
-        staticCard('G4','Back gondola — back face (legacy wine base + 200-SKU premium augment, no removals)','BREAKTHRU','gondolas-back', 925, 2125, 110, 110, mode),
+        staticCard('G4','Back gondola — back face (commodity wine long-tail → curated 220-SKU wine reset)','BREAKTHRU','gondolas-back', 925, 2125, 110, 110, mode),
         (mode === 'before'
           ? staticCard('G4.5','Hardware pegboard (FIXTURE REMOVED in Phase 2)','EBY-BROWN','endcap-g45', 220, 0, 18, 0, mode)
           : staticCard('G4.5','Sake / Soju discovery endcap (NEW)','BREAKTHRU','endcap-g45', 0, 240, 0, 6, mode)),
@@ -4312,36 +4169,6 @@ const renderers = {
 
       <div id="ms-content-before" style="display:block;">${renderForMode('before')}</div>
       <div id="ms-content-after" style="display:none;">${renderForMode('after')}</div>`;
-  },
-
-  'not-to-keep': () => {
-    return `
-      <h2 class="slide-title">Products NOT to Keep — Existing Inventory</h2>
-      <p class="slide-subtitle">Per the <strong style="color:#5dcaa5;">Uptown-precedent preservation policy</strong>, every legacy SKU that overlaps with the Uptown Store (Clark Haus) reference catalog stays in inventory. This slide lists only the <strong style="color:#cc6666;">23 items</strong> we will exclude — random store-brands, paraphernalia, obsolete electronics, bottom-shelf wines, and slow-mover 30-pk macro beer. Backup products shown as simple box counts (no SKU-level inventory).</p>
-
-      <div style="display:grid;grid-template-columns:1.1fr 1fr;gap:18px;margin-top:14px;">
-
-        <div style="background:rgba(140,50,50,0.06);border:1.5px solid rgba(204,102,102,0.30);border-radius:8px;padding:16px;">
-          <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px;border-bottom:2px solid #cc6666;padding-bottom:8px;">
-            <h3 style="font-size:14px;color:#cc6666;letter-spacing:0.8px;">🚫 EXCLUDE — Not in Uptown's catalog</h3>
-            <span style="font-size:10.5px;color:#888;font-family:monospace;">23 items</span>
-          </div>
-          <div style="margin-bottom:16px;"><h4 style="font-size:12.5px;color:#cc6666;letter-spacing:0.8px;font-family:monospace;text-transform:uppercase;border-bottom:1.5px solid rgba(204,102,102,0.45);padding-bottom:5px;margin-bottom:8px;">Energy + Sport <span style="color:#888;font-weight:400;font-size:10px;">(2 items)</span></h4><table style="width:100%;border-collapse:collapse;background:rgba(140,50,50,0.07);"><thead><tr style="background:rgba(140,50,50,0.18);"><th style="padding:6px 10px;text-align:left;font-size:10px;color:#cc6666;font-family:monospace;letter-spacing:0.8px;">PRODUCT</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#cc6666;font-family:monospace;letter-spacing:0.8px;">FORMAT</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#cc6666;font-family:monospace;letter-spacing:0.8px;">DIST.</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#cc6666;font-family:monospace;letter-spacing:0.8px;">ZONE</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#cc6666;font-family:monospace;letter-spacing:0.8px;">WHY EXCLUDED</th></tr></thead><tbody><tr><td style="padding:7px 10px;font-size:11.5px;color:#fff;font-weight:600;">Storm Energy</td><td style="padding:7px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;">12oz can</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">Direct</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">D3</td><td style="padding:7px 10px;font-size:10.5px;color:#888;line-height:1.35;">Generic store-brand energy — Uptown carries Red Bull, Celsius, Liquid Death, Ghost</td></tr><tr><td style="padding:7px 10px;font-size:11.5px;color:#fff;font-weight:600;">Storm Lime Energy</td><td style="padding:7px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;">12oz can</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">Direct</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">D3</td><td style="padding:7px 10px;font-size:10.5px;color:#888;line-height:1.35;">Generic store-brand energy</td></tr></tbody></table></div><div style="margin-bottom:16px;"><h4 style="font-size:12.5px;color:#cc6666;letter-spacing:0.8px;font-family:monospace;text-transform:uppercase;border-bottom:1.5px solid rgba(204,102,102,0.45);padding-bottom:5px;margin-bottom:8px;">Counter / OC-1 <span style="color:#888;font-weight:400;font-size:10px;">(4 items)</span></h4><table style="width:100%;border-collapse:collapse;background:rgba(140,50,50,0.07);"><thead><tr style="background:rgba(140,50,50,0.18);"><th style="padding:6px 10px;text-align:left;font-size:10px;color:#cc6666;font-family:monospace;letter-spacing:0.8px;">PRODUCT</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#cc6666;font-family:monospace;letter-spacing:0.8px;">FORMAT</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#cc6666;font-family:monospace;letter-spacing:0.8px;">DIST.</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#cc6666;font-family:monospace;letter-spacing:0.8px;">ZONE</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#cc6666;font-family:monospace;letter-spacing:0.8px;">WHY EXCLUDED</th></tr></thead><tbody><tr><td style="padding:7px 10px;font-size:11.5px;color:#fff;font-weight:600;">Hookah / Shisha</td><td style="padding:7px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;">Loose-pack tobacco</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">EBY-BROWN</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">OC-1</td><td style="padding:7px 10px;font-size:10.5px;color:#888;line-height:1.35;">Smoke-shop category — Uptown does not carry</td></tr><tr><td style="padding:7px 10px;font-size:11.5px;color:#fff;font-weight:600;">Pipe screens + glass pipes</td><td style="padding:7px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;">Display rack</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">EBY-BROWN</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">OC-1</td><td style="padding:7px 10px;font-size:10.5px;color:#888;line-height:1.35;">Paraphernalia — premium bodega exclusion</td></tr><tr><td style="padding:7px 10px;font-size:11.5px;color:#fff;font-weight:600;">CD holders</td><td style="padding:7px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;">20-CD case</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">Direct</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">OC-1</td><td style="padding:7px 10px;font-size:10.5px;color:#888;line-height:1.35;">Obsolete electronics category</td></tr><tr><td style="padding:7px 10px;font-size:11.5px;color:#fff;font-weight:600;">Wired earbuds</td><td style="padding:7px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;">Generic 3.5mm</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">Direct</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">OC-1</td><td style="padding:7px 10px;font-size:10.5px;color:#888;line-height:1.35;">Generic accessory — Uptown stocks premium audio only</td></tr></tbody></table></div><div style="margin-bottom:16px;"><h4 style="font-size:12.5px;color:#cc6666;letter-spacing:0.8px;font-family:monospace;text-transform:uppercase;border-bottom:1.5px solid rgba(204,102,102,0.45);padding-bottom:5px;margin-bottom:8px;">Wine — Bottom-shelf <span style="color:#888;font-weight:400;font-size:10px;">(7 items)</span></h4><table style="width:100%;border-collapse:collapse;background:rgba(140,50,50,0.07);"><thead><tr style="background:rgba(140,50,50,0.18);"><th style="padding:6px 10px;text-align:left;font-size:10px;color:#cc6666;font-family:monospace;letter-spacing:0.8px;">PRODUCT</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#cc6666;font-family:monospace;letter-spacing:0.8px;">FORMAT</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#cc6666;font-family:monospace;letter-spacing:0.8px;">DIST.</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#cc6666;font-family:monospace;letter-spacing:0.8px;">ZONE</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#cc6666;font-family:monospace;letter-spacing:0.8px;">WHY EXCLUDED</th></tr></thead><tbody><tr><td style="padding:7px 10px;font-size:11.5px;color:#fff;font-weight:600;">Taylor Port</td><td style="padding:7px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;">750ml</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">BREAKTHRU</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">G4</td><td style="padding:7px 10px;font-size:10.5px;color:#888;line-height:1.35;">Value port — Uptown wine wall starts at premium tier</td></tr><tr><td style="padding:7px 10px;font-size:11.5px;color:#fff;font-weight:600;">Capriccio Bubbly Sangria</td><td style="padding:7px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;">750ml</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">BREAKTHRU</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">G4</td><td style="padding:7px 10px;font-size:10.5px;color:#888;line-height:1.35;">Bottom-shelf sparkling sangria</td></tr><tr><td style="padding:7px 10px;font-size:11.5px;color:#fff;font-weight:600;">Sutter Home White Zinfandel</td><td style="padding:7px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;">750ml</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">BREAKTHRU</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">G4</td><td style="padding:7px 10px;font-size:10.5px;color:#888;line-height:1.35;">Entry-level White Zin — not in Uptown catalog</td></tr><tr><td style="padding:7px 10px;font-size:11.5px;color:#fff;font-weight:600;">Beringer White Zinfandel</td><td style="padding:7px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;">750ml</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">BREAKTHRU</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">G4</td><td style="padding:7px 10px;font-size:10.5px;color:#888;line-height:1.35;">Entry-level White Zin — not in Uptown catalog</td></tr><tr><td style="padding:7px 10px;font-size:11.5px;color:#fff;font-weight:600;">Hot Chicks Riesling</td><td style="padding:7px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;">750ml</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">BREAKTHRU</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">G4</td><td style="padding:7px 10px;font-size:10.5px;color:#888;line-height:1.35;">Novelty/joke label — not premium</td></tr><tr><td style="padding:7px 10px;font-size:11.5px;color:#fff;font-weight:600;">Mirassou Pinot Noir</td><td style="padding:7px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;">750ml</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">BREAKTHRU</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">G4</td><td style="padding:7px 10px;font-size:10.5px;color:#888;line-height:1.35;">Value-tier producer</td></tr><tr><td style="padding:7px 10px;font-size:11.5px;color:#fff;font-weight:600;">Frexnet sparkling</td><td style="padding:7px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;">750ml</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">BREAKTHRU</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">G4</td><td style="padding:7px 10px;font-size:10.5px;color:#888;line-height:1.35;">Random sparkling — not in Uptown</td></tr></tbody></table></div><div style="margin-bottom:16px;"><h4 style="font-size:12.5px;color:#cc6666;letter-spacing:0.8px;font-family:monospace;text-transform:uppercase;border-bottom:1.5px solid rgba(204,102,102,0.45);padding-bottom:5px;margin-bottom:8px;">Beer — slow-mover macro packs <span style="color:#888;font-weight:400;font-size:10px;">(5 items)</span></h4><table style="width:100%;border-collapse:collapse;background:rgba(140,50,50,0.07);"><thead><tr style="background:rgba(140,50,50,0.18);"><th style="padding:6px 10px;text-align:left;font-size:10px;color:#cc6666;font-family:monospace;letter-spacing:0.8px;">PRODUCT</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#cc6666;font-family:monospace;letter-spacing:0.8px;">FORMAT</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#cc6666;font-family:monospace;letter-spacing:0.8px;">DIST.</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#cc6666;font-family:monospace;letter-spacing:0.8px;">ZONE</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#cc6666;font-family:monospace;letter-spacing:0.8px;">WHY EXCLUDED</th></tr></thead><tbody><tr><td style="padding:7px 10px;font-size:11.5px;color:#fff;font-weight:600;">Old Style 30-pk</td><td style="padding:7px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;">30-pk can</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">CBS</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">D10</td><td style="padding:7px 10px;font-size:10.5px;color:#888;line-height:1.35;">Volume macro — Uptown stocks 6/12-pk only</td></tr><tr><td style="padding:7px 10px;font-size:11.5px;color:#fff;font-weight:600;">Busch Light 30-pk</td><td style="padding:7px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;">30-pk can</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">CBS</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">D10</td><td style="padding:7px 10px;font-size:10.5px;color:#888;line-height:1.35;">Value 30-pk — not in Uptown format range</td></tr><tr><td style="padding:7px 10px;font-size:11.5px;color:#fff;font-weight:600;">Coors Light 30-pk</td><td style="padding:7px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;">30-pk can</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">CBS</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">D10</td><td style="padding:7px 10px;font-size:10.5px;color:#888;line-height:1.35;">Value 30-pk — not in Uptown format range</td></tr><tr><td style="padding:7px 10px;font-size:11.5px;color:#fff;font-weight:600;">Miller Genuine Draft 12-pk</td><td style="padding:7px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;">12-pk btl</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">CBS</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">D10</td><td style="padding:7px 10px;font-size:10.5px;color:#888;line-height:1.35;">Slow-mover bottle pack</td></tr><tr><td style="padding:7px 10px;font-size:11.5px;color:#fff;font-weight:600;">Bud Ice</td><td style="padding:7px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;">24oz can</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">CBS</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">D2</td><td style="padding:7px 10px;font-size:10.5px;color:#888;line-height:1.35;">Discontinued / niche SKU</td></tr></tbody></table></div><div style="margin-bottom:16px;"><h4 style="font-size:12.5px;color:#cc6666;letter-spacing:0.8px;font-family:monospace;text-transform:uppercase;border-bottom:1.5px solid rgba(204,102,102,0.45);padding-bottom:5px;margin-bottom:8px;">Juice + Pantry — off-brand <span style="color:#888;font-weight:400;font-size:10px;">(3 items)</span></h4><table style="width:100%;border-collapse:collapse;background:rgba(140,50,50,0.07);"><thead><tr style="background:rgba(140,50,50,0.18);"><th style="padding:6px 10px;text-align:left;font-size:10px;color:#cc6666;font-family:monospace;letter-spacing:0.8px;">PRODUCT</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#cc6666;font-family:monospace;letter-spacing:0.8px;">FORMAT</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#cc6666;font-family:monospace;letter-spacing:0.8px;">DIST.</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#cc6666;font-family:monospace;letter-spacing:0.8px;">ZONE</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#cc6666;font-family:monospace;letter-spacing:0.8px;">WHY EXCLUDED</th></tr></thead><tbody><tr><td style="padding:7px 10px;font-size:11.5px;color:#fff;font-weight:600;">Pure Lemon-Lime juice</td><td style="padding:7px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;">15.2oz btl</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">Direct</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">D6</td><td style="padding:7px 10px;font-size:10.5px;color:#888;line-height:1.35;">Generic store-brand juice</td></tr><tr><td style="padding:7px 10px;font-size:11.5px;color:#fff;font-weight:600;">Pure Fruit Punch juice</td><td style="padding:7px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;">15.2oz btl</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">Direct</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">D6</td><td style="padding:7px 10px;font-size:10.5px;color:#888;line-height:1.35;">Generic store-brand juice</td></tr><tr><td style="padding:7px 10px;font-size:11.5px;color:#fff;font-weight:600;">Imperial Spread (margarine)</td><td style="padding:7px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;">1lb sticks</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">KEHE</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">D6</td><td style="padding:7px 10px;font-size:10.5px;color:#888;line-height:1.35;">Value butter substitute — Uptown stocks Kerrygold, Vital Farms</td></tr></tbody></table></div><div style="margin-bottom:16px;"><h4 style="font-size:12.5px;color:#cc6666;letter-spacing:0.8px;font-family:monospace;text-transform:uppercase;border-bottom:1.5px solid rgba(204,102,102,0.45);padding-bottom:5px;margin-bottom:8px;">Unreadable / degraded legacy stock <span style="color:#888;font-weight:400;font-size:10px;">(2 items)</span></h4><table style="width:100%;border-collapse:collapse;background:rgba(140,50,50,0.07);"><thead><tr style="background:rgba(140,50,50,0.18);"><th style="padding:6px 10px;text-align:left;font-size:10px;color:#cc6666;font-family:monospace;letter-spacing:0.8px;">PRODUCT</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#cc6666;font-family:monospace;letter-spacing:0.8px;">FORMAT</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#cc6666;font-family:monospace;letter-spacing:0.8px;">DIST.</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#cc6666;font-family:monospace;letter-spacing:0.8px;">ZONE</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#cc6666;font-family:monospace;letter-spacing:0.8px;">WHY EXCLUDED</th></tr></thead><tbody><tr><td style="padding:7px 10px;font-size:11.5px;color:#fff;font-weight:600;">Unreadable beer 6-pk</td><td style="padding:7px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;">6-pk btl</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">CBS</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">D2</td><td style="padding:7px 10px;font-size:10.5px;color:#888;line-height:1.35;">Audit photo unreadable — verify at walkthrough</td></tr><tr><td style="padding:7px 10px;font-size:11.5px;color:#fff;font-weight:600;">Unreadable can 12-pk</td><td style="padding:7px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;">12-pk can</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">CBS</td><td style="padding:7px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">D8</td><td style="padding:7px 10px;font-size:10.5px;color:#888;line-height:1.35;">Audit photo unreadable — verify at walkthrough</td></tr></tbody></table></div>
-        </div>
-
-        <div style="background:rgba(93,202,165,0.04);border:1.5px solid rgba(93,202,165,0.30);border-radius:8px;padding:16px;">
-          <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px;border-bottom:2px solid #5dcaa5;padding-bottom:8px;">
-            <h3 style="font-size:14px;color:#5dcaa5;letter-spacing:0.8px;">📦 KEEP — Backup product boxes</h3>
-            <span style="font-size:10.5px;color:#888;font-family:monospace;">46 SKUs · 142 boxes</span>
-          </div>
-          <div style="margin-bottom:14px;"><h4 style="font-size:12.5px;color:#5dcaa5;letter-spacing:0.8px;font-family:monospace;text-transform:uppercase;border-bottom:1.5px solid rgba(93,202,165,0.45);padding-bottom:5px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:baseline;"><span>Snacks (chips + cookies)</span><span style="color:#888;font-weight:400;font-size:10px;">23 boxes total</span></h4><div style="display:flex;flex-wrap:wrap;gap:7px;"><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Doritos Nacho Cheese</span><span style="color:#888;font-family:monospace;font-size:10px;">1.75oz bag</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(4) boxes</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Doritos Cool Ranch</span><span style="color:#888;font-family:monospace;font-size:10px;">1.75oz bag</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(3) boxes</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Lay's Classic</span><span style="color:#888;font-family:monospace;font-size:10px;">1oz bag</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(4) boxes</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Cheetos Crunchy</span><span style="color:#888;font-family:monospace;font-size:10px;">2oz bag</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(3) boxes</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Fritos Original</span><span style="color:#888;font-family:monospace;font-size:10px;">1oz bag</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(2) boxes</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Cheez-It</span><span style="color:#888;font-family:monospace;font-size:10px;">1.5oz</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(3) boxes</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Oreo Original</span><span style="color:#888;font-family:monospace;font-size:10px;">5.25oz pack</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(2) boxes</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Chips Ahoy</span><span style="color:#888;font-family:monospace;font-size:10px;">9.5oz pack</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(2) boxes</span></div></div></div><div style="margin-bottom:14px;"><h4 style="font-size:12.5px;color:#5dcaa5;letter-spacing:0.8px;font-family:monospace;text-transform:uppercase;border-bottom:1.5px solid rgba(93,202,165,0.45);padding-bottom:5px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:baseline;"><span>Candy + sweets</span><span style="color:#888;font-weight:400;font-size:10px;">24 boxes total</span></h4><div style="display:flex;flex-wrap:wrap;gap:7px;"><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Snickers single</span><span style="color:#888;font-family:monospace;font-size:10px;">1.86oz</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(6) boxes</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">M&M's Peanut</span><span style="color:#888;font-family:monospace;font-size:10px;">1.74oz</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(4) boxes</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Reese's Peanut Butter Cups</span><span style="color:#888;font-family:monospace;font-size:10px;">1.5oz 2-pk</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(4) boxes</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Twix</span><span style="color:#888;font-family:monospace;font-size:10px;">1.79oz</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(3) boxes</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Skittles Original</span><span style="color:#888;font-family:monospace;font-size:10px;">2.17oz</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(3) boxes</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Hershey's Milk Bar</span><span style="color:#888;font-family:monospace;font-size:10px;">1.55oz</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(2) boxes</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Kit Kat</span><span style="color:#888;font-family:monospace;font-size:10px;">1.5oz</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(2) boxes</span></div></div></div><div style="margin-bottom:14px;"><h4 style="font-size:12.5px;color:#5dcaa5;letter-spacing:0.8px;font-family:monospace;text-transform:uppercase;border-bottom:1.5px solid rgba(93,202,165,0.45);padding-bottom:5px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:baseline;"><span>Soda / CSD (cans)</span><span style="color:#888;font-weight:400;font-size:10px;">38 boxes total</span></h4><div style="display:flex;flex-wrap:wrap;gap:7px;"><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Coca-Cola 12oz</span><span style="color:#888;font-family:monospace;font-size:10px;">12-pk box</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(8) boxes</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Diet Coke 12oz</span><span style="color:#888;font-family:monospace;font-size:10px;">12-pk box</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(6) boxes</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Coke Zero 12oz</span><span style="color:#888;font-family:monospace;font-size:10px;">12-pk box</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(4) boxes</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Sprite 12oz</span><span style="color:#888;font-family:monospace;font-size:10px;">12-pk box</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(4) boxes</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Pepsi 12oz</span><span style="color:#888;font-family:monospace;font-size:10px;">12-pk box</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(6) boxes</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Diet Pepsi 12oz</span><span style="color:#888;font-family:monospace;font-size:10px;">12-pk box</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(4) boxes</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Mountain Dew 12oz</span><span style="color:#888;font-family:monospace;font-size:10px;">12-pk box</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(3) boxes</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Dr Pepper 12oz</span><span style="color:#888;font-family:monospace;font-size:10px;">12-pk box</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(3) boxes</span></div></div></div><div style="margin-bottom:14px;"><h4 style="font-size:12.5px;color:#5dcaa5;letter-spacing:0.8px;font-family:monospace;text-transform:uppercase;border-bottom:1.5px solid rgba(93,202,165,0.45);padding-bottom:5px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:baseline;"><span>Beer (singles + 6-pk)</span><span style="color:#888;font-weight:400;font-size:10px;">21 boxes total</span></h4><div style="display:flex;flex-wrap:wrap;gap:7px;"><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Modelo Especial</span><span style="color:#888;font-family:monospace;font-size:10px;">12oz can case (24)</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(4) boxes</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Corona Extra</span><span style="color:#888;font-family:monospace;font-size:10px;">12oz btl case (24)</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(3) boxes</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Pacifico</span><span style="color:#888;font-family:monospace;font-size:10px;">12oz btl case (24)</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(2) boxes</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Bud Light</span><span style="color:#888;font-family:monospace;font-size:10px;">12oz can case (24)</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(4) boxes</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Miller Lite</span><span style="color:#888;font-family:monospace;font-size:10px;">12oz can case (24)</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(3) boxes</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Coors Light</span><span style="color:#888;font-family:monospace;font-size:10px;">12oz can case (24)</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(3) boxes</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Heineken</span><span style="color:#888;font-family:monospace;font-size:10px;">12oz btl case (24)</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(2) boxes</span></div></div></div><div style="margin-bottom:14px;"><h4 style="font-size:12.5px;color:#5dcaa5;letter-spacing:0.8px;font-family:monospace;text-transform:uppercase;border-bottom:1.5px solid rgba(93,202,165,0.45);padding-bottom:5px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:baseline;"><span>Energy + Sport</span><span style="color:#888;font-weight:400;font-size:10px;">13 boxes total</span></h4><div style="display:flex;flex-wrap:wrap;gap:7px;"><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Red Bull 8.4oz</span><span style="color:#888;font-family:monospace;font-size:10px;">24-can case</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(3) boxes</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Celsius variety</span><span style="color:#888;font-family:monospace;font-size:10px;">12oz box (12)</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(4) boxes</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Liquid Death Mountain</span><span style="color:#888;font-family:monospace;font-size:10px;">16.9oz box (12)</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(3) boxes</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Gatorade 28oz variety</span><span style="color:#888;font-family:monospace;font-size:10px;">12-btl box</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(3) boxes</span></div></div></div><div style="margin-bottom:14px;"><h4 style="font-size:12.5px;color:#5dcaa5;letter-spacing:0.8px;font-family:monospace;text-transform:uppercase;border-bottom:1.5px solid rgba(93,202,165,0.45);padding-bottom:5px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:baseline;"><span>RTD cocktails (cans)</span><span style="color:#888;font-weight:400;font-size:10px;">12 boxes total</span></h4><div style="display:flex;flex-wrap:wrap;gap:7px;"><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">High Noon Variety 8-pk</span><span style="color:#888;font-family:monospace;font-size:10px;">8-pk can</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(4) boxes</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">White Claw Variety</span><span style="color:#888;font-family:monospace;font-size:10px;">12-pk box</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(3) boxes</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Cutwater Margarita</span><span style="color:#888;font-family:monospace;font-size:10px;">4-pk can</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(3) boxes</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Surfside Iced Tea Vodka</span><span style="color:#888;font-family:monospace;font-size:10px;">4-pk can</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(2) boxes</span></div></div></div><div style="margin-bottom:14px;"><h4 style="font-size:12.5px;color:#5dcaa5;letter-spacing:0.8px;font-family:monospace;text-transform:uppercase;border-bottom:1.5px solid rgba(93,202,165,0.45);padding-bottom:5px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:baseline;"><span>Spirits — value liquor</span><span style="color:#888;font-weight:400;font-size:10px;">6 boxes total</span></h4><div style="display:flex;flex-wrap:wrap;gap:7px;"><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Tito's Vodka</span><span style="color:#888;font-family:monospace;font-size:10px;">1.75L case (6)</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(1) box</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Jameson Irish</span><span style="color:#888;font-family:monospace;font-size:10px;">750ml case (6)</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(1) box</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Fireball mini</span><span style="color:#888;font-family:monospace;font-size:10px;">50ml flask 60-pk</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(3) boxes</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Crown Royal</span><span style="color:#888;font-family:monospace;font-size:10px;">750ml case (6)</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(1) box</span></div></div></div><div style="margin-bottom:14px;"><h4 style="font-size:12.5px;color:#5dcaa5;letter-spacing:0.8px;font-family:monospace;text-transform:uppercase;border-bottom:1.5px solid rgba(93,202,165,0.45);padding-bottom:5px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:baseline;"><span>Wine — premium curated</span><span style="color:#888;font-weight:400;font-size:10px;">5 boxes total</span></h4><div style="display:flex;flex-wrap:wrap;gap:7px;"><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Apothic Red</span><span style="color:#888;font-family:monospace;font-size:10px;">750ml case (12)</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(1) box</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Josh Cellars Cab</span><span style="color:#888;font-family:monospace;font-size:10px;">750ml case (12)</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(2) boxes</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Whispering Angel Rosé</span><span style="color:#888;font-family:monospace;font-size:10px;">750ml case (12)</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(1) box</span></div><div style="display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff;"><span style="font-weight:600;">Decoy Cabernet</span><span style="color:#888;font-family:monospace;font-size:10px;">750ml case (12)</span><span style="font-family:monospace;color:#5dcaa5;font-weight:700;">(1) box</span></div></div></div>
-        </div>
-
-      </div>
-
-      <div class="card" style="border-left:3px solid var(--amber);padding:12px 18px;margin-top:14px;font-size:12px;color:var(--muted);">
-        <strong style="color:var(--amber);">Buyer note:</strong> Final exclusions subject to walkthrough verification. Any item in this exclusion list that Seller can document as actively selling at &gt;1 unit/week may be re-added to KEEP at Buyer discretion. Backup box counts shown as round-number estimates — full SKU-level breakdown lives on the <span onclick="window.goToSlide('inventory')" style="cursor:pointer;color:var(--accent);text-decoration:underline;">Inventory & Cost</span> slide.
-      </div>`;
   },
 
   inventory: () => {
@@ -4668,8 +4495,8 @@ const renderers = {
     };
     const click = (tag) => {
       const slide = zoneToElev[tag];
-      if (!slide) return '';
-      return `style="cursor:pointer;" onclick="window.goToSlide('${slide}')"`;
+      if (!slide) return `data-fixture-tag="${tag}"`;
+      return `style="cursor:pointer;" onclick="window.cwFixtureRoute&&window.cwFixtureRoute('${tag}','${slide}',event)" data-fixture-tag="${tag}" data-fixture-slide="${slide}"`;
     };
 
     // ============================================================
@@ -5350,6 +5177,14 @@ const renderers = {
     <h2 class="slide-title">Floor plan \u2014 Existing vs. Repositioned</h2>
     <p class="slide-subtitle">735 SF, identical fixture geometry per architectural CAD. The same physical store; different SKU mix. Click any zone in the AFTER plan to jump to its detailed elevation.</p>
 
+    <!-- PHASE 13 \u2014 Floor plan editor toolbar -->
+    <div id="cw-fp-toolbar" style="display:flex;gap:8px;align-items:center;margin-bottom:12px;padding:8px 12px;background:rgba(20,28,42,0.5);border:1px solid var(--border);border-radius:6px;font-family:'SF Mono',Consolas,monospace;font-size:11px;">
+      <button id="cw-edit-toggle" onclick="window.cwEditor&&window.cwEditor.toggle()" style="background:rgba(139,158,255,0.12);border:1px solid var(--accent);color:var(--accent);padding:5px 12px;border-radius:4px;cursor:pointer;font-family:inherit;font-size:11px;font-weight:600;">EDIT MODE</button>
+      <button id="cw-edit-reset" onclick="window.cwEditor&&window.cwEditor.reset()" style="background:rgba(240,153,123,0.10);border:1px solid var(--coral);color:var(--coral);padding:5px 12px;border-radius:4px;cursor:pointer;font-family:inherit;font-size:11px;">RESET ALL</button>
+      <button id="cw-edit-export" onclick="window.cwEditor&&window.cwEditor.exportCoords()" style="background:rgba(93,202,165,0.10);border:1px solid var(--teal);color:var(--teal);padding:5px 12px;border-radius:4px;cursor:pointer;font-family:inherit;font-size:11px;">EXPORT JSON</button>
+      <span id="cw-edit-status" style="color:var(--muted);margin-left:auto;">Click EDIT MODE to enable drag/resize/rotate on fixtures</span>
+    </div>
+
     <div class="floor-plan-wrapper">
     <!-- Stacked floor plans (vertical) -->
     <div style="display:flex;flex-direction:column;gap:32px;margin-top:14px;">
@@ -5567,7 +5402,7 @@ const renderers = {
     const narrative = [
       {h:'The dollar bucket barely changes',k:'$68,774 \u2192 $80,400',
        p:'Total inventory grows only ~15%, well within Day-1 working capital. The repositioning is not about more inventory \u2014 it is about <em>better</em> inventory: 11 categories shift, but the same shelves carry sharper SKUs at higher margin.'},
-      {h:'Uptown-precedent preservation policy',k:'~$2,400 minimal excl.',
+      {h:'Schedule A frees ~$31,028 to redeploy',k:'13 categories OUT',
        p:'Cleaning aisle, commodity wine, dead-stock cordials, generic value spirits, full-size HBA, canned grocery, hardware peg, and dead schnapps backstock leave entirely. That cash goes directly into the NEW categories below \u2014 it is not a separate ask.'},
       {h:'Three NEW categories drive the mix shift',k:'Hangover \u00b7 Fresh Food \u00b7 THC Bev',
        p:'These did not exist in the legacy bodega. Hangover/recovery (+$1,800), fresh food sandwiches (+$1,400 in D12), and THC beverage (+$796) are the highest-margin, fastest-growing C-store categories of 2026. Every one is supported by an existing distributor we already pay invoices to.'},
@@ -5714,9 +5549,9 @@ const renderers = {
       'D1': [
         {tier:'eye-up', tiles:[
           {name:'7UP',format:'20oz bottle',cost:'1.99',facings:2,status:'keep'},
-          {name:'A&W Root Beer',format:'20oz bottle',cost:'1.99',facings:1,status:'keep'},
-          {name:'7UP Diet',format:'20oz bottle',cost:'1.99',facings:1,status:'keep'},
-          {name:'Dr Pepper Diet',format:'20oz bottle',cost:'1.99',facings:1,status:'keep'},
+          {name:'A&W Root Beer',format:'20oz bottle',cost:'1.99',facings:1,status:'remove'},
+          {name:'7UP Diet',format:'20oz bottle',cost:'1.99',facings:1,status:'remove'},
+          {name:'Dr Pepper Diet',format:'20oz bottle',cost:'1.99',facings:1,status:'remove'},
           {name:'Coca-Cola',format:'20oz bottle',cost:'1.99',facings:2,status:'keep'},
           {name:'Diet Coke',format:'20oz bottle',cost:'1.99',facings:1,status:'keep'},
           {name:'Dr Pepper',format:'20oz bottle',cost:'1.99',facings:1,status:'keep'},
@@ -5738,7 +5573,7 @@ const renderers = {
         ]},
         // 12oz can mid-shelf — single-row mix of singles. Squirt drops; backfilled with Mountain Dew NEW.
         {tier:'mid-reach', tiles:[
-          {name:'Pepsi',format:'12oz can single',cost:'0.99',facings:2,status:'keep'},
+          {name:'Pepsi',format:'12oz can single',cost:'0.99',facings:2,status:'remove'},
           {name:'Dr Pepper',format:'12oz can',cost:'0.99',facings:1,status:'keep'},
           {name:'Sunkist Orange',format:'12oz can',cost:'0.99',facings:1,status:'keep'},
           {name:'7UP',format:'12oz can',cost:'0.99',facings:1,status:'keep'},
@@ -5748,7 +5583,7 @@ const renderers = {
           {name:'Coca-Cola Cherry',format:'12oz can',cost:'0.99',facings:1,status:'keep'},
           {name:'Mountain Dew',format:'12oz can',cost:'0.99',facings:1,status:'keep'},
           {name:'A&W Root Beer',format:'12oz can',cost:'0.99',facings:1,status:'keep'},
-          {name:'Squirt',format:'12oz can',cost:'0.99',facings:1,status:'keep'},
+          {name:'Squirt',format:'12oz can',cost:'0.99',facings:1,status:'remove'},
           {name:'Faygo / RC [unreadable]',format:'12oz can',cost:'0.99',facings:1,status:'keep'},
         ]},
         // SH 2 (low-reach) — PHOTO-VERIFIED: 12oz cans, 12 across, STACKED 2-HIGH, 7 deep.
@@ -5767,7 +5602,7 @@ const renderers = {
           {name:'Coca-Cola',format:'2L bottle',cost:'2.49',facings:2,depth:4,status:'keep'},
           {name:'Sprite',format:'2L bottle',cost:'2.49',facings:1,depth:4,status:'keep'},
           {name:'Canada Dry Ginger Ale',format:'2L bottle',cost:'2.49',facings:1,depth:4,status:'keep'},
-          {name:'Squirt',format:'2L bottle',cost:'2.49',facings:1,depth:4,status:'keep'},
+          {name:'Squirt',format:'2L bottle',cost:'2.49',facings:1,depth:4,status:'remove'},
           {name:'7UP',format:'2L bottle',cost:'2.49',facings:1,depth:4,status:'keep'},
           {name:'Mountain Dew',format:'2L bottle',cost:'2.49',facings:1,depth:4,status:'new'},
         ]},
@@ -5802,7 +5637,7 @@ const renderers = {
           {name:'Dr Pepper Diet',format:'12oz can',cost:'0.99',facings:1,status:'keep'},
           {name:'Canada Dry Ginger Ale',format:'12oz can',cost:'0.99',facings:1,status:'keep'},
           {name:'Schweppes Ginger Ale',format:'12oz can',cost:'0.99',facings:1,status:'keep'},
-          {name:'V8 Splash',format:'12oz can',cost:'1.25',facings:1,status:'keep'},
+          {name:'V8 Splash',format:'12oz can',cost:'1.25',facings:1,status:'remove'},
         ]},
         // SH 2 — mixed: cans on left, 1L mixers/club soda bottles on right per photo
         {tier:'low-reach', tiles:[
@@ -5844,9 +5679,9 @@ const renderers = {
           {name:'Celsius Peach Vibe',format:'12oz can',cost:'2.99',facings:1,status:'expand'},
           {name:'Celsius Tropical Vibe',format:'12oz can',cost:'2.99',facings:2,status:'expand'},
           {name:'Celsius Sparkling Wild Berry',format:'12oz can',cost:'2.99',facings:1,status:'expand'},
-          {name:'Storm',format:'Energy 12oz can',cost:'2.79',facings:2,status:'keep'},
-          {name:'Storm Lime',format:'Energy 12oz can',cost:'2.79',facings:1,status:'keep'},
-          {name:'Starbucks Espresso & Cream',format:'11oz can',cost:'3.49',facings:2,status:'keep'},
+          {name:'Storm',format:'Energy 12oz can',cost:'2.79',facings:2,status:'remove'},
+          {name:'Storm Lime',format:'Energy 12oz can',cost:'2.79',facings:1,status:'remove'},
+          {name:'Starbucks Espresso & Cream',format:'11oz can',cost:'3.49',facings:2,status:'remove'},
         ]},
         // SH 4 — Monster (top 4 sellers) + Ghost Energy (fast-growing competitor)
         {tier:'eye-level', tiles:[
@@ -5857,10 +5692,10 @@ const renderers = {
           {name:'Monster Ultra Sunrise',format:'16oz can',cost:'2.89',facings:1,status:'keep'},
           {name:'Monster Juice Mango Loco',format:'16oz can',cost:'2.89',facings:1,status:'keep'},
           {name:'Reign Razzleberry',format:'16oz can',cost:'2.89',facings:1,status:'keep'},
-          {name:'Monster Ultra Red',format:'16oz can',cost:'2.89',facings:1,status:'keep'},
-          {name:'Monster Ultra Blue',format:'16oz can',cost:'2.89',facings:1,status:'keep'},
-          {name:'Monster Zero Sugar',format:'16oz can',cost:'2.89',facings:1,status:'keep'},
-          {name:'Monster Juice [secondary]',format:'16oz can',cost:'2.89',facings:1,status:'keep'},
+          {name:'Monster Ultra Red',format:'16oz can',cost:'2.89',facings:1,status:'remove'},
+          {name:'Monster Ultra Blue',format:'16oz can',cost:'2.89',facings:1,status:'remove'},
+          {name:'Monster Zero Sugar',format:'16oz can',cost:'2.89',facings:1,status:'remove'},
+          {name:'Monster Juice [secondary]',format:'16oz can',cost:'2.89',facings:1,status:'remove'},
         ]},
         // SH 3 — Bang (top 3 flavors) + Prime Hydration (Gen Z) + Phora
         {tier:'mid-reach', tiles:[
@@ -5868,11 +5703,11 @@ const renderers = {
           {name:'Bang Peach Mango',format:'16oz can',cost:'2.99',facings:1,status:'keep'},
           {name:'Bang Blue Razz',format:'16oz can',cost:'2.99',facings:1,status:'keep'},
           {name:'Phora Energy Grape',format:'16oz can',cost:'2.79',facings:1,status:'keep'},
-          {name:'V8 Original',format:'12oz can',cost:'2.49',facings:1,status:'keep'},
-          {name:'Bang Sour Heads',format:'16oz can',cost:'2.99',facings:1,status:'keep'},
-          {name:'Bang Cotton Candy',format:'16oz can',cost:'2.99',facings:1,status:'keep'},
-          {name:'Jumex Mango Nectar',format:'16oz can',cost:'1.99',facings:1,status:'keep'},
-          {name:'Jumex Strawberry-Banana',format:'16oz can',cost:'1.99',facings:1,status:'keep'},
+          {name:'V8 Original',format:'12oz can',cost:'2.49',facings:1,status:'remove'},
+          {name:'Bang Sour Heads',format:'16oz can',cost:'2.99',facings:1,status:'remove'},
+          {name:'Bang Cotton Candy',format:'16oz can',cost:'2.99',facings:1,status:'remove'},
+          {name:'Jumex Mango Nectar',format:'16oz can',cost:'1.99',facings:1,status:'remove'},
+          {name:'Jumex Strawberry-Banana',format:'16oz can',cost:'1.99',facings:1,status:'remove'},
         ]},
         // SH 2 — Premium 500ml/1L water — fill the shelf full (no gaps)
         {tier:'low-reach', tiles:[
@@ -5881,7 +5716,7 @@ const renderers = {
           {name:'Fiji',format:'500ml bottle',cost:'2.50',facings:2,status:'expand'},
           {name:'Core Hydration',format:'500ml bottle',cost:'2.50',facings:1,status:'keep'},
           {name:'Ice Mountain',format:'500ml bottle',cost:'1.49',facings:2,status:'keep'},
-          {name:'Schweppes Tonic Water',format:'1L bottle',cost:'2.49',facings:1,status:'keep'},
+          {name:'Schweppes Tonic Water',format:'1L bottle',cost:'2.49',facings:1,status:'remove'},
         ]},
         // SH 1 — 1L+ premium water (kick-plate, heavy)
         {tier:'kick-plate', tiles:[
@@ -5952,7 +5787,7 @@ const renderers = {
       'D5': [
         // SH 5 — Premier Protein flagged off-category (belongs on D4 protein door)
         {tier:'eye-up', tiles:[
-          {name:'Premier Protein',format:'11oz bottle',cost:'2.99',facings:1,status:'keep'},
+          {name:'Premier Protein',format:'11oz bottle',cost:'2.99',facings:1,status:'remove'},
           {name:'Yerba Madre Original',format:'16oz can',cost:'2.50',facings:4,status:'expand'},
           {name:'Yerba Madre Tropical',format:'16oz can',cost:'2.50',facings:3,status:'expand'},
           {name:'Yerba Madre Bluephoria',format:'16oz can',cost:'2.50',facings:3,status:'expand'},
@@ -5967,10 +5802,10 @@ const renderers = {
         // SH 3 — Gatorade Zero × 4 flagged off-category (sport drinks belong on D4).
         // AriZona + Pure Leaf kept at original facings — no over-expansion (shelf was already full).
         {tier:'mid-reach', tiles:[
-          {name:'Gatorade Zero Orange',format:'28oz bottle',cost:'2.25',facings:1,status:'keep'},
-          {name:'Gatorade Zero Fruit Punch',format:'28oz bottle',cost:'2.25',facings:1,status:'keep'},
-          {name:'Gatorade Zero Cool Blue',format:'28oz bottle',cost:'2.25',facings:1,status:'keep'},
-          {name:'Gatorade Cool Blue',format:'28oz bottle',cost:'2.50',facings:1,status:'keep'},
+          {name:'Gatorade Zero Orange',format:'28oz bottle',cost:'2.25',facings:1,status:'remove'},
+          {name:'Gatorade Zero Fruit Punch',format:'28oz bottle',cost:'2.25',facings:1,status:'remove'},
+          {name:'Gatorade Zero Cool Blue',format:'28oz bottle',cost:'2.25',facings:1,status:'remove'},
+          {name:'Gatorade Cool Blue',format:'28oz bottle',cost:'2.50',facings:1,status:'remove'},
           {name:'AriZona Energy Rx',format:'23oz can',cost:'1.49',facings:1,status:'keep'},
           {name:'AriZona Razzleberry',format:'23oz can',cost:'1.49',facings:1,status:'keep'},
           {name:'Pure Lemonade',format:'16oz bottle',cost:'2.25',facings:1,status:'keep'},
@@ -5990,12 +5825,12 @@ const renderers = {
         // AriZona + Starbucks Doubleshot 4-pk expand to fill freed space.
         {tier:'kick-plate', tiles:[
           {name:'Starbucks Doubleshot',format:'4-pk',cost:'7.99',facings:2,status:'expand'},
-          // {name:'Limes',format:'Mesh bag',cost:'2.49',facings:1,status:'keep'},  // dropped from BEFORE display
-          // {name:'Lemons',format:'Mesh bag',cost:'2.49',facings:1,status:'keep'},  // dropped from BEFORE display
-          {name:'Electrolit Strawberry-Kiwi',format:'21oz bottle',cost:'2.99',facings:1,status:'keep'},
-          {name:'Electrolit Watermelon',format:'21oz bottle',cost:'2.99',facings:1,status:'keep'},
-          {name:'Electrolit Blue Raspberry',format:'21oz bottle',cost:'2.99',facings:1,status:'keep'},
-          {name:'Electrolit Coconut',format:'21oz bottle',cost:'2.99',facings:1,status:'keep'},
+          // {name:'Limes',format:'Mesh bag',cost:'2.49',facings:1,status:'remove'},  // dropped from BEFORE display
+          // {name:'Lemons',format:'Mesh bag',cost:'2.49',facings:1,status:'remove'},  // dropped from BEFORE display
+          {name:'Electrolit Strawberry-Kiwi',format:'21oz bottle',cost:'2.99',facings:1,status:'remove'},
+          {name:'Electrolit Watermelon',format:'21oz bottle',cost:'2.99',facings:1,status:'remove'},
+          {name:'Electrolit Blue Raspberry',format:'21oz bottle',cost:'2.99',facings:1,status:'remove'},
+          {name:'Electrolit Coconut',format:'21oz bottle',cost:'2.99',facings:1,status:'remove'},
           {name:'AriZona Energy Rx',format:'23oz tallboy',cost:'1.49',facings:2,status:'expand'},
         ]},
       ],
@@ -6013,26 +5848,26 @@ const renderers = {
         // SH 4 \u2014 Gatorade \u00d7 6 off-category (sport drinks belong on D4).
         // No backfill on this shelf \u2014 repositioning shifts D6 to juice/dairy only.
         {tier:'eye-level', tiles:[
-          {name:'Gatorade Lemon Lime',format:'28oz bottle',cost:'2.50',facings:1,width:3.5,status:'keep'},
-          {name:'Gatorade Cool Blue',format:'28oz bottle',cost:'2.50',facings:1,width:3.5,status:'keep'},
-          {name:'Gatorade Glacier Freeze',format:'28oz bottle',cost:'2.50',facings:1,width:3.5,status:'keep'},
-          {name:'Gatorade Fruit Punch',format:'28oz bottle',cost:'2.50',facings:1,width:3.5,status:'keep'},
-          {name:'Gatorade Orange',format:'28oz bottle',cost:'2.50',facings:1,width:3.5,status:'keep'},
-          {name:'Gatorade Riptide Rush',format:'28oz bottle',cost:'2.50',facings:1,width:3.5,status:'keep'},
-          {name:'Gatorade Zero Orange',format:'28oz bottle',cost:'2.25',facings:1,width:3.5,status:'keep'},
-          {name:'Gatorade Zero Grape',format:'28oz bottle',cost:'2.25',facings:1,width:3.5,status:'keep'},
-          {name:'Gatorade Zero Cherry',format:'28oz bottle',cost:'2.25',facings:1,width:3.5,status:'keep'},
+          {name:'Gatorade Lemon Lime',format:'28oz bottle',cost:'2.50',facings:1,width:3.5,status:'remove'},
+          {name:'Gatorade Cool Blue',format:'28oz bottle',cost:'2.50',facings:1,width:3.5,status:'remove'},
+          {name:'Gatorade Glacier Freeze',format:'28oz bottle',cost:'2.50',facings:1,width:3.5,status:'remove'},
+          {name:'Gatorade Fruit Punch',format:'28oz bottle',cost:'2.50',facings:1,width:3.5,status:'remove'},
+          {name:'Gatorade Orange',format:'28oz bottle',cost:'2.50',facings:1,width:3.5,status:'remove'},
+          {name:'Gatorade Riptide Rush',format:'28oz bottle',cost:'2.50',facings:1,width:3.5,status:'remove'},
+          {name:'Gatorade Zero Orange',format:'28oz bottle',cost:'2.25',facings:1,width:3.5,status:'remove'},
+          {name:'Gatorade Zero Grape',format:'28oz bottle',cost:'2.25',facings:1,width:3.5,status:'remove'},
+          {name:'Gatorade Zero Cherry',format:'28oz bottle',cost:'2.25',facings:1,width:3.5,status:'remove'},
         ]},
         // SH 3 \u2014 Pure 15.2oz commodity juice (all dropped Schedule A). NEW: premium cold-pressed + smoothie.
         // Trimmed to ~10 facings on each side so the shelf fits the 30" cooler door without overflow.
         {tier:'mid-reach', tiles:[
-          {name:'Pure Orange Juice',format:'15.2oz bottle',cost:'2.49',facings:2,status:'keep'},
-          {name:'Pure Apple Juice',format:'15.2oz bottle',cost:'2.49',facings:2,status:'keep'},
-          {name:'Pure Lemon-Lime',format:'15.2oz bottle',cost:'2.49',facings:2,status:'keep'},
-          {name:'Pure Fruit Punch',format:'15.2oz bottle',cost:'2.49',facings:1,status:'keep'},
-          {name:'Pure Pineapple',format:'15.2oz bottle',cost:'2.49',facings:1,status:'keep'},
-          {name:'Pure Apple Cranberry',format:'15.2oz bottle',cost:'2.49',facings:1,status:'keep'},
-          {name:'Pure Pink Grapefruit',format:'15.2oz bottle',cost:'2.49',facings:1,status:'keep'},
+          {name:'Pure Orange Juice',format:'15.2oz bottle',cost:'2.49',facings:2,status:'remove'},
+          {name:'Pure Apple Juice',format:'15.2oz bottle',cost:'2.49',facings:2,status:'remove'},
+          {name:'Pure Lemon-Lime',format:'15.2oz bottle',cost:'2.49',facings:2,status:'remove'},
+          {name:'Pure Fruit Punch',format:'15.2oz bottle',cost:'2.49',facings:1,status:'remove'},
+          {name:'Pure Pineapple',format:'15.2oz bottle',cost:'2.49',facings:1,status:'remove'},
+          {name:'Pure Apple Cranberry',format:'15.2oz bottle',cost:'2.49',facings:1,status:'remove'},
+          {name:'Pure Pink Grapefruit',format:'15.2oz bottle',cost:'2.49',facings:1,status:'remove'},
         ]},
         // SH 2 \u2014 low-reach: AriZona large + Simply cartons + Mott's + eggs (all kept)
         {tier:'low-reach', tiles:[
@@ -6056,7 +5891,7 @@ const renderers = {
           {name:'Colby Jack Shredded',format:'8oz bag',cost:'4.99',facings:1,status:'keep'},
           {name:'Land O Lakes Butter',format:'1lb sticks',cost:'5.99',facings:1,status:'keep'},
           {name:'Land O Lakes Unsalted',format:'1lb sticks',cost:'5.99',facings:1,status:'keep'},
-          {name:'Imperial Spread',format:'1lb sticks',cost:'2.99',facings:3,status:'keep'},
+          {name:'Imperial Spread',format:'1lb sticks',cost:'2.99',facings:3,status:'remove'},
           {name:'Dean\u2019s French Onion Dip',format:'8oz tub',cost:'2.99',facings:1,status:'keep'},
         ]},
       ],
@@ -6103,8 +5938,8 @@ const renderers = {
         {tier:'eye-up-top', tiles:[
           {name:'Two Hearted IPA',format:'6-pk btl',cost:'10.50',facings:1,status:'keep'},
           {name:'Two Hearted American IPA',format:'6-pk btl',cost:'10.50',facings:1,status:'keep'},
-          {name:'Not readable',format:'6-pk btl',cost:'9.00',facings:1,status:'keep'},
-          {name:'Not readable',format:'6-pk btl',cost:'10.00',facings:1,status:'keep'},
+          {name:'Not readable',format:'6-pk btl',cost:'9.00',facings:1,status:'remove'},
+          {name:'Not readable',format:'6-pk btl',cost:'10.00',facings:1,status:'remove'},
           {name:'Goose Island IPA',format:'6-pk btl',cost:'9.50',facings:1,status:'new'},
           {name:'Half Acre Daisy Cutter',format:'6-pk btl',cost:'10.50',facings:1,status:'new'},
         ]},
@@ -6121,7 +5956,7 @@ const renderers = {
           {name:'Ayinger Celebrator',format:'4-pk btl',cost:'12.50',facings:1,status:'keep'},
           {name:'Sapporo Premium',format:'24oz can',cost:'2.50',facings:2,status:'keep'},
           {name:'Sapporo Premium',format:'6-pk can',cost:'10.50',facings:1,status:'keep'},
-          {name:'Not readable',format:'6-pk can',cost:'10.50',facings:1,status:'keep'},
+          {name:'Not readable',format:'6-pk can',cost:'10.50',facings:1,status:'remove'},
           {name:'Estrella Jalisco',format:'6-pk can',cost:'10.50',facings:1,status:'new'},
         ]},
         // SH 3 \u2014 Two Brothers + Boulevard + Peroni (all clearly visible)
@@ -6136,17 +5971,17 @@ const renderers = {
         // Bell's Two Hearted 4-pk + Modelo Especial 12oz single (high-velocity replacements).
         {tier:'low-reach', tiles:[
           {name:'Asahi Super Dry',format:'6-pk btl',cost:'10.50',facings:1,status:'keep'},
-          {name:'Not readable',format:'4-pk can',cost:'10.00',facings:1,status:'keep'},
+          {name:'Not readable',format:'4-pk can',cost:'10.00',facings:1,status:'remove'},
           {name:'Half Acre Ghost',format:'6-pk can',cost:'10.00',facings:1,status:'keep'},
           {name:'Top Note',format:'4-pk btl',cost:'9.50',facings:1,status:'keep'},
-          {name:'Not readable',format:'12oz btl single',cost:'2.00',facings:2,status:'keep'},
+          {name:'Not readable',format:'12oz btl single',cost:'2.00',facings:2,status:'remove'},
           {name:'Bell\u2019s Two Hearted',format:'4-pk can',cost:'10.00',facings:1,status:'new'},
           {name:'Modelo Especial',format:'12oz btl single',cost:'2.00',facings:2,status:'new'},
         ]},
         // SH 1 \u2014 kick-plate macro 12-pks + 30-pk + 24-pk
         {tier:'kick-plate', tiles:[
           {name:'Goose 312 Urban Wheat',format:'12-pk can',cost:'13.00',facings:1,status:'keep'},
-          {name:'Natural Ice',format:'30-pk can',cost:'18.00',facings:1,status:'keep'},
+          {name:'Natural Ice',format:'30-pk can',cost:'18.00',facings:1,status:'remove'},
           {name:'Modelo Especial',format:'12-pk can',cost:'13.50',facings:1,status:'keep'},
           {name:'Pabst Blue Ribbon',format:'24-pk can',cost:'18.00',facings:1,status:'keep'},
         ]},
@@ -6187,7 +6022,7 @@ const renderers = {
           {name:'Two Hearted Pale Ale',format:'6-pk btl',cost:'9.50',facings:1,status:'keep'},
           {name:'Fist City Pale Ale',format:'6-pk can',cost:'9.00',facings:1,status:'keep'},
           {name:'Sapporo',format:'12-pk can',cost:'13.00',facings:1,status:'keep'},
-          {name:'Busch Light',format:'30-pk can',cost:'18.50',facings:1,status:'keep'},
+          {name:'Busch Light',format:'30-pk can',cost:'18.50',facings:1,status:'remove'},
         ]},
       ],
       
@@ -6240,7 +6075,7 @@ const renderers = {
           {name:'Heineken',format:'4-pk btl',cost:'7.00',facings:1,status:'keep'},
         ]},
         {tier:'mid-reach', tiles:[
-          {name:'Miller Genuine Draft',format:'12-pk btl',cost:'12.00',facings:1,status:'keep'},
+          {name:'Miller Genuine Draft',format:'12-pk btl',cost:'12.00',facings:1,status:'remove'},
           {name:'Athletic Run Wild',format:'N.A. IPA 6-pk',cost:'10.50',facings:1,status:'new'},
           {name:'Athletic Free Wave',format:'N.A. Hazy IPA 6-pk',cost:'10.50',facings:1,status:'new'},
           {name:'Athletic Upside Dawn',format:'N.A. Golden 6-pk',cost:'10.50',facings:1,status:'new'},
@@ -6249,9 +6084,9 @@ const renderers = {
           {name:'Miller Lite',format:'18-pk can',cost:'17.50',facings:1,status:'keep'},
         ]},
         {tier:'kick-plate', tiles:[
-          {name:'Old Style',format:'30-pk can',cost:'17.50',facings:1,status:'keep'},
-          {name:'Busch Light',format:'30-pk can',cost:'17.00',facings:1,status:'keep'},
-          {name:'Coors Light',format:'30-pk can',cost:'21.00',facings:1,status:'keep'},
+          {name:'Old Style',format:'30-pk can',cost:'17.50',facings:1,status:'remove'},
+          {name:'Busch Light',format:'30-pk can',cost:'17.00',facings:1,status:'remove'},
+          {name:'Coors Light',format:'30-pk can',cost:'21.00',facings:1,status:'remove'},
           {name:'Modelo Especial',format:'Variety 12-pk can',cost:'16.50',facings:1,status:'new'},
           {name:'Corona Premier',format:'12-pk can',cost:'16.00',facings:1,status:'new'},
           {name:'Corona Refresca',format:'Variety 12-pk',cost:'17.00',facings:1,status:'new'},
@@ -6286,7 +6121,7 @@ const renderers = {
           {name:'Modelo Negra',format:'12-pk btl',cost:'14.50',facings:1,status:'keep'},
           {name:'Miller High Life',format:'12-pk btl',cost:'14.50',facings:1,status:'keep'},
           {name:'Labatt Blue',format:'15-pk can',cost:'14.00',facings:1,status:'keep'},
-          {name:'Busch',format:'12-pk can',cost:'13.00',facings:1,status:'keep'},
+          {name:'Busch',format:'12-pk can',cost:'13.00',facings:1,status:'remove'},
         ]},
         {tier:'eye-level', tiles:[
           {name:'Victoria',format:'12-pk can',cost:'13.00',facings:1,status:'keep'},
@@ -6319,7 +6154,7 @@ const renderers = {
           {name:'Beer Hug Megapack',format:'15-pk can',cost:'14.00',facings:1,status:'keep'},
           {name:'Voodoo Ranger Imperial IPA',format:'6-pk can',cost:'9.00',facings:1,status:'keep'},
           {name:'Yuengling Lager',format:'12-pk btl',cost:'14.50',facings:1,status:'keep'},
-          {name:'Old Style',format:'12-pk can',cost:'13.00',facings:1,status:'keep'},
+          {name:'Old Style',format:'12-pk can',cost:'13.00',facings:1,status:'remove'},
           {name:'Pabst Blue Ribbon',format:'12-pk can',cost:'13.00',facings:1,status:'keep'},
           {name:'Blue Moon Belgian White',format:'6-pk btl',cost:'9.50',facings:1,status:'keep'},
         ]},
@@ -6377,7 +6212,7 @@ const renderers = {
           {name:'Goose 312 Blonde',format:'12oz can',cost:'1.10',facings:1,status:'keep'},
           {name:'Sapporo Premium',format:'12oz can',cost:'1.10',facings:1,status:'keep'},
           {name:'Founders Centennial IPA',format:'12oz can',cost:'1.10',facings:1,status:'keep'},
-          {name:'[unreadable]',format:'12oz can',cost:'1.10',facings:1,status:'keep'},
+          {name:'[unreadable]',format:'12oz can',cost:'1.10',facings:1,status:'remove'},
         ]},
         {tier:'mid-reach', tiles:[
           {name:'Kona Big Wave',format:'12oz can',cost:'1.10',facings:1,status:'keep'},
@@ -6394,15 +6229,15 @@ const renderers = {
         {tier:'kick-plate', tiles:[
           {name:'Yuengling Traditional Lager',format:'12oz can',cost:'1.10',facings:1,status:'keep'},
           {name:'Victoria',format:'12oz can',cost:'1.10',facings:1,status:'keep'},
-          {name:'[unreadable]',format:'12oz can',cost:'1.10',facings:1,status:'keep'},
+          {name:'[unreadable]',format:'12oz can',cost:'1.10',facings:1,status:'remove'},
           {name:'Tecate',format:'12oz can',cost:'1.10',facings:1,status:'keep'},
           {name:'Miller Lite',format:'12oz can',cost:'1.10',facings:1,status:'keep'},
           {name:'Miller High Life',format:'12oz can',cost:'1.10',facings:1,status:'keep'},
           {name:'Founders Pale Ale',format:'12oz can',cost:'1.10',facings:1,status:'keep'},
           {name:'Labatt Blue',format:'12oz can',cost:'1.10',facings:1,status:'keep'},
-          {name:'Busch Light',format:'12oz can',cost:'1.10',facings:1,status:'keep'},
-          {name:'Natural Ice',format:'12oz can',cost:'1.10',facings:1,status:'keep'},
-          {name:'Old Style',format:'12oz can',cost:'1.10',facings:1,status:'keep'},
+          {name:'Busch Light',format:'12oz can',cost:'1.10',facings:1,status:'remove'},
+          {name:'Natural Ice',format:'12oz can',cost:'1.10',facings:1,status:'remove'},
+          {name:'Old Style',format:'12oz can',cost:'1.10',facings:1,status:'remove'},
         ]},
       ],
       // D14 \u2014 Beer + RTD Singles. PHOTO-VERIFIED: 7 shelves, ~8 cans across.
@@ -6424,7 +6259,7 @@ const renderers = {
           {name:'Mike\u2019s Hard Lemonade',format:'24oz can',cost:'1.85',facings:1,status:'keep'},
           {name:'Twisted Tea',format:'24oz can',cost:'1.85',facings:1,status:'keep'},
           {name:'Natural Light',format:'24oz can',cost:'1.10',facings:1,status:'keep'},
-          {name:'Bud Ice',format:'24oz can',cost:'1.10',facings:1,status:'keep'},
+          {name:'Bud Ice',format:'24oz can',cost:'1.10',facings:1,status:'remove'},
           {name:'Budweiser',format:'24oz can',cost:'1.50',facings:1,status:'keep'},
           {name:'Coors Original',format:'24oz can',cost:'1.50',facings:1,status:'keep'},
           {name:'Coors Light',format:'24oz can',cost:'1.50',facings:1,status:'keep'},
@@ -6526,8 +6361,8 @@ const renderers = {
       'D15': [
         // SH 5 \u2014 macro singles + tallboys (BEFORE state per D15.JPEG)
         {tier:'cap', tiles:[
-          {name:'Bud Light',format:'12oz btl single',cost:'1.50',facings:2,status:'keep'},
-          {name:'Coors Banquet',format:'24oz tallboy',cost:'1.85',facings:2,status:'keep'},
+          {name:'Bud Light',format:'12oz btl single',cost:'1.50',facings:2,status:'remove'},
+          {name:'Coors Banquet',format:'24oz tallboy',cost:'1.85',facings:2,status:'remove'},
           {name:'Budweiser',format:'12oz btl single',cost:'1.50',facings:1,status:'keep'},
           {name:'Smirnoff Ice',format:'11.2oz btl',cost:'2.20',facings:1,status:'keep'},
           {name:'AriZona Hard',format:'24oz can',cost:'2.50',facings:1,status:'keep'},
@@ -6555,8 +6390,8 @@ const renderers = {
         ]},
         // SH 1 \u2014 18-pk macro value tier (kick-plate, BEFORE state)
         {tier:'low-reach', tiles:[
-          {name:'Bud Light',format:'18-pk can',cost:'17.50',facings:2,status:'keep'},
-          {name:'Coors Light',format:'18-pk can',cost:'17.50',facings:2,status:'keep'},
+          {name:'Bud Light',format:'18-pk can',cost:'17.50',facings:2,status:'remove'},
+          {name:'Coors Light',format:'18-pk can',cost:'17.50',facings:2,status:'remove'},
         ]},
       ],
       
@@ -6564,12 +6399,12 @@ const renderers = {
       'D16': [
         // SH 6 — top cap: legacy bottle singles + AriZona Hard (REMOVE — relocate to D15)
         {tier:'cap', tiles:[
-          {name:'AriZona Hard MuchoMango',format:'24oz can',cost:'2.50',facings:1,status:'keep'},
-          {name:'Hard Mtn Dew',format:'24oz can',cost:'2.50',facings:1,status:'keep'},
-          {name:'Corona Familiar',format:'12oz btl',cost:'1.85',facings:1,status:'keep'},
-          {name:'Pacifico',format:'12oz btl',cost:'1.85',facings:1,status:'keep'},
-          {name:'Modelo Especial',format:'12oz btl',cost:'1.85',facings:1,status:'keep'},
-          {name:'Victoria',format:'12oz btl',cost:'1.85',facings:1,status:'keep'},
+          {name:'AriZona Hard MuchoMango',format:'24oz can',cost:'2.50',facings:1,status:'remove'},
+          {name:'Hard Mtn Dew',format:'24oz can',cost:'2.50',facings:1,status:'remove'},
+          {name:'Corona Familiar',format:'12oz btl',cost:'1.85',facings:1,status:'remove'},
+          {name:'Pacifico',format:'12oz btl',cost:'1.85',facings:1,status:'remove'},
+          {name:'Modelo Especial',format:'12oz btl',cost:'1.85',facings:1,status:'remove'},
+          {name:'Victoria',format:'12oz btl',cost:'1.85',facings:1,status:'remove'},
           {name:'High Noon Vodka',format:'Variety 12-pk (expand to top)',cost:'19.50',facings:2,status:'expand'},
         ]},
         // SH 5 \u2014 High Noon 8-pk variety lineup (was duplicate of SH 6 cap row, replaced).
@@ -6611,12 +6446,12 @@ const renderers = {
       'D17': [
         // SH 6 — top cap: legacy commodity bubbly singles (Schedule A drops)
         {tier:'cap', tiles:[
-          {name:'Frexnet',format:'750ml',cost:'9.00',facings:1,status:'keep'},
+          {name:'Frexnet',format:'750ml',cost:'9.00',facings:1,status:'remove'},
           {name:'JCB Crémant',format:'750ml',cost:'14.00',facings:1,status:'keep'},
-          {name:'Cook’s Brut',format:'750ml',cost:'7.00',facings:1,status:'keep'},
+          {name:'Cook’s Brut',format:'750ml',cost:'7.00',facings:1,status:'remove'},
           {name:'Korbel Brut',format:'750ml',cost:'11.00',facings:2,status:'keep'},
-          {name:'Cook’s Brut Rosé',format:'750ml',cost:'7.00',facings:1,status:'keep'},
-          {name:'Andre Brut',format:'750ml',cost:'6.00',facings:1,status:'keep'},
+          {name:'Cook’s Brut Rosé',format:'750ml',cost:'7.00',facings:1,status:'remove'},
+          {name:'Andre Brut',format:'750ml',cost:'6.00',facings:1,status:'remove'},
           {name:'Domaine Sainte-Marie rosé',format:'750ml',cost:'14.00',facings:1,status:'expand'},
         ]},
         // SH 5 eye-up: Chandon Brut + Korbel Brut bottles (BEFORE legacy stock per photo).
@@ -6662,7 +6497,7 @@ const renderers = {
           {name:'Chandon Brut',format:'750ml',cost:'18.00',facings:2,status:'keep'},
           {name:'Chandon Rosé',format:'750ml',cost:'19.00',facings:1,status:'keep'},
           {name:'Mionetto Prosecco',format:'750ml',cost:'13.00',facings:2,status:'keep'},
-          {name:'Cook’s Brut',format:'750ml',cost:'7.00',facings:1,status:'keep'},
+          {name:'Cook’s Brut',format:'750ml',cost:'7.00',facings:1,status:'remove'},
         ]},
         // SH 5 eye-up: Chandon Rosé bottle stock (BEFORE legacy stock per photo).
         {tier:'eye-up', tiles:[
@@ -7196,7 +7031,7 @@ const renderers = {
       {section:'TOP — OVERHEAD STORAGE', tier:'eye-up', rows:[
         {name:'Cigarette cartons', format:'Marlboro Reds / Lights / Newport / Camel', status:'keep'},
         {name:'Cigarette cartons', format:'American Spirit / Parliament', status:'keep'},
-        {name:'Hookah / Shisha', format:'Loose-pack tobacco', status:'keep'},
+        {name:'Hookah / Shisha', format:'Loose-pack tobacco', status:'remove'},
       ]},
       // SH 4 — Lottery + scratch-offs
       {section:'LOTTERY + SCRATCH', tier:'eye-level', rows:[
@@ -7221,10 +7056,10 @@ const renderers = {
       // SH 2 — Counter accessories / sundries / health
       {section:'ACCESSORIES + SUNDRIES + OTC HEALTH', tier:'low-reach', rows:[
         {name:'Trojan condoms', format:'3-pk + 12-pk', status:'keep'},
-        {name:'Pipe screens / glass pipes', format:'Display rack', status:'keep'},
-        {name:'CD holders', format:'20-CD case', status:'keep'},
+        {name:'Pipe screens / glass pipes', format:'Display rack', status:'remove'},
+        {name:'CD holders', format:'20-CD case', status:'remove'},
         {name:'Phone chargers / charging cables', format:'USB-A / USB-C / Lightning', status:'expand'},
-        {name:'Wired earbuds', format:'Generic 3.5mm', status:'keep'},
+        {name:'Wired earbuds', format:'Generic 3.5mm', status:'remove'},
         {name:'Hand sanitizer', format:'8oz bottle (Protech)', status:'keep'},
         {name:'Tylenol single-dose', format:'2-ct foil pack', status:'keep'},
         {name:'Advil single-dose', format:'2-ct foil pack', status:'keep'},
@@ -7332,7 +7167,7 @@ const renderers = {
       ]},
       // SH 4 — Mid-tier reds (Bordeaux / Cab / Pinot)
       {section:'MID-TIER REDS', tier:'eye-level', rows:[
-        {name:'Taylor Port', format:'750ml', status:'keep'},
+        {name:'Taylor Port', format:'750ml', status:'remove'},
         {name:'Starborough Sauvignon Blanc', format:'750ml', status:'keep'},
         {name:'De Loach Heritage Reserve Cabernet', format:'750ml', status:'keep'},
         {name:'De Loach Pinot Noir', format:'750ml', status:'keep'},
@@ -7343,7 +7178,7 @@ const renderers = {
         {name:'Apothic Red', format:'750ml', status:'keep'},
         {name:'Apothic Dark', format:'750ml', status:'keep'},
         {name:'Caligore Cabernet', format:'750ml', status:'keep'},
-        {name:'Big Cat Cabernet', format:'750ml', status:'keep'},
+        {name:'Big Cat Cabernet', format:'750ml', status:'remove'},
       ]},
       // SH 3 — 19 Crimes / Mark West / Carnivor / Edna Valley
       {section:'POPULAR LABELS', tier:'mid-reach', rows:[
@@ -7367,22 +7202,22 @@ const renderers = {
         {name:'Cupcake Chardonnay', format:'750ml', status:'keep'},
         {name:'Casillero del Diablo Cabernet', format:'750ml', status:'keep'},
         {name:'Casillero del Diablo Sauvignon Blanc', format:'750ml', status:'keep'},
-        {name:'Lucky 7 Cabernet', format:'750ml', status:'keep'},
-        {name:'Hot Chicks Riesling', format:'750ml', status:'keep'},
+        {name:'Lucky 7 Cabernet', format:'750ml', status:'remove'},
+        {name:'Hot Chicks Riesling', format:'750ml', status:'remove'},
         {name:'Banon d\u2019Alsace Riesling', format:'750ml', status:'keep'},
       ]},
       // SH 1 (BOTTOM / KICK) — Sangria / Specialty / Rose
       {section:'SANGRIA + SPECIALTY + ROS\u00c9', tier:'kick-plate', rows:[
         {name:'Madria Sangria Rojo', format:'750ml', status:'keep'},
-        {name:'Capriccio Bubbly Sangria', format:'750ml', status:'keep'},
-        {name:'Mirassou Pinot Noir', format:'750ml', status:'keep'},
-        {name:'Yellowtail Pinot Grigio', format:'750ml', status:'keep'},
-        {name:'Yellowtail Cabernet', format:'750ml', status:'keep'},
-        {name:'Beringer White Zinfandel', format:'750ml', status:'keep'},
-        {name:'Sutter Home White Zinfandel', format:'750ml', status:'keep'},
-        {name:'Barefoot Pinot Grigio', format:'750ml', status:'keep'},
-        {name:'Barefoot Moscato', format:'750ml', status:'keep'},
-        {name:'Bota Box Pinot Grigio', format:'750ml', status:'keep'},
+        {name:'Capriccio Bubbly Sangria', format:'750ml', status:'remove'},
+        {name:'Mirassou Pinot Noir', format:'750ml', status:'remove'},
+        {name:'Yellowtail Pinot Grigio', format:'750ml', status:'remove'},
+        {name:'Yellowtail Cabernet', format:'750ml', status:'remove'},
+        {name:'Beringer White Zinfandel', format:'750ml', status:'remove'},
+        {name:'Sutter Home White Zinfandel', format:'750ml', status:'remove'},
+        {name:'Barefoot Pinot Grigio', format:'750ml', status:'remove'},
+        {name:'Barefoot Moscato', format:'750ml', status:'remove'},
+        {name:'Bota Box Pinot Grigio', format:'750ml', status:'remove'},
         {name:'Dark Horse Pinot Grigio', format:'750ml', status:'keep'},
         {name:'Dark Horse Rose', format:'750ml', status:'keep'},
       ]},
@@ -7672,21 +7507,21 @@ const renderers = {
         {name:'Big Cat', format:'Cabernet', cost:'5.50', facings:1, status:'keep'},
       ]},
       {tier:'low-reach', tiles: [
-        {name:'Yellow Tail', format:'Cab / Pinot Grigio / Shiraz', cost:'4.50', facings:6, status:'keep'},
-        {name:'Barefoot', format:'Pinot Grigio / Moscato', cost:'4.50', facings:4, status:'keep'},
-        {name:'Sutter Home', format:'White Zinfandel', cost:'4.50', facings:2, status:'keep'},
-        {name:'Beringer', format:'White Zinfandel', cost:'4.50', facings:2, status:'keep'},
-        {name:'Bota Box', format:'Pinot Grigio', cost:'4.50', facings:2, status:'keep'},
-        {name:'Hot Chicks', format:'Riesling', cost:'5.95', facings:1, status:'keep'},
-        {name:'Lucky 7', format:'Cabernet', cost:'5.50', facings:1, status:'keep'},
+        {name:'Yellow Tail', format:'Cab / Pinot Grigio / Shiraz', cost:'4.50', facings:6, status:'remove'},
+        {name:'Barefoot', format:'Pinot Grigio / Moscato', cost:'4.50', facings:4, status:'remove'},
+        {name:'Sutter Home', format:'White Zinfandel', cost:'4.50', facings:2, status:'remove'},
+        {name:'Beringer', format:'White Zinfandel', cost:'4.50', facings:2, status:'remove'},
+        {name:'Bota Box', format:'Pinot Grigio', cost:'4.50', facings:2, status:'remove'},
+        {name:'Hot Chicks', format:'Riesling', cost:'5.95', facings:1, status:'remove'},
+        {name:'Lucky 7', format:'Cabernet', cost:'5.50', facings:1, status:'remove'},
       ]},
       {tier:'kick-plate', tiles: [
         {name:'Madria Sangria', format:'Rojo + Bubbly', cost:'5.95', facings:2, status:'keep'},
-        {name:'Capriccio', format:'Bubbly Sangria', cost:'5.95', facings:2, status:'keep'},
-        {name:'Mirassou', format:'Pinot Noir', cost:'5.95', facings:1, status:'keep'},
+        {name:'Capriccio', format:'Bubbly Sangria', cost:'5.95', facings:2, status:'remove'},
+        {name:'Mirassou', format:'Pinot Noir', cost:'5.95', facings:1, status:'remove'},
         {name:'Cupcake Prosecco', format:'750ml', cost:'9.50', facings:1, status:'keep'},
         {name:'Banon d’Alsace', format:'Riesling', cost:'8.00', facings:1, status:'keep'},
-        {name:'Taylor Port', format:'Black 750ml', cost:'8.00', facings:2, status:'keep'},
+        {name:'Taylor Port', format:'Black 750ml', cost:'8.00', facings:2, status:'remove'},
       ]},
     ];
     // AFTER: ~80-90 SKU curated reset — drop Schedule A commodity, layer in natural/biodynamic
@@ -8146,104 +7981,99 @@ const renderers = {
     // implicit \u2014 just product adjacency tells the customer where to look.
     const g3Shelves = [
       // ============================================================
-      // G3 — REPOSITIONED (Phase 22: A=Premium chocolate · B=Cleaning essentials · C1=Paper 3' · C2=Pet 3')
-      // 5 shelves \u00d7 4 sections (A 4' / B 3' / C1 3' / C2 3') = ~14 SKUs/shelf
-      // All tiles status:'new' \u2014 entire G3 face is new product (Schedule A drops legacy cleaning/wine)
+      // G3 — REPOSITIONED (12-section strategy: A=Premium chocolate · B=International snacks · C=Functional/CBD)
+      // Replaces legacy 4-zone snack-pantry grid (now archived)
+      // 5 shelves × 3 sections × ~4 SKUs/section = ~60 SKUs total
       // ============================================================
 
-      // SH 5 — eye-up: PREMIUM / display tier per section
+      // SH 5 — eye-up: PREMIUM tier per section
       {tier:'eye-up', tiles: [
         // ----- G3A: Premium chocolate flagship -----
-        {name:'Tony\u2019s Choc',  format:'Caramel Sea Salt 6.35oz', cost:'4.99', facings:2, status:'new'},
-        {name:'Tony\u2019s Choc',  format:'Hazelnut 6.35oz',         cost:'4.99', facings:2, status:'new'},
-        {name:'Endang. Spec.',      format:'Sea Salt Almond 3oz',     cost:'3.99', facings:1, status:'new'},
-        {name:'Hu Kitchen',         format:'Crunchy Mint Dark 2.1oz', cost:'4.99', facings:1, status:'new'},
-        // ----- G3B: Cleaning premium / display -----
-        {name:'Lysol Wipes',        format:'Lemon 80-ct canister',    cost:'5.99', facings:2, status:'new'},
-        {name:'Clorox Wipes',       format:'Fresh Scent 75-ct',       cost:'5.99', facings:1, status:'new'},
-        {name:'Mr. Clean Magic',    format:'Eraser Original 4-ct',    cost:'4.99', facings:1, status:'new'},
-        // ----- G3C1: Paper premium / large -----
-        {name:'Solo Red Cups',      format:'18oz 16-ct',              cost:'4.49', facings:2, status:'new'},
-        {name:'Solo Clear Cups',    format:'12oz Plastic 20-ct',      cost:'3.99', facings:1, status:'new'},
-        // ----- G3C2: Pet treats / display -----
-        {name:'Greenies',           format:'Dental Treats Reg 6oz',   cost:'6.99', facings:2, status:'new'},
-        {name:'Beggin\u2019 Strips',format:'Bacon 6oz',              cost:'4.99', facings:1, status:'new'},
+        {name:'Tony\u2019s Choc',  format:'Caramel Sea Salt', cost:'4.99', facings:2, status:'new'},
+        {name:'Tony\u2019s Choc',  format:'Hazelnut',          cost:'4.99', facings:2, status:'new'},
+        {name:'Endang. Spec.',      format:'Sea Salt Almond',   cost:'3.99', facings:1, status:'new'},
+        {name:'Hu Kitchen',         format:'Crunchy Mint Dark', cost:'4.99', facings:1, status:'new'},
+        // ----- G3B: International premium snacks -----
+        {name:'Calbee',             format:'Shrimp Chips',      cost:'3.99', facings:2, status:'new'},
+        {name:'Calbee',             format:'Yuzukosho',         cost:'3.99', facings:1, status:'new'},
+        {name:'Pocky',              format:'Chocolate',         cost:'2.99', facings:2, status:'new'},
+        {name:'Pocky',              format:'Strawberry',        cost:'2.99', facings:1, status:'new'},
+        // ----- G3C: Premium adaptogen / CBD shots -----
+        {name:'Magic Mind',         format:'Productivity 2oz',  cost:'9.99', facings:2, status:'new'},
+        {name:'Magic Mind',         format:'Sleep 2oz',         cost:'9.99', facings:1, status:'new'},
+        {name:'Recess CBD',         format:'Grapefruit Rosemary',cost:'4.99', facings:2, status:'new'},
+        {name:'Recess CBD',         format:'Pomegranate Hibiscus',cost:'4.99', facings:1, status:'new'},
       ]},
 
       // SH 4 — eye-level: ANCHOR velocity per section
       {tier:'eye-level', tiles: [
-        // ----- G3A: Chocolate anchor wall -----
-        {name:'Tony\u2019s Choc',  format:'Milk Chocolate 6.35oz',   cost:'4.49', facings:2, status:'new'},
-        {name:'Tony\u2019s Choc',  format:'Dark Almond SS 6.35oz',   cost:'4.99', facings:2, status:'new'},
-        {name:'Endang. Spec.',      format:'Dark Chocolate 3oz',      cost:'3.99', facings:2, status:'new'},
-        {name:'Hu Kitchen',         format:'Almond Butter Dark 2.1oz',cost:'4.99', facings:1, status:'new'},
-        // ----- G3B: Cleaning anchors (Dawn + Bounty + Lysol) -----
-        {name:'Dawn Dish Soap',     format:'Original 12.6oz',         cost:'3.49', facings:2, status:'new'},
-        {name:'Bounty Paper Twl',   format:'Select-a-Size 1-roll',    cost:'3.99', facings:2, status:'new'},
-        {name:'Lysol Spray',        format:'Disinfectant 12.5oz',     cost:'6.99', facings:1, status:'new'},
-        // ----- G3C1: Paper plates + napkins anchors -----
-        {name:'Dixie Plates',       format:'Heavyweight 8.5" 22-ct', cost:'3.49', facings:2, status:'new'},
-        {name:'Bounty Napkins',     format:'White 200-ct',            cost:'3.99', facings:1, status:'new'},
-        // ----- G3C2: Pet wet-food anchors (highest velocity) -----
-        {name:'Friskies Pate',      format:'Liver & Chicken 5.5oz',   cost:'0.99', facings:3, status:'new'},
-        {name:'Fancy Feast',        format:'Classic Pate Tuna 3oz',   cost:'1.49', facings:2, status:'new'},
+        // ----- G3A: Tony\u2019s anchor wall + complementary -----
+        {name:'Tony\u2019s Choc',  format:'Milk Chocolate',    cost:'4.49', facings:2, status:'new'},
+        {name:'Tony\u2019s Choc',  format:'Dark Almond Sea Salt',cost:'4.99', facings:2, status:'new'},
+        {name:'Endang. Spec.',      format:'Dark Chocolate',    cost:'3.99', facings:2, status:'new'},
+        {name:'Hu Kitchen',         format:'Almond Butter Dark',cost:'4.99', facings:1, status:'new'},
+        // ----- G3B: Hi-Chew + Doritos Mexicanas -----
+        {name:'Hi-Chew',            format:'Strawberry',        cost:'2.49', facings:2, status:'new'},
+        {name:'Hi-Chew',            format:'Mango',             cost:'2.49', facings:2, status:'new'},
+        {name:'Doritos Mexicanas',  format:'Tikis Lime',        cost:'3.49', facings:2, status:'new'},
+        {name:'Sabritas',           format:'Adobadas variety',  cost:'3.49', facings:1, status:'new'},
+        // ----- G3C: RX Bar + functional CBD anchor -----
+        {name:'RX Bar',             format:'Choc Sea Salt',     cost:'2.49', facings:3, status:'new'},
+        {name:'RX Bar',             format:'PB Choc',           cost:'2.49', facings:2, status:'new'},
+        {name:'Drink Recess',       format:'CBD Sparkling',     cost:'3.99', facings:1, status:'new'},
+        {name:'Sunday Scaries',     format:'CBD Gummies',       cost:'19.99',facings:1, status:'new'},
       ]},
 
       // SH 3 — mid-reach: VARIETY tier per section
       {tier:'mid-reach', tiles: [
-        // ----- G3A: Value / lower-sugar chocolate -----
-        {name:'Lily\u2019s Sweets',format:'Dark Choc Stevia 3oz',    cost:'4.49', facings:1, status:'new'},
-        {name:'Justin\u2019s',     format:'Dark Choc PB Cups 1.4oz', cost:'2.49', facings:2, status:'new'},
-        {name:'Theo',               format:'Salted Almond Dark 3oz',  cost:'4.49', facings:1, status:'new'},
-        // ----- G3B: Cleaning variety -----
-        {name:'Glass Plus',         format:'Glass Cleaner 32oz',      cost:'4.49', facings:1, status:'new'},
-        {name:'Comet Cleanser',     format:'Powder 14oz',             cost:'2.49', facings:1, status:'new'},
-        {name:'409 Spray',          format:'Multi-Surface 32oz',      cost:'4.99', facings:1, status:'new'},
-        {name:'Sponges',            format:'Scotch-Brite 2-pk',       cost:'2.99', facings:2, status:'new'},
-        // ----- G3C1: Plastic cutlery + foil mid-shelf -----
-        {name:'Hefty Forks',        format:'Plastic Heavy 48-ct',     cost:'2.99', facings:1, status:'new'},
-        {name:'Hefty Spoons',       format:'Plastic Heavy 48-ct',     cost:'2.99', facings:1, status:'new'},
-        {name:'Hefty Knives',       format:'Plastic Heavy 48-ct',     cost:'2.99', facings:1, status:'new'},
-        // ----- G3C2: Dry pet food bags (mid-shelf so heavy-but-reachable) -----
-        {name:'Pedigree Adult',     format:'Roasted Chicken 3.5lb',   cost:'7.99', facings:1, status:'new'},
-        {name:'Friskies Surfin\u2019',format:'Surf & Turf 3.15lb dry',cost:'6.99', facings:1, status:'new'},
+        // ----- G3A: Lower-sugar + value premium chocolate -----
+        {name:'Lily\u2019s Sweets',format:'Dark Choc Stevia',  cost:'4.49', facings:2, status:'new'},
+        {name:'Lily\u2019s Sweets',format:'Choc Chips Stevia', cost:'4.99', facings:1, status:'new'},
+        {name:'Justin\u2019s',     format:'Dark Choc PB Cups', cost:'2.49', facings:2, status:'new'},
+        {name:'Theo',               format:'Salted Almond Dark',cost:'4.49', facings:1, status:'new'},
+        // ----- G3B: International chips + sweets variety -----
+        {name:'Pop-Tarts',          format:'Frosted Strawberry',cost:'3.99', facings:1, status:'new'},
+        {name:'Cape Cod',           format:'Original chips',    cost:'3.99', facings:2, status:'new'},
+        {name:'Pretzel Crisps',     format:'Original',          cost:'3.49', facings:1, status:'new'},
+        {name:'Stacy\u2019s',      format:'Pita Chips Naked',  cost:'3.99', facings:2, status:'new'},
+        // ----- G3C: Functional bars + adaptogen secondary -----
+        {name:'Quest',              format:'Cookies & Cream Bar',cost:'2.99', facings:2, status:'new'},
+        {name:'Quest',              format:'Birthday Cake Bar', cost:'2.99', facings:1, status:'new'},
+        {name:'Built Bar',          format:'Coconut Almond',    cost:'2.99', facings:1, status:'new'},
+        {name:'Bulletproof',        format:'Collagen bar',      cost:'3.49', facings:1, status:'new'},
       ]},
 
       // SH 2 — low-reach: SECONDARY tier per section
       {tier:'low-reach', tiles: [
         // ----- G3A: Specialty chocolate variety -----
-        {name:'Endang. Spec.',      format:'Bug Bites Variety 4oz',   cost:'4.49', facings:1, status:'new'},
-        {name:'Justin\u2019s',     format:'Almond Butter Cups 1.4oz',cost:'2.49', facings:1, status:'new'},
-        // ----- G3B: Bleach + bulk cleaning -----
-        {name:'Clorox Bleach',      format:'Concentrate 32oz',        cost:'3.49', facings:2, status:'new'},
-        {name:'Pine-Sol',           format:'Original 28oz',           cost:'4.99', facings:1, status:'new'},
-        {name:'Febreze',            format:'Air Effects 8.8oz',       cost:'4.49', facings:1, status:'new'},
-        // ----- G3C1: Foil + wrap + storage bags -----
-        {name:'Reynolds Wrap',      format:'Aluminum Foil 25 sq ft',  cost:'3.49', facings:1, status:'new'},
-        {name:'Glad Cling Wrap',    format:'Plastic 200 sq ft',       cost:'3.99', facings:1, status:'new'},
-        {name:'Ziploc Sandwich',    format:'Bags 50-ct',              cost:'3.49', facings:2, status:'new'},
-        {name:'Ziploc Storage',     format:'Quart 25-ct',             cost:'3.99', facings:1, status:'new'},
-        // ----- G3C2: Pet treats + small toys low-reach -----
-        {name:'Milk-Bone Sm',       format:'Original Small 24oz',     cost:'4.99', facings:1, status:'new'},
-        {name:'Pup-Peroni',         format:'Original 5.6oz',          cost:'4.99', facings:1, status:'new'},
-        {name:'Temptations',        format:'Cat Treats 3oz',          cost:'2.49', facings:2, status:'new'},
-        {name:'Catnip Mouse',       format:'Plush Toy single',        cost:'3.99', facings:1, status:'new'},
+        {name:'Endang. Spec.',      format:'Bug Bites Variety', cost:'4.49', facings:1, status:'new'},
+        {name:'Justin\u2019s',     format:'Almond Butter Cups',cost:'2.49', facings:1, status:'new'},
+        {name:'Hu Kitchen',         format:'Hazelnut Butter Dark',cost:'4.99', facings:1, status:'new'},
+        // ----- G3B: International variety -----
+        {name:'Stacy\u2019s',      format:'Cinnamon Sugar',    cost:'3.99', facings:1, status:'new'},
+        {name:'Sweet Chaos',        format:'Caramel Popcorn',   cost:'3.49', facings:1, status:'new'},
+        {name:'Maruchan',           format:'Chicken cup',       cost:'1.49', facings:2, status:'new'},
+        {name:'Trader Joe\u2019s', format:'Mango Sticky Rice', cost:'4.99', facings:1, status:'new'},
+        // ----- G3C: Bars + supplements secondary -----
+        {name:'GoMacro',            format:'Macrobar variety',  cost:'2.99', facings:1, status:'new'},
+        {name:'Larabar',            format:'Cashew Cookie',     cost:'1.99', facings:1, status:'new'},
+        {name:'Larabar',            format:'Apple Pie',         cost:'1.99', facings:1, status:'new'},
+        {name:'Belvita',            format:'Blueberry breakfast bites',cost:'1.99', facings:1, status:'new'},
       ]},
 
-      // SH 1 — kick-plate: BULK / heavy items per section
+      // SH 1 — kick-plate: BULK / multi-pack per section
       {tier:'kick-plate', tiles: [
         // ----- G3A: Multi-pack chocolate -----
-        {name:'Tony\u2019s Choc',  format:'6-pack box (gift)',       cost:'27.99',facings:1, status:'new'},
-        {name:'Hu Kitchen',         format:'Salty Caramel 4-pk',      cost:'17.99',facings:1, status:'new'},
-        // ----- G3B: Bulk trash bags + heavy cleaning -----
-        {name:'Hefty Trash Bags',   format:'Kitchen 13gal 30-ct',     cost:'8.99', facings:1, status:'new'},
-        {name:'Glad Small Bags',    format:'4gal 30-ct',              cost:'3.49', facings:1, status:'new'},
-        // ----- G3C1: Bulk paper towels + napkins -----
-        {name:'Bounty Paper Twl',   format:'Select-a-Size 2-roll',    cost:'7.49', facings:1, status:'new'},
-        // ----- G3C2: Cat litter + potty pads (heaviest) -----
-        {name:'Tidy Cats',          format:'Clumping Litter 7lb jug', cost:'8.99', facings:1, status:'new'},
-        {name:'Frisco Potty Pads',  format:'Training Pads 10-ct',     cost:'6.99', facings:1, status:'new'},
-        {name:'Purina Cat Chow',    format:'Complete 3.15lb',         cost:'7.99', facings:1, status:'new'},
+        {name:'Tony\u2019s Choc',  format:'6-pack box (gift)', cost:'27.99',facings:1, status:'new'},
+        {name:'Hu Kitchen',         format:'Salty Caramel 4-pk',cost:'17.99',facings:1, status:'new'},
+        // ----- G3B: Bulk international -----
+        {name:'Calbee',             format:'Yaki-imo 12-pk',    cost:'15.99',facings:1, status:'new'},
+        {name:'Pop-Tarts',          format:'Variety 12-pk',     cost:'5.49', facings:1, status:'new'},
+        {name:'Pocky',              format:'Variety multi-pk',  cost:'12.99',facings:1, status:'new'},
+        // ----- G3C: Bulk functional bars -----
+        {name:'Quest',              format:'Cookies & Cream 12-pk',cost:'29.99',facings:1, status:'new'},
+        {name:'RX Bar',             format:'Choc Sea Salt 12-pk',cost:'27.99',facings:1, status:'new'},
+        {name:'Built Bar',          format:'Variety 12-pk',     cost:'29.99',facings:1, status:'new'},
       ]},
     ];
 
@@ -8384,8 +8214,8 @@ const renderers = {
     <!-- G3 face -->
     <div style="margin-bottom:24px;">
       <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;border-bottom:2px solid var(--purple);padding-bottom:5px;">
-        <h3 style="font-size:15px;color:#fff;letter-spacing:0.5px;">G3 \u2014 Customer-side face (REPOSITIONED: A=Premium chocolate \u00b7 B=Cleaning essentials \u00b7 C1=Paper 3\u2032 \u00b7 C2=Pet 3\u2032)</h3>
-        <div style="font-size:10px;color:var(--muted);font-family:monospace;letter-spacing:1px;">12 FT \u00b7 5 SHELVES \u00b7 4 sections (C split)</div>
+        <h3 style="font-size:15px;color:#fff;letter-spacing:0.5px;">G3 \u2014 Customer-side face (REPOSITIONED: A=Premium chocolate \u00b7 B=International snacks \u00b7 C=Functional/CBD)</h3>
+        <div style="font-size:10px;color:var(--muted);font-family:monospace;letter-spacing:1px;">12 FT \u00b7 5 SHELVES \u00b7 4 zones</div>
       </div>
       
       <!-- 12-Section strategy band for G3 -->
@@ -8407,15 +8237,15 @@ const renderers = {
               <div><span style="font-family:monospace;font-size:13px;font-weight:700;color:#fff;letter-spacing:1px;">B</span><span style="font-size:8.5px;color:var(--muted);font-family:monospace;letter-spacing:0.8px;margin-left:5px;">MIDDLE (~4 ft)</span></div>
               <span style="font-family:monospace;font-size:9.5px;color:#afa9ec;font-weight:700;">40–48%</span>
             </div>
-            <div style="font-size:11.5px;font-weight:600;color:#fff;line-height:1.2;">Cleaning essentials (minimal)</div>
-            <div style="font-size:9.5px;color:var(--muted);line-height:1.35;">Dawn · Lysol Wipes · Bounty · Hefty trash bags · Clorox</div>
+            <div style="font-size:11.5px;font-weight:600;color:#fff;line-height:1.2;">International snacks</div>
+            <div style="font-size:9.5px;color:var(--muted);line-height:1.35;">Calbee · Pocky · Hi-Chew · Doritos Mexicanas</div>
           </div><div style="background:rgba(255,255,255,0.03);border:1px solid var(--border);border-left:3px solid #afa9ec;border-radius:5px;padding:8px 11px;display:flex;flex-direction:column;gap:3px;">
             <div style="display:flex;align-items:baseline;justify-content:space-between;gap:6px;">
-              <div><span style="font-family:monospace;font-size:13px;font-weight:700;color:#fff;letter-spacing:1px;">C</span><span style="font-size:8.5px;color:var(--muted);font-family:monospace;letter-spacing:0.8px;margin-left:5px;">NORTH (~6 ft, split)</span></div>
-              <span style="font-family:monospace;font-size:9.5px;color:#afa9ec;font-weight:700;">25–35%</span>
+              <div><span style="font-family:monospace;font-size:13px;font-weight:700;color:#fff;letter-spacing:1px;">C</span><span style="font-size:8.5px;color:var(--muted);font-family:monospace;letter-spacing:0.8px;margin-left:5px;">NORTH (~4 ft)</span></div>
+              <span style="font-family:monospace;font-size:9.5px;color:#afa9ec;font-weight:700;">50–60%</span>
             </div>
-            <div style="font-size:11.5px;font-weight:600;color:#fff;line-height:1.2;">C1 Paper goods (3′) + C2 Pet supplies (3′)</div>
-            <div style="font-size:9.5px;color:var(--muted);line-height:1.35;">Solo cups · Dixie · Hefty cutlery · Friskies · Pedigree · Tidy Cats</div>
+            <div style="font-size:11.5px;font-weight:600;color:#fff;line-height:1.2;">Functional / CBD / adaptogen</div>
+            <div style="font-size:9.5px;color:var(--muted);line-height:1.35;">Recess CBD · Sunday Scaries · RX · Magic Mind</div>
           </div>
         </div>
       </div>
@@ -9326,8 +9156,8 @@ const renderers = {
         <div class="val">$39,027</div>
       </div>
       <div class="stat">
-        <div class="label">Minimal Schedule A excl. (Uptown policy)</div>
-        <div class="val">~$2,400</div>
+        <div class="label">Schedule A removals</div>
+        <div class="val">$31,028</div>
       </div>
       <div class="stat">
         <div class="label">SBA 7(a) capacity</div>
@@ -11010,45 +10840,6 @@ document.getElementById('prev-btn').addEventListener('click', () => goTo(current
 document.getElementById('next-btn').addEventListener('click', () => goTo(currentSlide + 1));
 
 // Expose goTo globally for inline onclick handlers from rendered HTML
-
-// ============================================================
-// MOBILE — sidebar drawer toggle + auto-close on nav tap
-// ============================================================
-window.toggleMobileMenu = function() {
-  var sb = document.getElementById('sidebar');
-  var ov = document.getElementById('mobile-overlay');
-  var body = document.body;
-  if (!sb || !ov) { console.warn('Sidebar/overlay missing'); return; }
-  var isMobile = window.matchMedia('(max-width: 768px)').matches;
-  if (isMobile) {
-    // Mobile: slide-in overlay drawer
-    var isOpen = sb.classList.toggle('open');
-    ov.classList.toggle('open', isOpen);
-  } else {
-    // Desktop: shrink the sidebar to width 0 (flex flow), let main expand
-    body.classList.toggle('sidebar-collapsed');
-    try { localStorage.setItem('sidebarCollapsed', body.classList.contains('sidebar-collapsed') ? '1' : '0'); } catch (e) {}
-  }
-};
-
-// Restore desktop sidebar collapsed state on load
-(function restoreSidebarState() {
-  try {
-    if (localStorage.getItem('sidebarCollapsed') === '1' && !window.matchMedia('(max-width: 768px)').matches) {
-      document.body.classList.add('sidebar-collapsed');
-    }
-  } catch (e) {}
-})();
-document.addEventListener('click', function(e) {
-  if (!e.target || !e.target.closest) return;
-  var navItem = e.target.closest('#sidebar .nav-item');
-  if (navItem && window.matchMedia('(max-width: 768px)').matches) {
-    var sb = document.getElementById('sidebar');
-    var ov = document.getElementById('mobile-overlay');
-    if (sb) sb.classList.remove('open');
-    if (ov) ov.classList.remove('open');
-  }
-});
 window.goToSlide = function(slideId) {
   const idx = slides.findIndex(s => s.id === slideId);
   if (idx >= 0) {
@@ -11065,6 +10856,23 @@ window.goToSlide = function(slideId) {
     }, 50);
   }
 };
+
+// Phase 6 H2 — Touch devices: after touchend, fire any inline onmouseout
+// handler so the stuck-hover highlight clears 250ms after the user taps.
+// Without this, every tappable row/chip stays highlighted until the user taps
+// somewhere else.
+document.addEventListener('touchend', function (e) {
+  if (!e.target || !e.target.closest) return;
+  var el = e.target.closest('[onmouseout]');
+  if (!el) return;
+  setTimeout(function () {
+    try {
+      var attr = el.getAttribute('onmouseout');
+      if (attr) new Function(attr).call(el);
+    } catch (err) { /* swallow — best-effort hover-reset */ }
+  }, 250);
+}, { passive: true });
+
 
 // ============================================================
 // PHASE 13 — Floor Plan Editor (drag / resize / rotate gizmos)
@@ -11729,6 +11537,7 @@ window.cwEditor = (function () {
 
   window.cwUptown = { sortBy, sortByCol, exportCsv, render, highlightCat, _init: tryInit };
 })();
+
 
 
 

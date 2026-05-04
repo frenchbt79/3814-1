@@ -2,7 +2,14 @@
   "appName": "3814 Repositioning App",
   "appRoot": "C:\\Users\\bfren\\Desktop\\All Apps\\3814_Bodega_Project\\3814 Repositioning App",
   "latestFile": "index.html",
+  "iphoneFile": "iphone.html",
   "archiveDir": "archives",
   "docsDir": "docs",
-  "bootstrapped": "2026-05-02"
+  "bootstrapped": "2026-05-02",
+  "currentVersion": "v37",
+  "currentPhase": "Phase 22",
+  "lastUpdated": "2026-05-04",
+  "skuCount": 340,
+  "distributorCount": 7,
+  "distributors": ["CBS", "BREAKTHRU", "EBY-BROWN", "REYES", "LAKESHORE", "KEHE", "DIRECT"]
 }
