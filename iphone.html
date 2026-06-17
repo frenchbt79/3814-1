@@ -477,7 +477,6 @@
 
 const slides = [
   { id: 'title', section: '1 · Vision & Thesis', label: 'Title', type: 'hero' },
-  { id: 'thesis', section: '1 · Vision & Thesis', label: 'Repositioning thesis', type: 'thesis' },
   { id: 'trends', section: '1 · Vision & Thesis', label: 'Market trends (deep)', type: 'trends' },
   { id: 'competitive-set', section: '1 · Vision & Thesis', label: '🥊 Competitive set + pricing', type: 'competitive-set' },
   { id: 'game-day-demand', section: '1 · Vision & Thesis', label: '⚾ Wrigley game-day demand model', type: 'game-day-demand' },
@@ -506,7 +505,6 @@ const slides = [
   { id: 'fresh-food-program', section: '4 · Operations & Compliance', label: '🥪 Fresh food program (Hannah’s)', type: 'fresh-food-program' },
   { id: 'brand-identity', section: '5 · Marketing & Brand', label: '🎨 Brand identity + signage + name', type: 'brand-identity' },
   { id: 'hotel-partnerships', section: '5 · Marketing & Brand', label: '🏨 Hotel partnership pipeline', type: 'hotel-partnerships' },
-  { id: 'loyalty-program', section: '5 · Marketing & Brand', label: '🎟️ Loyalty + email/SMS capture', type: 'loyalty-program' },
   { id: 'social-media', section: '5 · Marketing & Brand', label: '📱 Social media strategy', type: 'social-media' },
   { id: 'tasting-events', section: '5 · Marketing & Brand', label: '🍷 Beer/wine tasting events', type: 'tasting-events' },
   { id: 'door-d1', section: '6 · Cooler Wall', label: 'D1 — Pepsi-Coke CSD', type: 'door-d1' },
@@ -539,7 +537,7 @@ const slides = [
   { id: 'endcap-g25', section: '8 · Center Gondolas', label: '   ⤷ G2.5 endcap (Late-Night Fuel)', type: 'endcap-g25' },
   { id: 'elev-g3', section: '8 · Center Gondolas', label: 'G3 — Customer-side face (Chocolate · Cleaning · Paper · Pet)', type: 'elev-g3' },
   { id: 'elev-g4', section: '8 · Center Gondolas', label: 'G4 — Back-side face (Curated wine · Sake/Shochu · Mixers)', type: 'elev-g4' },
-  { id: 'gondolas-back', section: '8 · Center Gondolas', label: 'G3 + G4 — Back gondola (combined SVG)', type: 'gondolas-back' },
+
   { id: 'endcap-g35', section: '8 · Center Gondolas', label: '   ⤷ G3.5 endcap (Adaptogen Discovery)', type: 'endcap-g35' },
   { id: 'elev-oc1', section: '9 · Counter & Wall Shelves', label: 'OC-1 — Over-counter (behind cashier)', type: 'elev-oc1' },
   { id: 'elev-bc1', section: '9 · Counter & Wall Shelves', label: 'BC-1 — Back liquor wall', type: 'elev-bc1' },
@@ -576,7 +574,6 @@ const slides = [
   { id: 'financials', section: '12 · Financials', label: '36-month projection', type: 'financials' },
   { id: 'next', section: '13 · Action', label: 'Day-1 plan', type: 'next' },
 ];
-
 
 // ============================================================
 // MASTER SKU DATABASE — drives elevations + distributor packets
@@ -653,7 +650,6 @@ const SKUDB = [
 
 
 
-
   // BC-1 Shelf 7: Chicago Craft (restored — small dedicated section)
   {zone:'BC-1', fixture:'liquor-wall', dist:'LAKESHORE', shelf:7, sku:"Jeppson's Malört", size:'750ml', qty:18, unitCost:14.00, status:'EXPAND'},
   {zone:'BC-1', fixture:'liquor-wall', dist:'LAKESHORE', shelf:7, sku:'Koval Bourbon', size:'750ml', qty:8, unitCost:26.00, status:'NEW'},
@@ -693,7 +689,6 @@ const SKUDB = [
   {zone:'OC-1', fixture:'counter', dist:'EBY-BROWN', shelf:3, sku:'On! Nicotine + Velo + Lucy', size:'each', qty:48, unitCost:4.50, status:'NEW'},
   {zone:'OC-1', fixture:'counter', dist:'EBY-BROWN', shelf:3, sku:'BIC + Clipper lighters', size:'each', qty:60, unitCost:1.10, status:'CURRENT'},
   {zone:'OC-1', fixture:'counter', dist:'KEHE', shelf:3, sku:'Magic Mind / 5-Hour / Liquid IV singles', size:'each', qty:48, unitCost:2.50, status:'NEW'},
-
 
   // ============== BC-1 BACK COUNTER LIQUOR WALL (6 shelves × 9 ft) ==============
   // Shelf 1: 1.75L value + premium
@@ -1668,6 +1663,75 @@ const SKUDB = [
     {zone:'WR-1', fixture:'wine-wall', dist:'SG', shelf:1, sku:'Black Box Chardonnay (3L)', size:'3L box', qty:6, unitCost:16.0, status:'new'},
     {zone:'WR-1', fixture:'wine-wall', dist:'BREAKTHRU', shelf:1, sku:'Pét-Nat Rosé [natural]', size:'750ml', qty:4, unitCost:18.0, status:'new'},
 
+    // === Tier-1 attachment build 2026-06-16: bagged ice (IM-1) + full tobacco (OC-1) + cocktail mixers/garnish (MX-1) ===
+    {zone:'IM-1', fixture:'ice-merchandiser', dist:'EBY-BROWN', shelf:1, sku:'Reddy Ice 7 lb bag', size:'7 lb', qty:80, unitCost:1.1, status:'new'},
+    {zone:'IM-1', fixture:'ice-merchandiser', dist:'EBY-BROWN', shelf:1, sku:'Reddy Ice 10 lb bag', size:'10 lb', qty:80, unitCost:1.5, status:'new'},
+    {zone:'IM-1', fixture:'ice-merchandiser', dist:'EBY-BROWN', shelf:1, sku:'Reddy Ice 20 lb bag', size:'20 lb', qty:40, unitCost:2.75, status:'new'},
+    {zone:'IM-1', fixture:'ice-merchandiser', dist:'EBY-BROWN', shelf:1, sku:'Arctic Glacier Party Ice 10 lb', size:'10 lb', qty:40, unitCost:1.5, status:'new'},
+    {zone:'IM-1', fixture:'ice-merchandiser', dist:'EBY-BROWN', shelf:1, sku:'Block Ice 10 lb', size:'10 lb', qty:20, unitCost:2.25, status:'new'},
+    {zone:'OC-1', fixture:'counter', dist:'EBY-BROWN', shelf:1, sku:'Marlboro Red pack', size:'pack', qty:80, unitCost:8.0, status:'new'},
+    {zone:'OC-1', fixture:'counter', dist:'EBY-BROWN', shelf:1, sku:'Marlboro Gold pack', size:'pack', qty:50, unitCost:8.0, status:'new'},
+    {zone:'OC-1', fixture:'counter', dist:'EBY-BROWN', shelf:1, sku:'Marlboro Menthol pack', size:'pack', qty:40, unitCost:8.0, status:'new'},
+    {zone:'OC-1', fixture:'counter', dist:'EBY-BROWN', shelf:1, sku:'Marlboro 72s pack', size:'pack', qty:25, unitCost:7.75, status:'new'},
+    {zone:'OC-1', fixture:'counter', dist:'EBY-BROWN', shelf:1, sku:'Marlboro Smooth pack', size:'pack', qty:20, unitCost:8.0, status:'new'},
+    {zone:'OC-1', fixture:'counter', dist:'EBY-BROWN', shelf:1, sku:'Newport Menthol Box pack', size:'pack', qty:70, unitCost:8.25, status:'new'},
+    {zone:'OC-1', fixture:'counter', dist:'EBY-BROWN', shelf:1, sku:'Newport Menthol 100s pack', size:'pack', qty:40, unitCost:8.25, status:'new'},
+    {zone:'OC-1', fixture:'counter', dist:'EBY-BROWN', shelf:1, sku:'Camel Crush pack', size:'pack', qty:40, unitCost:7.75, status:'new'},
+    {zone:'OC-1', fixture:'counter', dist:'EBY-BROWN', shelf:1, sku:'Camel Blue pack', size:'pack', qty:25, unitCost:7.75, status:'new'},
+    {zone:'OC-1', fixture:'counter', dist:'EBY-BROWN', shelf:1, sku:'Camel Menthol pack', size:'pack', qty:20, unitCost:7.75, status:'new'},
+    {zone:'OC-1', fixture:'counter', dist:'EBY-BROWN', shelf:1, sku:'American Spirit Yellow pack', size:'pack', qty:30, unitCost:9.0, status:'new'},
+    {zone:'OC-1', fixture:'counter', dist:'EBY-BROWN', shelf:1, sku:'American Spirit Blue pack', size:'pack', qty:25, unitCost:9.0, status:'new'},
+    {zone:'OC-1', fixture:'counter', dist:'EBY-BROWN', shelf:1, sku:'Pall Mall Red pack', size:'pack', qty:40, unitCost:6.5, status:'new'},
+    {zone:'OC-1', fixture:'counter', dist:'EBY-BROWN', shelf:1, sku:'Lucky Strike pack', size:'pack', qty:20, unitCost:6.75, status:'new'},
+    {zone:'OC-1', fixture:'counter', dist:'EBY-BROWN', shelf:1, sku:'Maverick pack', size:'pack', qty:25, unitCost:6.0, status:'new'},
+    {zone:'OC-1', fixture:'counter', dist:'EBY-BROWN', shelf:1, sku:'Marlboro Red carton', size:'carton', qty:16, unitCost:78.0, status:'new'},
+    {zone:'OC-1', fixture:'counter', dist:'EBY-BROWN', shelf:1, sku:'Marlboro Gold carton', size:'carton', qty:10, unitCost:78.0, status:'new'},
+    {zone:'OC-1', fixture:'counter', dist:'EBY-BROWN', shelf:1, sku:'Newport carton', size:'carton', qty:12, unitCost:80.0, status:'new'},
+    {zone:'OC-1', fixture:'counter', dist:'EBY-BROWN', shelf:1, sku:'Camel carton', size:'carton', qty:8, unitCost:75.0, status:'new'},
+    {zone:'OC-1', fixture:'counter', dist:'EBY-BROWN', shelf:1, sku:'American Spirit carton', size:'carton', qty:5, unitCost:88.0, status:'new'},
+    {zone:'OC-1', fixture:'counter', dist:'EBY-BROWN', shelf:1, sku:'Pall Mall carton', size:'carton', qty:6, unitCost:62.0, status:'new'},
+    {zone:'OC-1', fixture:'counter', dist:'EBY-BROWN', shelf:1, sku:'Black & Mild Original single', size:'each', qty:120, unitCost:0.99, status:'new'},
+    {zone:'OC-1', fixture:'counter', dist:'EBY-BROWN', shelf:1, sku:'Black & Mild Wine single', size:'each', qty:80, unitCost:0.99, status:'new'},
+    {zone:'OC-1', fixture:'counter', dist:'EBY-BROWN', shelf:1, sku:'Swisher Sweets 2-pk', size:'2-pk', qty:90, unitCost:1.29, status:'new'},
+    {zone:'OC-1', fixture:'counter', dist:'EBY-BROWN', shelf:1, sku:'Backwoods Original 5-pk', size:'5-pk', qty:40, unitCost:5.5, status:'new'},
+    {zone:'OC-1', fixture:'counter', dist:'EBY-BROWN', shelf:1, sku:'Backwoods Honey 5-pk', size:'5-pk', qty:30, unitCost:5.5, status:'new'},
+    {zone:'OC-1', fixture:'counter', dist:'EBY-BROWN', shelf:1, sku:'Game Leaf cigarillos', size:'2-pk', qty:60, unitCost:0.99, status:'new'},
+    {zone:'OC-1', fixture:'counter', dist:'EBY-BROWN', shelf:1, sku:'Dutch Masters 2-pk', size:'2-pk', qty:40, unitCost:0.99, status:'new'},
+    {zone:'OC-1', fixture:'counter', dist:'EBY-BROWN', shelf:1, sku:'White Owl 2-pk', size:'2-pk', qty:40, unitCost:0.99, status:'new'},
+    {zone:'OC-1', fixture:'counter', dist:'EBY-BROWN', shelf:1, sku:'Zyn 6mg (Cool Mint/Citrus/Coffee)', size:'5-can', qty:60, unitCost:5.5, status:'new'},
+    {zone:'OC-1', fixture:'counter', dist:'EBY-BROWN', shelf:1, sku:'Zyn 3mg (Wintergreen/Spearmint)', size:'5-can', qty:40, unitCost:5.5, status:'new'},
+    {zone:'OC-1', fixture:'counter', dist:'EBY-BROWN', shelf:1, sku:'On! Pouches (Mint/Berry)', size:'each', qty:40, unitCost:4.5, status:'new'},
+    {zone:'OC-1', fixture:'counter', dist:'EBY-BROWN', shelf:1, sku:'Velo Pouches', size:'each', qty:30, unitCost:4.5, status:'new'},
+    {zone:'OC-1', fixture:'counter', dist:'EBY-BROWN', shelf:1, sku:'Rogue Pouches', size:'each', qty:24, unitCost:4.25, status:'new'},
+    {zone:'OC-1', fixture:'counter', dist:'EBY-BROWN', shelf:1, sku:'Breeze Pro disposable', size:'each', qty:24, unitCost:13.5, status:'new'},
+    {zone:'OC-1', fixture:'counter', dist:'EBY-BROWN', shelf:1, sku:'Funky Republic Ti7000', size:'each', qty:24, unitCost:14.5, status:'new'},
+    {zone:'OC-1', fixture:'counter', dist:'EBY-BROWN', shelf:1, sku:'Juul device + pods', size:'each', qty:18, unitCost:18.95, status:'new'},
+    {zone:'OC-1', fixture:'counter', dist:'EBY-BROWN', shelf:1, sku:'Vuse Alto pods', size:'each', qty:24, unitCost:14.5, status:'new'},
+    {zone:'OC-1', fixture:'counter', dist:'EBY-BROWN', shelf:1, sku:'RAW Classic rolling papers', size:'each', qty:48, unitCost:1.95, status:'new'},
+    {zone:'OC-1', fixture:'counter', dist:'EBY-BROWN', shelf:1, sku:'Zig-Zag rolling papers', size:'each', qty:48, unitCost:1.75, status:'new'},
+    {zone:'OC-1', fixture:'counter', dist:'EBY-BROWN', shelf:1, sku:'RAW pre-rolled cones (3-pk)', size:'3-pk', qty:36, unitCost:2.95, status:'new'},
+    {zone:'OC-1', fixture:'counter', dist:'EBY-BROWN', shelf:1, sku:'Clipper lighter', size:'each', qty:60, unitCost:1.95, status:'new'},
+    {zone:'OC-1', fixture:'counter', dist:'EBY-BROWN', shelf:1, sku:'BIC lighter 5-pk rack', size:'5-pk', qty:24, unitCost:4.5, status:'new'},
+    {zone:'MX-1', fixture:'mixer-shelf', dist:'BREAKTHRU', shelf:1, sku:'Rose\'s Grenadine', size:'12oz', qty:18, unitCost:3.5, status:'new'},
+    {zone:'MX-1', fixture:'mixer-shelf', dist:'BREAKTHRU', shelf:1, sku:'Angostura Aromatic Bitters', size:'4oz', qty:10, unitCost:7.0, status:'new'},
+    {zone:'MX-1', fixture:'mixer-shelf', dist:'BREAKTHRU', shelf:1, sku:'Peychaud\'s Bitters', size:'5oz', qty:8, unitCost:8.0, status:'new'},
+    {zone:'MX-1', fixture:'mixer-shelf', dist:'BREAKTHRU', shelf:1, sku:'Master of Mixes Margarita Mix', size:'1L', qty:18, unitCost:4.5, status:'new'},
+    {zone:'MX-1', fixture:'mixer-shelf', dist:'BREAKTHRU', shelf:1, sku:'Zing Zang Bloody Mary Mix', size:'32oz', qty:18, unitCost:4.5, status:'new'},
+    {zone:'MX-1', fixture:'mixer-shelf', dist:'BREAKTHRU', shelf:1, sku:'Finest Call Sweet & Sour', size:'1L', qty:12, unitCost:3.5, status:'new'},
+    {zone:'MX-1', fixture:'mixer-shelf', dist:'BREAKTHRU', shelf:1, sku:'Monin Simple Syrup', size:'750ml', qty:10, unitCost:4.0, status:'new'},
+    {zone:'MX-1', fixture:'mixer-shelf', dist:'BREAKTHRU', shelf:1, sku:'Rose\'s Lime Juice', size:'12oz', qty:18, unitCost:3.0, status:'new'},
+    {zone:'MX-1', fixture:'mixer-shelf', dist:'BREAKTHRU', shelf:1, sku:'ReaLemon Juice', size:'8oz', qty:12, unitCost:2.5, status:'new'},
+    {zone:'MX-1', fixture:'mixer-shelf', dist:'BREAKTHRU', shelf:1, sku:'ReaLime Juice', size:'8oz', qty:12, unitCost:2.5, status:'new'},
+    {zone:'MX-1', fixture:'mixer-shelf', dist:'BREAKTHRU', shelf:1, sku:'Coco Lopez Cream of Coconut', size:'15oz', qty:10, unitCost:3.5, status:'new'},
+    {zone:'MX-1', fixture:'mixer-shelf', dist:'BREAKTHRU', shelf:1, sku:'Luxardo Maraschino Cherries', size:'400g', qty:8, unitCost:12.0, status:'new'},
+    {zone:'MX-1', fixture:'mixer-shelf', dist:'BREAKTHRU', shelf:1, sku:'Filthy Cocktail Olives', size:'8oz', qty:12, unitCost:5.0, status:'new'},
+    {zone:'MX-1', fixture:'mixer-shelf', dist:'BREAKTHRU', shelf:1, sku:'Castelvetrano Olives (jar)', size:'8oz', qty:10, unitCost:4.5, status:'new'},
+    {zone:'MX-1', fixture:'mixer-shelf', dist:'BREAKTHRU', shelf:1, sku:'Margarita Rimming Salt', size:'6oz', qty:10, unitCost:3.0, status:'new'},
+    {zone:'MX-1', fixture:'mixer-shelf', dist:'BREAKTHRU', shelf:1, sku:'Demerara Sugar Cubes', size:'box', qty:8, unitCost:3.5, status:'new'},
+    {zone:'MX-1', fixture:'mixer-shelf', dist:'BREAKTHRU', shelf:1, sku:'Solo Red Cups 18oz (50-ct)', size:'50-ct', qty:30, unitCost:4.5, status:'new'},
+    {zone:'MX-1', fixture:'mixer-shelf', dist:'BREAKTHRU', shelf:1, sku:'Clear Party Cups 16oz (50-ct)', size:'50-ct', qty:18, unitCost:4.5, status:'new'},
+    {zone:'MX-1', fixture:'mixer-shelf', dist:'BREAKTHRU', shelf:1, sku:'Plastic Shot Cups (100-ct)', size:'100-ct', qty:18, unitCost:3.0, status:'new'},
+    {zone:'MX-1', fixture:'mixer-shelf', dist:'BREAKTHRU', shelf:1, sku:'Cocktail Picks / Stirrers', size:'pack', qty:12, unitCost:2.5, status:'new'},
 ];
 
 // PHASE 35: Comprehensive legacy tile inventory extracted from elevation arrays
@@ -1679,15 +1743,14 @@ const LEGACY_TILES = [
 // SLIDE RENDERERS
 // ============================================================
 
-
 // ============================================================
 // DISTRIBUTOR PACKET HELPERS
 // ============================================================
 const DIST_META = {
-  'BREAKTHRU':     {name:'Breakthru Beverage', color:'#8b9eff', accent:'rgba(139,158,255,0.12)', border:'rgba(139,158,255,0.5)', existing:0, newOrder:25407, total:25407, terms:'Net-15 per IL Liquor Control Act', delivery:'1-2x/week', contact:'(708) 271-2500', companyName:'Breakthru Beverage Illinois', hqAddress:'7400 N Industrial Dr, Cicero, IL 60804', hqPhone:'(708) 271-2500', website:'breakthrubev.com', portfolio:'Premium spirits (Casamigos, Don Julio, Clase Azul, Angel\'s Envy, Woodford) · Amari/aperitifs (Aperol, Campari, Fernet) · Wine (Caymus, Whispering Angel, Veuve Clicquot, La Marca) · RTDs (Cutwater, Surfside, NÜTRL, High Noon)'},
+  'BREAKTHRU':     {name:'Breakthru Beverage', color:'#8b9eff', accent:'rgba(139,158,255,0.12)', border:'rgba(139,158,255,0.5)', existing:0, newOrder:26557, total:26557, terms:'Net-15 per IL Liquor Control Act', delivery:'1-2x/week', contact:'(708) 271-2500', companyName:'Breakthru Beverage Illinois', hqAddress:'7400 N Industrial Dr, Cicero, IL 60804', hqPhone:'(708) 271-2500', website:'breakthrubev.com', portfolio:'Premium spirits (Casamigos, Don Julio, Clase Azul, Angel\'s Envy, Woodford) · Amari/aperitifs (Aperol, Campari, Fernet) · Wine (Caymus, Whispering Angel, Veuve Clicquot, La Marca) · RTDs (Cutwater, Surfside, NÜTRL, High Noon)'},
   'SG':            {name:"Southern Glazer's Wine & Spirits", color:'#f0997b', accent:'rgba(240,153,123,0.12)', border:'rgba(240,153,123,0.5)', existing:0, newOrder:12497, total:12497, terms:'Net-15 per IL Liquor Control Act', delivery:'1-2x/week', contact:'(847) 678-1234', companyName:"Southern Glazer's Wine & Spirits", hqAddress:'1830 Oakton St, Elk Grove Village, IL 60007', hqPhone:'(847) 671-7000', website:'southernglazers.com', portfolio:'Core spirits (Hennessy, Jack Daniel\'s, Crown Royal, Tito\'s, Grey Goose, Patrón) · Fireball (top-3 SKU in 60613) · Value bourbon/vodka · Sauv Blanc, Red Blends'},
   'LAKESHORE':     {name:'Lakeshore Beverage / Specialty', color:'#afa9ec', accent:'rgba(175,169,236,0.12)', border:'rgba(175,169,236,0.5)', existing:0, newOrder:11131, total:11131, terms:'Net-15 per IL Liquor Control Act', delivery:'1-2x/week (small order)', contact:'(630) 773-9323', companyName:'Lakeshore Beverage', hqAddress:'12530 W 159th St, Lemont, IL 60439', hqPhone:'(630) 773-9323', website:'lakeshorebev.com', portfolio:"Jeppson's Mal\u00f6rt (750ml + 50ml minis) \u00b7 Koval Bourbon \u00b7 FEW Spirits Bourbon \u00b7 Specialty Chicago craft spirits — small dedicated section on BC-1 wall."},
-  'EBY-BROWN':     {name:'Eby-Brown', color:'#f09595', accent:'rgba(240,149,149,0.12)', border:'rgba(240,149,149,0.5)', existing:0, newOrder:10182, total:10182, terms:'Net-15 to Net-30', delivery:'1-2x/week', contact:'(800) 532-9276', companyName:'Eby-Brown Company', hqAddress:'215 W Diehl Rd, Naperville, IL 60563', hqPhone:'(630) 778-2800', website:'ebybrown.com', portfolio:'Cigarettes (Marlboro, Newport, Camel, American Spirit) · Cigars (Black & Mild, Swisher, Backwoods) · Vape/nicotine (JUUL, NJOY, Zyn, On!, Velo) · Snacks (Doritos, Takis, Cheetos) · Candy · OTC · Energy shots · Lighters'},
+  'EBY-BROWN':     {name:'Eby-Brown', color:'#f09595', accent:'rgba(240,149,149,0.12)', border:'rgba(240,149,149,0.5)', existing:0, newOrder:22999, total:22999, terms:'Net-15 to Net-30', delivery:'1-2x/week', contact:'(800) 532-9276', companyName:'Eby-Brown Company', hqAddress:'215 W Diehl Rd, Naperville, IL 60563', hqPhone:'(630) 778-2800', website:'ebybrown.com', portfolio:'Cigarettes (Marlboro, Newport, Camel, American Spirit) · Cigars (Black & Mild, Swisher, Backwoods) · Vape/nicotine (JUUL, NJOY, Zyn, On!, Velo) · Snacks (Doritos, Takis, Cheetos) · Candy · OTC · Energy shots · Lighters'},
   'REYES':         {name:'Reyes Beverage Group (Chicago Beverage Systems + Reyes Coca-Cola)', color:'#efb045', accent:'rgba(239,176,69,0.12)', border:'rgba(239,176,69,0.5)', existing:0, newOrder:8983, total:8983, terms:'Net-15 beer, COD non-alc to start', delivery:'2-3x/week', contact:'(847) 678-9000', companyName:'Reyes Beverage Group', hqAddress:'6250 N River Rd, Rosemont, IL 60018', hqPhone:'(847) 678-9000', website:'reyesholdings.com', portfolio:'Molson Coors (Miller, Coors, Blue Moon) · Constellation (Modelo, Corona, Pacifico) · Heineken · Boston Beer (Twisted Tea, Truly) · White Claw · High Noon · Athletic Brewing NA · Goose Island · Half Acre · Revolution · Maplewood · Pipeworks · Coca-Cola full line · Vitaminwater · BodyArmor · Topo Chico'},
   'KEHE':          {name:'KeHE / UNFI (Specialty Food)', color:'#5dcaa5', accent:'rgba(93,202,165,0.12)', border:'rgba(93,202,165,0.5)', existing:0, newOrder:9186, total:9186, terms:'Net-30 after credit approval', delivery:'1x/week', contact:'KeHE: (800) 950-3322 / UNFI: (800) 451-2525', companyName:'KeHE Distributors', hqAddress:'1245 E Diehl Rd, Naperville, IL 60563', hqPhone:'(630) 343-1000', website:'kehe.com', portfolio:'Functional beverages (Olipop, Poppi, Liquid Death, GT\'s Synergy, Health-Ade) · Fresh food (sandwiches, salads, yogurt, charcuterie) · Premium snacks (Siete, Pipcorn, Hu, Chomps, RXBAR, David Protein) · Coffee (La Colombe, Stumptown) · Better-for-you mainstream chocolate (Tony\'s Chocolonely, Endangered Species) · Specialty cheese (Boursin, BelGioioso) · Hangover recovery (Liquid IV, LMNT, Pedialyte)'},
   'THC DIRECT':    {name:'THC Beverage Direct', color:'#afa9ec', accent:'rgba(175,169,236,0.12)', border:'rgba(175,169,236,0.5)', existing:0, newOrder:1729, total:1729, terms:'Net-30 after credit approval', delivery:'2-4 week reorder', contact:'WYNK / Plift / Cann / BRĒZ direct wholesale', companyName:'THC Beverage Direct (multi-brand)', hqAddress:'Direct wholesale: WYNK, Plift, Cann, BRĒZ', hqPhone:'(see brand sites)', website:'wynkdrinks.com / pliftbev.com / drinkcann.com', portfolio:'WYNK Delta-9 (Lime/Mango/Black Cherry) · Plift THC seltzer · Cann Social Tonic · BRĒZ cannabis-infused · Hi5 Seltzer · IL hemp-derived Delta-9 under 0.3% by dry weight, 21+ only'},
@@ -1828,7 +1891,6 @@ function renderDistPacket(packetKey) {
         </div>
       </div>
     </div>`;
-
 
   const fmt = n => '$' + Math.round(n).toLocaleString();
   const statusChip = (status) => {
@@ -2003,7 +2065,6 @@ function renderDistPacket(packetKey) {
 // ============================================================
 // Distributor packet renderers (one per distributor)
 // ============================================================
-
 
 // ============================================================
 // PURE TEXT ZONE BAND HELPERS — no SVG fixture frames
@@ -2867,6 +2928,184 @@ function renderTextShelfBand(shelf, idx, totalShelves, accent) {
 }
 
 // ============================================================
+// renderGondolaRealScale — fixed 4'(A/B/C) column BODEGA-DENSITY elevation
+// Same geometry as the static elev-g4 SVG so G1/G2 match G4:
+//   viewBox 0 0 994 485 · 1 in = 6 px · three 4'(48") columns = 12' total
+//   dashed dividers at the 4' & 8' marks, full height, aligned to A/B/C row.
+// Each product = ONE combined block (width = realWidth x facings x 6px) with
+// an "xN" facings badge (mirrors the door planograms). Packs to fit 48".
+// ============================================================
+function renderGondolaRealScale(opts) {
+  const { shelves, sectionLabels } = opts;
+  const PX = 6;                 // 1 inch = 6 px (matches G4)
+  const PLOT_X = 60;
+  const PLOT_Y = 75, ROW_H = 72;            // 12" x 6 per shelf
+  const tierName = { 'eye-up':'EYE-UP', 'eye-level':'EYE-LEVEL', 'mid-reach':'MID-REACH', 'low-reach':'LOW-REACH', 'kick-plate':'KICK-PLATE' };
+  const esc = (s) => String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  const PALETTE = ['#f0997b','#afa9ec','#5dcaa5','#85b7eb','#efb045'];
+
+  // --- Section layout: default three 4'(48") A/B/C columns; or caller-supplied ---
+  let sections;
+  if (opts.sections && opts.sections.length){
+    sections = opts.sections.map(function(s, idx){
+      return { key:s.key, label:s.label||'', widthInches:(s.widthInches||48), color:s.color||PALETTE[idx % PALETTE.length] };
+    });
+  } else {
+    const dfltColor = { A:'#f0997b', B:'#afa9ec', C:'#5dcaa5' };
+    sections = ['A','B','C'].map(function(k){
+      return { key:k, label:(sectionLabels && sectionLabels[k]) ? sectionLabels[k] : '', widthInches:48, color:dfltColor[k] };
+    });
+  }
+  // x-geometry: lay sections edge-to-edge starting at PLOT_X
+  let acc = PLOT_X;
+  sections.forEach(function(s){ s.x = acc; s.wpx = s.widthInches * PX; acc += s.wpx; });
+  const PLOT_W = acc - PLOT_X;                  // total plot width in px
+  const PLOT_R = PLOT_X + PLOT_W;               // right edge
+  const SECT_COLOR = {};
+  sections.forEach(function(s){ SECT_COLOR[s.key] = s.color; });
+
+  // feet-inches dimension label, e.g. 48 -> 4'-00", 24 -> 2'-00", 36 -> 3'-00"
+  const dimLbl = function(inch){ const ft = Math.floor(inch/12); const inr = inch - ft*12; return ft+"'-"+(inr<10?('0'+inr):inr)+'"'; };
+
+  let svg = '<svg viewBox="0 0 994 485" style="width:100%;display:block;font-family:Inter,sans-serif;"><defs>';
+  svg += '<marker id="arrLg" markerWidth="6" markerHeight="6" refX="0" refY="3" orient="auto"><polygon points="6,0 0,3 6,6" fill="currentColor"/></marker>';
+  svg += '<marker id="arrRg" markerWidth="6" markerHeight="6" refX="6" refY="3" orient="auto"><polygon points="0,0 6,3 0,6" fill="currentColor"/></marker>';
+  svg += '</defs>';
+
+  // Frame + dashed section dividers (full height, aligned to the header row)
+  svg += '<rect x="'+PLOT_X+'" y="75" width="'+PLOT_W+'" height="360" fill="rgba(8,12,18,0.65)" stroke="#afa9ec" stroke-width="2.5"/>';
+  for (let s=1; s<sections.length; s++){
+    const dx = sections[s].x;
+    svg += '<line x1="'+dx+'" y1="75" x2="'+dx+'" y2="435" stroke="rgba(255,255,255,0.35)" stroke-width="1.6" stroke-dasharray="5,3"/>';
+  }
+  // shelf separators
+  [363,291,219,147].forEach(function(yy){ svg += '<line x1="'+PLOT_X+'" y1="'+yy+'" x2="'+PLOT_R+'" y2="'+yy+'" stroke="rgba(255,255,255,0.18)" stroke-width="0.8"/>'; });
+
+  // Column header labels + dimension arrows (aligned over each section)
+  sections.forEach(function(s){
+    const cx = s.x + s.wpx/2;
+    svg += '<text x="'+cx.toFixed(1)+'" y="39" text-anchor="middle" fill="'+s.color+'" font-size="13" font-weight="700" font-family="monospace" letter-spacing="1">'+esc(s.key+' · '+String(s.label).toUpperCase())+'</text>';
+    svg += '<text x="'+cx.toFixed(1)+'" y="57" text-anchor="middle" fill="'+s.color+'" font-size="10" font-family="monospace" opacity="0.9">'+dimLbl(s.widthInches)+'</text>';
+    svg += '<line x1="'+(s.x+4)+'" y1="67" x2="'+(s.x+s.wpx-4)+'" y2="67" stroke="'+s.color+'" stroke-width="0.8" marker-start="url(#arrLg)" marker-end="url(#arrRg)"/>';
+  });
+
+  // Per-shelf left labels (SH 5 .. SH 1) + right "12"" brackets
+  for (let i=0; i<5; i++){
+    const sh = shelves[i] || { tier:'', tiles:[] };
+    const top = PLOT_Y + i*ROW_H;
+    const shNum = 5 - i;
+    svg += '<text x="52" y="'+(top+34)+'" text-anchor="end" fill="#fff" font-size="11" font-weight="700" font-family="monospace">SH '+shNum+'</text>';
+    svg += '<text x="52" y="'+(top+47)+'" text-anchor="end" fill="var(--muted)" font-size="8" font-family="monospace" letter-spacing="0.5">'+(tierName[sh.tier]||'')+'</text>';
+    svg += '<line x1="938" y1="'+top+'" x2="938" y2="'+(top+ROW_H)+'" stroke="var(--muted)" stroke-width="0.6"/>';
+    svg += '<line x1="935" y1="'+top+'" x2="941" y2="'+top+'" stroke="var(--muted)" stroke-width="0.6"/>';
+    svg += '<line x1="935" y1="'+(top+ROW_H)+'" x2="941" y2="'+(top+ROW_H)+'" stroke="var(--muted)" stroke-width="0.6"/>';
+    svg += '<text x="944" y="'+(top+ROW_H/2+3)+'" fill="var(--muted)" font-size="9" font-weight="600" font-family="monospace">12"</text>';
+  }
+  // overall 60" / 5'-0" bracket
+  svg += '<line x1="966" y1="75" x2="966" y2="435" stroke="var(--muted)" stroke-width="0.8"/>';
+  svg += '<line x1="962" y1="75" x2="970" y2="75" stroke="var(--muted)" stroke-width="0.8"/>';
+  svg += '<line x1="962" y1="435" x2="970" y2="435" stroke="var(--muted)" stroke-width="0.8"/>';
+  svg += '<text x="972" y="253" fill="var(--muted)" font-size="10" font-weight="700" font-family="monospace">60"</text>';
+  svg += '<text x="972" y="266" fill="var(--muted)" font-size="8" font-family="monospace">5\'-0"</text>';
+  // bottom 12'-0" bracket
+  svg += '<line x1="'+PLOT_X+'" y1="457" x2="'+PLOT_R+'" y2="457" stroke="var(--muted)" stroke-width="0.8"/>';
+  svg += '<line x1="'+PLOT_X+'" y1="453" x2="'+PLOT_X+'" y2="461" stroke="var(--muted)" stroke-width="0.8"/>';
+  svg += '<line x1="'+PLOT_R+'" y1="453" x2="'+PLOT_R+'" y2="461" stroke="var(--muted)" stroke-width="0.8"/>';
+  svg += '<text x="'+((PLOT_X+PLOT_R)/2).toFixed(1)+'" y="475" text-anchor="middle" fill="var(--muted)" font-size="11" font-weight="700" font-family="monospace">12\'-0" overall (144")</text>';
+
+  // section keys present, used for inference fallback
+  const sectKeys = sections.map(function(s){ return s.key; });
+
+  // ---- Products, packed column-by-column, shelf-by-shelf ----
+  for (let i=0; i<5; i++){
+    const sh = shelves[i] || { tiles:[] };
+    const top = PLOT_Y + i*ROW_H;
+    const rectY = top + 3, rectH = ROW_H - 3;       // small top inset, like G4
+    const tiles = (sh.tiles || []).filter(function(t){ return t && t.status !== 'empty' && t.status !== 'remove'; });
+
+    // when tiles carry no sect tag, infer it from the product name vs A/B/C
+    const anySect = tiles.some(function(t){ return t.sect; });
+    const inferSect = function(t){
+      const n = String(t.name||'').toLowerCase();
+      if (/buldak|shin|cup noodles|maruchan|annie|kraft|velveeta|banza|indomie|nongshim|samyang|mama|ramyun|ramen/.test(n)) return 'A';
+      if (/stumptown|la colombe|colombe|starbucks|dunkin|chameleon|high brew|rx bar|kind|belvita|quaker|califia|oatly|folgers|quest/.test(n)) return 'C';
+      return 'B';
+    };
+    // map a tile to one of the laid-out section keys (handles C->C1/C2 split for G3)
+    const tileSect = function(t){
+      let sk = anySect ? t.sect : inferSect(t);
+      if (sectKeys.indexOf(sk) !== -1) return sk;
+      // sk not a layout key (e.g. data tags 'C' but layout has C1/C2): keyword route
+      const blob = (String(t.name||'')+' '+String(t.format||'')).toLowerCase();
+      if (sk === 'C' && sectKeys.indexOf('C1') !== -1 && sectKeys.indexOf('C2') !== -1){
+        if (/friskies|fancy feast|pedigree|greenies|beggin|milk-?bone|pup-?peroni|temptations|catnip|tidy cats|potty pad|purina|cat chow|dog|pet|litter|treat/.test(blob)) return 'C2';
+        return 'C1';
+      }
+      // generic prefix fallback: tag 'C' lands in first section whose key starts with it
+      for (let k=0;k<sectKeys.length;k++){ if (sectKeys[k].charAt(0) === sk.charAt(0)) return sectKeys[k]; }
+      return sectKeys[0];
+    };
+
+    sections.forEach(function(sct){
+      const sec = sct.key;
+      const group = tiles.filter(function(t){ return tileSect(t) === sec; });
+      if (!group.length) return;
+
+      // raw real-scale widths (inches x facings x px); fill the section edge-to-edge
+      const PAD = 1.2;                          // px gap between blocks
+      const inset = 2;                          // px inset each side of the section
+      const usable = sct.wpx - inset*2;         // drawable width inside this section
+      const totalGap = PAD * (group.length - 1);
+      let raw = group.map(function(t){ return Math.max(8, inferWidth(t.format) * (t.facings||1) * PX); });
+      let rawSum = raw.reduce(function(a,b){ return a+b; }, 0);
+      // fill factor: scale blocks so they exactly span (usable - gaps) — fills empty space AND prevents overflow
+      let fill = rawSum > 0 ? (usable - totalGap) / rawSum : 1;
+      if (!isFinite(fill) || fill <= 0) fill = 1;
+
+      let x = sct.x + inset;
+      group.forEach(function(t, gi){
+        const w = raw[gi] * fill;
+        const cb = (typeof brandColor === 'function') ? brandColor(t.name) : null;
+        const fillc = (cb && cb.bg) ? cb.bg : sct.color;
+        const fillOp = (cb && cb.bg) ? '0.85' : '0.30';
+        const stroke = (cb && cb.bg) ? 'rgba(255,255,255,0.35)' : sct.color;
+        svg += '<rect x="'+x.toFixed(1)+'" y="'+rectY+'" width="'+w.toFixed(1)+'" height="'+rectH+'" fill="'+fillc+'" fill-opacity="'+fillOp+'" stroke="'+stroke+'" stroke-width="0.7" rx="2"/>';
+        const cxp = x + w/2;
+        const maxChars = Math.max(3, Math.floor(w/3.6));
+        const nm = String(t.name||'');
+        const fm = String(t.format||'');
+        const nmT = nm.length > maxChars ? nm.slice(0, maxChars-1)+'…' : nm;
+        const fmT = fm.length > maxChars ? fm.slice(0, maxChars-1)+'…' : fm;
+        const txtFill = (cb && cb.fg) ? cb.fg : '#fff';
+        if (w >= 11){
+          svg += '<text x="'+cxp.toFixed(1)+'" y="'+(rectY+rectH/2-2)+'" text-anchor="middle" fill="'+txtFill+'" font-size="5.5" font-weight="700" font-family="Inter,sans-serif" pointer-events="none">'+esc(nmT)+'</text>';
+          svg += '<text x="'+cxp.toFixed(1)+'" y="'+(rectY+rectH/2+5)+'" text-anchor="middle" fill="'+( (cb&&cb.fg)?txtFill:'rgba(255,255,255,0.78)')+'" font-size="5" font-weight="500" font-family="Inter,sans-serif" pointer-events="none">'+esc(fmT)+'</text>';
+        }
+        const n = t.facings || 1;
+        if (n > 1 && w >= 14){
+          svg += '<rect x="'+(x+1.3).toFixed(1)+'" y="'+(rectY+1.3)+'" width="13" height="8" rx="2" fill="rgba(0,0,0,0.62)"/>';
+          svg += '<text x="'+(x+7.8).toFixed(1)+'" y="'+(rectY+7.4)+'" text-anchor="middle" fill="#fff" font-size="6" font-weight="700" font-family="monospace" pointer-events="none">×'+n+'</text>';
+        }
+        x += w + PAD;
+      });
+    });
+  }
+
+  svg += '</svg>';
+
+  // bottom section legend + 18" depth footer
+  const legend = sections.map(function(s){
+    return '<span style="display:inline-flex;align-items:center;gap:5px;"><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:'+s.color+';"></span><span style="color:var(--muted);"><strong style="color:#fff;">'+s.key+'</strong> '+esc(s.label)+'</span></span>';
+  }).join('<span style="color:var(--border);margin:0 4px;">|</span>');
+
+  return svg +
+    '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-top:8px;font-size:10px;font-family:monospace;">' +
+      '<div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap;">' + legend + '</div>' +
+      '<div style="color:var(--muted);">18" shelf depth · blocks combine facings ×N · 1 in = 6 px true-to-scale</div>' +
+    '</div>';
+}
+
+// ============================================================
 // renderGondolaFace — 12' × 5-shelf gondola face elevation
 // Pure text bands stacked top-down (SH 5 → SH 1).
 // ============================================================
@@ -2985,7 +3224,6 @@ function renderShelfElevation(opts) {
       <span onclick="window.goToSlide('floorplan')" style="cursor:pointer;display:inline-flex;align-items:center;gap:6px;font-size:11px;color:#5dcaa5;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);padding:5px 11px;border-radius:14px;font-family:monospace;letter-spacing:0.5px;">&larr; Back to floor plan</span>
     </div>`;
 }
-
 
 
 // ============================================================
@@ -3234,7 +3472,6 @@ function deriveSkuCategory(s) {
   // FALLBACK
   return 'Other';
 }
-
 
 // ============================================================
 // renderFixtureInvTable — reusable inventory table for any fixture.
@@ -3731,7 +3968,6 @@ function renderDoorWall(opts) {
   `;
 }
 
-
 // ============================================================
 // renderOneFreezer(key) — single-freezer slide renderer
 // Renders ONE of F1/F2/F3 in full-width detail with FRONT/MIDDLE/BACK
@@ -3962,7 +4198,6 @@ function renderOneFreezer(key) {
   `;
 }
 
-
 const renderers = {
   hero: () => `
     <div class="hero">
@@ -3978,7 +4213,7 @@ const renderers = {
         </div>
         <div>
           <div class="label">Phase 2 capital</div>
-          <div class="val">$154K</div>
+          <div class="val">$118K</div>
           <div class="delta">Business + inventory + reno + WC</div>
         </div>
         <div>
@@ -3988,8 +4223,8 @@ const renderers = {
         </div>
         <div>
           <div class="label">Capital payback</div>
-          <div class="val">~17 months</div>
-          <div class="delta">Oct 2027 breakeven</div>
+          <div class="val">~13 months</div>
+          <div class="delta">Jun 2027 breakeven</div>
         </div>
         <div>
           <div class="label">36-mo cumulative net</div>
@@ -4007,10 +4242,10 @@ const renderers = {
         <div class="hero-block deal">
           <h3>The deal &middot; what is being acquired</h3>
           <ul>
-            <li><strong>Going-concern business + Class B liquor license</strong> from East Lakeview Food &amp; Liquor Inc (operating since 1/30/2004). Acquisition price $100,000 for the going-concern business, licenses, and fixtures. Existing inventory does <strong>not</strong> transfer — the seller takes all product at close and the store opens on 100% new stock.</li>
+            <li><strong>Going-concern business + Class B liquor license</strong> from East Lakeview Food &amp; Liquor Inc (operating since 1/30/2004). Acquisition price $50,000 for the going-concern business, licenses, and fixtures. Existing inventory does <strong>not</strong> transfer — the seller takes all product at close and the store opens on 100% new stock.</li>
             <li><strong>Building acquired for $50,000</strong> by 3814 Clark LLC (separate entity). Owning the building removes the outside landlord &mdash; the $4,000/mo lease becomes an internal payment to the building LLC, so the store&rsquo;s real occupancy cost going forward is property tax + insurance.</li>
             <li><strong>Tobacco license</strong> transfers with the business &mdash; enables the high-margin Zyn pouch wall, vape mod cabinet, and cigarette program (~$6,250 of inventory at OC-1 alone).</li>
-            <li><strong>~$80,392 of all-new opening inventory</strong> ordered Day 1 across 9 distributors (Reyes Beverage Group, Breakthru, Southern Glazer’s, Eby-Brown, Lakeshore, KeHE, THC Direct, Red Bull, Hannah’s Bretzel) to execute the repositioning &mdash; Net-15 IL statutory credit on alcohol delivers a large share before invoice.</li>
+            <li><strong>~$94,359 of all-new opening inventory</strong> ordered Day 1 across 9 distributors (Reyes Beverage Group, Breakthru, Southern Glazer’s, Eby-Brown, Lakeshore, KeHE, THC Direct, Red Bull, Hannah’s Bretzel) to execute the repositioning &mdash; Net-15 IL statutory credit on alcohol delivers a large share before invoice.</li>
             <li><strong>Sole operator: 3814 Clark LLC</strong> (Bradley French, sole member). No partners, no minority stakes. Clean cap table.</li>
           </ul>
         </div>
@@ -4508,7 +4743,6 @@ const renderers = {
     </div>`;
   },
 
-
   // ============================================================
   // MASTER FIXTURE SHEET — single-page index of all fixtures by group
   // Tabs: EXISTING / REPOSITIONED. Click any fixture to open its slide.
@@ -4854,9 +5088,9 @@ const renderers = {
       ].join('');
       // Back gondola group: G3 (snacks+pantry 4-zone) → G3.5 (Adaptogen Pick) → G4 (220-SKU curated wine) → G4.5 (Sake/Soju, NEW Phase 2)
       const gondolasBack = [
-        staticCard('G3','Back gondola — front face (Chocolate · Cleaning · Paper 3′ + Pet 3′)','EBY-BROWN / KEHE','gondolas-back', 900, 1740, 110, 70, mode),
+        staticCard('G3','Back gondola — front face (Chocolate · Cleaning · Paper 3′ + Pet 3′)','EBY-BROWN / KEHE','elev-g3', 900, 1740, 110, 70, mode),
         staticCard('G3.5','Adaptogen Discovery endcap','KEHE','endcap-g35', 280, 280, 32, 12, mode),
-        staticCard('G4','Back gondola — back face (curated wine + sake/shochu/soju + mixers, A/B/C)','BREAKTHRU','gondolas-back', 925, 2125, 110, 110, mode),
+        staticCard('G4','Back gondola — back face (curated wine + sake/shochu/soju + mixers, A/B/C)','BREAKTHRU','elev-g4', 925, 2125, 110, 110, mode),
       ].join('');
       const counterBack = [
         staticCard('OC-1','Over-counter (behind cashier)','EBY-BROWN','elev-oc1', 12400, 12400, 35, 35, mode),
@@ -4927,11 +5161,11 @@ const renderers = {
 
   inventory: () => {
     const fmt = n => '$' + n.toLocaleString();
-    // Opening order by distributor (Day-1 buy). Sums to the $80,392 headline.
+    // Opening order by distributor (Day-1 buy). Sums to the $94,359 headline.
     const dists = [
-      ['Breakthru','pkt-breakthru',25407,'Spirits · wine · champagne · premium RTD','#A66AB3'],
+      ['Breakthru','pkt-breakthru',26557,'Spirits · wine · champagne · premium RTD','#A66AB3'],
       ['Reyes Beverage Group','pkt-reyes',8983,'Beer · RTD · Constellation · Athletic · craft + Coca-Cola CSD','#BA6375'],
-      ['Eby-Brown','pkt-eby',10182,'Cigarettes · vape · candy · salty snacks · pantry','#C7833F'],
+      ['Eby-Brown','pkt-eby',22999,'Cigarettes · vape · candy · salty snacks · pantry','#C7833F'],
       ['Lakeshore','pkt-lakeshore',11131,'Regional + local craft beer (Half Acre, Revolution)','#3E946B'],
       ['KeHE / UNFI','pkt-kehe',9186,'Functional bev · fresh food · premium snacks + chocolate','#58BFA9'],
       ['Southern Glazer’s','pkt-sg',12497,'Value spirits · mini-bottle wall · backup BevAlc','#D77A67'],
@@ -4943,9 +5177,9 @@ const renderers = {
     const maxD = Math.max(...dists.map(d=>d[2]));
     // Category share of the repositioned mix (see Category mix slide for $).
     const cats = [
-      ['Liquor',24.7,'#F0997B'],['Wine',21.0,'#AFA9EC'],['Beer',15.1,'#85B7EB'],
-      ['Non-Alc Cold',12.7,'#5DCAA5'],['Seltzer / RTD / THC',10.7,'#5DCAA5'],['Premium Snacks',5.8,'#97C459'],
-      ['Tobacco / Vape',4.0,'#888780'],['HBA / Essentials',2.9,'#FAC775'],['Hangover / Recovery',2.6,'#EFB045'],['Party / Mixers',0.5,'#ED93B1'],
+      ['Liquor',21.0,'#F0997B'],['Wine',17.9,'#AFA9EC'],['Tobacco / Vape',16.1,'#888780'],
+      ['Beer',12.8,'#85B7EB'],['Non-Alc Cold',10.9,'#5DCAA5'],['Seltzer / RTD / THC',9.1,'#5DCAA5'],
+      ['Premium Snacks',5.5,'#97C459'],['HBA / Essentials',3.0,'#FAC775'],['Hangover / Recovery',2.2,'#EFB045'],['Party / Mixers',1.5,'#ED93B1'],
     ];
     const maxPct = Math.max(...cats.map(c=>c[1]));
     return `
@@ -4956,7 +5190,7 @@ const renderers = {
       <div class="stat"><div class="label">OPENING INVENTORY</div><div class="val" style="color:var(--accent);">${fmt(total)}</div><div class="sub">100% new at open</div></div>
       <div class="stat"><div class="label">DISTRIBUTORS</div><div class="val">${dists.length}</div><div class="sub">All secured (verbal commits)</div></div>
       <div class="stat"><div class="label">BLENDED MARGIN</div><div class="val">~38%</div><div class="sub">Premium-led mix</div></div>
-      <div class="stat" onclick="window.goToSlide('working-capital')" style="cursor:pointer;"><div class="label">DAY-0 CASH TO CLOSE</div><div class="val" style="color:var(--teal);">$272,292</div><div class="sub">Working-capital build &rarr;</div></div>
+      <div class="stat" onclick="window.goToSlide('working-capital')" style="cursor:pointer;"><div class="label">DAY-0 CASH TO CLOSE</div><div class="val" style="color:var(--teal);">$216,259</div><div class="sub">Working-capital build &rarr;</div></div>
     </div>
 
     <h3 style="font-size:13px;color:var(--accent);letter-spacing:1px;margin:6px 0 10px;border-bottom:1px solid var(--accent);padding-bottom:6px;">Opening order by distributor</h3>
@@ -5155,27 +5389,27 @@ const renderers = {
     
     // Categories with full data (BEFORE %, AFTER %, $ shift, color, narrative)
     const cats = [
-      {n:'Liquor',           bef$:16460, befPct:23.6, aft$:19832, aftPct:24.7, color:'#F0997B',
+      {n:'Liquor',           bef$:16460, befPct:23.6, aft$:19831, aftPct:21.0, color:'#F0997B',
        why:'Premium tequila, mezcal, Japanese whisky, and Chicago craft (Mal\u00f6rt, Koval, FEW) added to BC-1 wall.'},
-      {n:'Beer',             bef$:12195, befPct:17.5, aft$:12120, aftPct:15.1, color:'#85B7EB',
+      {n:'Beer',             bef$:12195, befPct:17.5, aft$:12120, aftPct:12.8, color:'#85B7EB',
        why:'Regional craft (Half Acre, Revolution) + N.A. craft (Athletic, HOP WTR) + Mexican imports expanded.'},
-      {n:'Tobacco/Vape',     bef$:12400, befPct:17.8, aft$:3205, aftPct:4.0, color:'#888780',
+      {n:'Tobacco/Vape',     bef$:12400, befPct:17.8, aft$:15151, aftPct:16.1, color:'#888780',
        why:'High-velocity cigarettes, vape, and Zyn run through the OC-1 counter, itemized at wholesale - a smaller share of a beverage-led repositioned mix.'},
-      {n:'Seltzer/RTD/THC',  bef$:6350,  befPct:9.1,  aft$:8629, aftPct:10.7, color:'#5DCAA5',
+      {n:'Seltzer/RTD/THC',  bef$:6350,  befPct:9.1,  aft$:8629, aftPct:9.1, color:'#5DCAA5',
        why:'High Noon expanded + Tip Top / Post Meridiem premium RTDs added + 2 full doors of THC beverage NEW.'},
-      {n:'Wine',             bef$:7970,  befPct:11.4, aft$:16898, aftPct:21.0, color:'#AFA9EC',
+      {n:'Wine',             bef$:7970,  befPct:11.4, aft$:16898, aftPct:17.9, color:'#AFA9EC',
        why:'Curated wine program layered on the chilled set - Loire Sancerre, grower Champagne (Veuve, Moet), Oregon + Sonoma Pinot, Napa Cab, premium rose, plus value tier. Hotel Zachary tourist + neighborhood driver.'},
-      {n:'Premium Snacks',   bef$:2775,  befPct:4.0,  aft$:4664, aftPct:5.8,  color:'#97C459',
+      {n:'Premium Snacks',   bef$:2775,  befPct:4.0,  aft$:5151, aftPct:5.5,  color:'#97C459',
        why:'Protein bar wall (G3) + BFY chips on G1 + premium chocolate endcap. Highest absolute % gain in mix.'},
-      {n:'Non-Alc Cold',     bef$:2005,  befPct:2.9,  aft$:10208, aftPct:12.7,  color:'#5DCAA5',
+      {n:'Non-Alc Cold',     bef$:2005,  befPct:2.9,  aft$:10278, aftPct:10.9,  color:'#5DCAA5',
        why:'Olipop, Liquid Death, Poppi, Recess, Cold Brew, protein shakes \u2014 fastest-growing C-store segment.'},
-      {n:'Hangover/Recovery',bef$:0,     befPct:0,    aft$:2117, aftPct:2.6,  color:'#EFB045',
+      {n:'Hangover/Recovery',bef$:0,     befPct:0,    aft$:2117, aftPct:2.2,  color:'#EFB045',
        why:'Entirely NEW category. Liquid IV, LMNT, Pedialyte, DripDrop, Magic Mind, Morning Recovery on G1.5 endcap.'},
-      {n:'Party/Mixers',     bef$:1000,  befPct:1.4,  aft$:367, aftPct:0.5,  color:'#ED93B1',
+      {n:'Party/Mixers',     bef$:1000,  befPct:1.4,  aft$:1383, aftPct:1.5,  color:'#ED93B1',
        why:'Tonic, club soda, Q-mixer, Topo Chico, ginger beer expanded \u2014 supports the BC-1 cocktail program.'},
       {n:'Grocery/Cleaning', bef$:7200,  befPct:10.3, aft$:0,     aftPct:0,    color:'#aa6666',
        why:'ENTIRELY EXITED. The cleaning aisle (Tide gallon, mops) and canned grocery (Chef Boyardee) are the largest space-recovery wins.'},
-      {n:'HBA/Essentials',   bef$:2435,  befPct:3.5,  aft$:2352, aftPct:2.9,  color:'#FAC775',
+      {n:'HBA/Essentials',   bef$:2435,  befPct:3.5,  aft$:2801, aftPct:3.0,  color:'#FAC775',
        why:'Right-sized to a small impulse footprint on BC-2 (condoms, Plan B, OTC, kratom). No more gallon shampoo.'},
     ];
     
@@ -7020,7 +7254,7 @@ const renderers = {
           <h3 style="font-size:15px;color:#fff;letter-spacing:0.5px;">G2 &mdash; Repositioned planogram (A &middot; B &middot; C &middot; ~85 SKUs)</h3>
           <div style="font-size:10px;color:var(--muted);font-family:monospace;letter-spacing:1px;">~85 SKUs · $1,800 (35-42% margin target)</div>
         </div>
-        ${afterShelves.map((s, i) => renderTileShelfBand(s, i, afterShelves.length, '#5dcaa5')).join('')}
+        ${renderGondolaRealScale({ shelves: afterShelves, sectionLabels: { A:'Hot late-night fuel', B:'Shelf-stable pantry heroes', C:'Coffee + breakfast on-the-go' } })}
         ${renderFixtureInvTable(afterShelves, 'AFTER', '#5dcaa5', 'G2')}
       </div>
 
@@ -7253,14 +7487,14 @@ const renderers = {
     ];
 
     return `
-    <h2 class="slide-title">Lower Gondola Elevation \u2014 G1 + G2 (12' \u00d7 5 shelves, double-faced)</h2>
-    <p class="slide-subtitle">Two-faced gondola in the south aisle. Each shelf shows actual SKU layout at 12' density. G1 = customer-facing BFY snacks + Pure juice + LaCroix + 2L/12-pk soda. G2 = back-side <strong>repositioned to 12-section strategy</strong>: A=Late-night fuel · B=Pantry heroes · C=Coffee/breakfast (legacy 280-SKU wine wall archived).</p>
+    <h2 class="slide-title">G1 \u2014 Customer-side face (12' gondola \u00d7 5 shelves, one face)</h2>
+    <p class="slide-subtitle">Customer-facing side of the 12' south-aisle gondola \u2014 one face = sections A + B + C at 4' each. Repositioned to the 12-section strategy: A=Recovery complement, B=Salty-snack heroes, C=Grab-and-go candy + jerky. The back-side face is <span onclick="window.goToSlide('elev-g2')" style="cursor:pointer;color:var(--accent);text-decoration:underline;">G2</span>.</p>
 
     <div class="card accent" style="padding:12px 18px;margin-bottom:16px;">
       <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;">
         <div><div style="font-size:10.5px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;">FIXTURE</div><div style="font-size:14px;font-weight:600;margin-top:3px;">Lower gondola, 2-sided</div></div>
         <div><div style="font-size:10.5px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;">DIMENSIONS</div><div style="font-size:14px;font-weight:600;margin-top:3px;">12' L \u00d7 60" H \u00d7 24" D</div></div>
-        <div><div style="font-size:10.5px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;">G1 + G2 INVENTORY</div><div style="font-size:14px;font-weight:600;color:var(--teal);margin-top:3px;">$1,000 ($600 + $400)</div></div>
+        <div><div style="font-size:10.5px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;">G1 FACE INVENTORY</div><div style="font-size:14px;font-weight:600;color:var(--teal);margin-top:3px;">$600</div></div>
         <div><div style="font-size:10.5px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;">PRIMARY DISTRIBUTORS</div><div style="font-size:14px;font-weight:600;color:var(--accent);margin-top:3px;cursor:pointer;" onclick="window.goToSlide('pkt-eby')">EBY-BROWN + KEHE</div></div>
       </div>
     </div>
@@ -7303,50 +7537,8 @@ const renderers = {
           </div>
         </div>
       </div>
-      ${g1Shelves.map((s, i) => renderTileShelfBand(s, i, g1Shelves.length, '#5dcaa5')).join('')}
+      ${renderGondolaRealScale({ shelves: g1Shelves, sectionLabels: { A:'Recovery complement', B:'Salty-snack heroes', C:'Grab-and-go candy + jerky' } })}
       ${renderFixtureFooter(g1Shelves, '$600')}
-    </div>
-
-    <!-- G2 face -->
-    <div style="margin-bottom:18px;">
-      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;border-bottom:2px solid #85B7EB;padding-bottom:5px;">
-        <h3 style="font-size:15px;color:#fff;letter-spacing:0.5px;">G2 \u2014 Back-side face (REPOSITIONED: Late-night fuel · Pantry · Coffee)</h3>
-        <div style="font-size:10px;color:var(--muted);font-family:monospace;letter-spacing:1px;">144" W \u00b7 60" H \u00b7 18" D \u00b7 5 SHELVES @ 12" \u00b7 ~120 facings \u00b7 $400</div>
-      </div>
-      
-      <!-- 12-Section strategy band for G2 -->
-      <div style="background:rgba(0,0,0,0.25);border:1px solid var(--border);border-radius:6px;padding:8px 12px;margin-bottom:8px;">
-        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:7px;">
-          <div style="font-family:monospace;font-size:10.5px;color:#85B7EB;letter-spacing:1.5px;font-weight:700;text-transform:uppercase;">▸ G2 \u2014 12-Section Strategy (A/B/C)</div>
-          <span onclick="window.goToSlide('gondola-strategy')" style="cursor:pointer;font-size:10px;color:var(--muted);font-family:monospace;letter-spacing:0.5px;text-decoration:underline;">Full strategy &rarr;</span>
-        </div>
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:7px;">
-          <div style="background:rgba(255,255,255,0.03);border:1px solid var(--border);border-left:3px solid #85B7EB;border-radius:5px;padding:8px 11px;display:flex;flex-direction:column;gap:3px;">
-            <div style="display:flex;align-items:baseline;justify-content:space-between;gap:6px;">
-              <div><span style="font-family:monospace;font-size:13px;font-weight:700;color:#fff;letter-spacing:1px;">A</span><span style="font-size:8.5px;color:var(--muted);font-family:monospace;letter-spacing:0.8px;margin-left:5px;">NORTH (~4 ft)</span></div>
-              <span style="font-family:monospace;font-size:9.5px;color:#85B7EB;font-weight:700;">35–40%</span>
-            </div>
-            <div style="font-size:11.5px;font-weight:600;color:#fff;line-height:1.2;">Hot late-night fuel</div>
-            <div style="font-size:9.5px;color:var(--muted);line-height:1.35;">Buldak · Shin Black · Cup Noodles · Annie’s mac</div>
-          </div><div style="background:rgba(255,255,255,0.03);border:1px solid var(--border);border-left:3px solid #85B7EB;border-radius:5px;padding:8px 11px;display:flex;flex-direction:column;gap:3px;">
-            <div style="display:flex;align-items:baseline;justify-content:space-between;gap:6px;">
-              <div><span style="font-family:monospace;font-size:13px;font-weight:700;color:#fff;letter-spacing:1px;">B</span><span style="font-size:8.5px;color:var(--muted);font-family:monospace;letter-spacing:0.8px;margin-left:5px;">MIDDLE (~4 ft)</span></div>
-              <span style="font-family:monospace;font-size:9.5px;color:#85B7EB;font-weight:700;">25–30%</span>
-            </div>
-            <div style="font-size:11.5px;font-weight:600;color:#fff;line-height:1.2;">Shelf-stable pantry heroes</div>
-            <div style="font-size:9.5px;color:var(--muted);line-height:1.35;">Vienna Beef buns · Oreo · Tate’s · Ritz · Pop-Tarts</div>
-          </div><div style="background:rgba(255,255,255,0.03);border:1px solid var(--border);border-left:3px solid #85B7EB;border-radius:5px;padding:8px 11px;display:flex;flex-direction:column;gap:3px;">
-            <div style="display:flex;align-items:baseline;justify-content:space-between;gap:6px;">
-              <div><span style="font-family:monospace;font-size:13px;font-weight:700;color:#fff;letter-spacing:1px;">C</span><span style="font-size:8.5px;color:var(--muted);font-family:monospace;letter-spacing:0.8px;margin-left:5px;">SOUTH (~4 ft)</span></div>
-              <span style="font-family:monospace;font-size:9.5px;color:#85B7EB;font-weight:700;">38–42%</span>
-            </div>
-            <div style="font-size:11.5px;font-weight:600;color:#fff;line-height:1.2;">Coffee + breakfast on-the-go</div>
-            <div style="font-size:9.5px;color:var(--muted);line-height:1.35;">Stumptown RTD · La Colombe · RX Bar · Quaker</div>
-          </div>
-        </div>
-      </div>
-      ${g2Shelves.map((s, i) => renderTileShelfBand(s, i, g2Shelves.length, '#85B7EB')).join('')}
-      ${renderFixtureFooter(g2Shelves, '$400')}
     </div>
 
     <div class="card" style="border-left:3px solid var(--amber);padding:12px 18px;margin-top:14px;font-size:12.5px;">
@@ -7355,114 +7547,326 @@ const renderers = {
   },
 
   'elev-g3': () => {
-    const fmt = n => '$' + Math.round(n).toLocaleString();
-    return `
-      <h2 class="slide-title">G3 — Back gondola, customer-side face</h2>
-      <p class="slide-subtitle">12 ft × 5 shelves × 18" deep, double-faced gondola front face. <strong style="color:#5dcaa5;">REPOSITIONED:</strong> A=Chocolate (4') · B=Cleaning essentials (4') · C1=Paper 3' · C2=Pet 3'.</p>
+    const g3Shelves = [
+      // ============================================================
+      // G3 — REPOSITIONED (Phase 22: A=Premium chocolate · B=Cleaning essentials · C1=Paper 3' · C2=Pet 3')
+      // 5 shelves \u00d7 4 sections (A 4' / B 3' / C1 3' / C2 3') = ~14 SKUs/shelf
+      // All tiles status:'new' \u2014 entire G3 face is new product (Schedule A drops legacy cleaning/wine)
+      // ============================================================
 
-      <div id="g3-content-after" style="display:block;">
-        <div class="card" style="border-left:3px solid #5dcaa5;padding:12px 16px;margin-bottom:12px;">
-          <h3 style="color:#5dcaa5;font-size:13px;margin-bottom:6px;">Repositioned · 138 SKUs · ~$1,740 inventory · 4 sections</h3>
-          <p style="font-size:11.5px;line-height:1.5;color:var(--muted);">Phase 22+38: G3 is repositioned into 4 distinct sections. Premium chocolate flagship (A), minimal-but-essential cleaning (B), bodega paper goods (C1), and pet/animal supplies (C2). Full real-scale SVG with 138 individual product placements, stack counts, and 12" shelf dim ticks lives on the <span onclick="window.goToSlide('gondolas-back')" style="cursor:pointer;color:var(--accent);text-decoration:underline;">combined G3+G4 deep-dive slide</span>.</p>
-        </div>
-        <div style="background:rgba(0,0,0,0.20);border:1px solid var(--border);border-radius:6px;overflow:hidden;margin-bottom:14px;">
-          <table style="width:100%;border-collapse:collapse;">
-            <thead><tr style="background:rgba(93,202,165,0.15);border-bottom:1.5px solid #5dcaa5;">
-              <th style="padding:9px 11px;text-align:left;font-size:10px;color:#5dcaa5;font-family:monospace;letter-spacing:0.8px;">SECTION</th>
-              <th style="padding:9px 11px;text-align:right;font-size:10px;color:#5dcaa5;font-family:monospace;letter-spacing:0.8px;">BRANDS</th>
-              <th style="padding:9px 11px;text-align:right;font-size:10px;color:#5dcaa5;font-family:monospace;letter-spacing:0.8px;">SKUs</th>
-              <th style="padding:9px 11px;text-align:left;font-size:10px;color:#5dcaa5;font-family:monospace;letter-spacing:0.8px;">DIST</th>
-              <th style="padding:9px 11px;text-align:right;font-size:10px;color:#5dcaa5;font-family:monospace;letter-spacing:0.8px;">$ INV</th>
-            </tr></thead>
-            <tbody><tr>
-        <td style="padding:9px 11px;font-size:11.5px;color:#fff;font-weight:600;">A · Premium Chocolate (4 ft × 5 shelves)</td>
-        <td style="padding:9px 11px;text-align:right;font-family:monospace;font-size:11px;color:#5dcaa5;font-weight:700;">8 brands</td>
-        <td style="padding:9px 11px;text-align:right;font-family:monospace;font-size:11px;color:#5dcaa5;font-weight:700;">45 SKUs</td>
-        <td style="padding:9px 11px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">KEHE</td>
-        <td style="padding:9px 11px;text-align:right;font-family:monospace;font-size:11px;color:var(--teal);font-weight:700;">$580</td>
-      </tr><tr>
-        <td style="padding:9px 11px;font-size:11.5px;color:#fff;font-weight:600;">B · Cleaning Essentials minimal (4 ft × 5)</td>
-        <td style="padding:9px 11px;text-align:right;font-family:monospace;font-size:11px;color:#5dcaa5;font-weight:700;">12 brands</td>
-        <td style="padding:9px 11px;text-align:right;font-family:monospace;font-size:11px;color:#5dcaa5;font-weight:700;">50 SKUs</td>
-        <td style="padding:9px 11px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">EBY-BROWN</td>
-        <td style="padding:9px 11px;text-align:right;font-family:monospace;font-size:11px;color:var(--teal);font-weight:700;">$320</td>
-      </tr><tr>
-        <td style="padding:9px 11px;font-size:11.5px;color:#fff;font-weight:600;">C1 · Paper Goods (3 ft × 5 shelves)</td>
-        <td style="padding:9px 11px;text-align:right;font-family:monospace;font-size:11px;color:#5dcaa5;font-weight:700;">7 brands</td>
-        <td style="padding:9px 11px;text-align:right;font-family:monospace;font-size:11px;color:#5dcaa5;font-weight:700;">17 SKUs</td>
-        <td style="padding:9px 11px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">EBY-BROWN</td>
-        <td style="padding:9px 11px;text-align:right;font-family:monospace;font-size:11px;color:var(--teal);font-weight:700;">$180</td>
-      </tr><tr>
-        <td style="padding:9px 11px;font-size:11.5px;color:#fff;font-weight:600;">C2 · Pet / Bodega Animal (3 ft × 5 shelves)</td>
-        <td style="padding:9px 11px;text-align:right;font-family:monospace;font-size:11px;color:#5dcaa5;font-weight:700;">12 brands</td>
-        <td style="padding:9px 11px;text-align:right;font-family:monospace;font-size:11px;color:#5dcaa5;font-weight:700;">26 SKUs</td>
-        <td style="padding:9px 11px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">EBY-BROWN</td>
-        <td style="padding:9px 11px;text-align:right;font-family:monospace;font-size:11px;color:var(--teal);font-weight:700;">$240</td>
-      </tr></tbody>
-            <tfoot><tr style="background:rgba(93,202,165,0.10);border-top:2px solid #5dcaa5;">
-              <td style="padding:10px 11px;font-size:11.5px;color:#fff;font-weight:700;font-family:monospace;letter-spacing:1px;">TOTAL G3 (12 ft × 5 shelves × 18" deep)</td>
-              <td style="padding:10px 11px;text-align:right;font-family:monospace;color:#5dcaa5;font-weight:700;">39 brands</td>
-              <td style="padding:10px 11px;text-align:right;font-family:monospace;color:#5dcaa5;font-weight:700;">138 SKUs</td>
-              <td style="padding:10px 11px;font-family:monospace;color:#a4b3ff;">EBY-BROWN/KEHE</td>
-              <td style="padding:10px 11px;text-align:right;font-family:monospace;color:var(--teal);font-weight:700;">$1,320</td>
-            </tr></tfoot>
-          </table>
-        </div>
-        <span onclick="window.goToSlide('gondolas-back')" style="cursor:pointer;display:inline-flex;align-items:center;gap:6px;font-size:11px;color:var(--purple);background:rgba(175,169,236,0.10);border:1px solid rgba(175,169,236,0.35);padding:6px 12px;border-radius:14px;font-family:monospace;letter-spacing:0.5px;">▸ Open dense real-scale SVG (combined G3+G4) →</span>
+      // SH 5 — eye-up: PREMIUM / display tier per section
+      {tier:'eye-up', tiles: [
+        // ----- G3A: Premium chocolate flagship -----
+        {sect:'A', name:'Tony\u2019s Choc',  format:'Caramel Sea Salt 6.35oz', cost:'4.99', facings:2, status:'new'},
+        {sect:'A', name:'Tony\u2019s Choc',  format:'Hazelnut 6.35oz',         cost:'4.99', facings:2, status:'new'},
+        {sect:'A', name:'Endang. Spec.',      format:'Sea Salt Almond 3oz',     cost:'3.99', facings:1, status:'new'},
+        {sect:'A', name:'Hu Kitchen',         format:'Crunchy Mint Dark 2.1oz', cost:'4.99', facings:1, status:'new'},
+        // ----- G3B: Cleaning premium / display -----
+        {sect:'B', name:'Lysol Wipes',        format:'Lemon 80-ct canister',    cost:'5.99', facings:2, status:'new'},
+        {sect:'B', name:'Clorox Wipes',       format:'Fresh Scent 75-ct',       cost:'5.99', facings:1, status:'new'},
+        {sect:'B', name:'Mr. Clean Magic',    format:'Eraser Original 4-ct',    cost:'4.99', facings:1, status:'new'},
+        // ----- G3C1: Paper premium / large -----
+        {sect:'C', name:'Solo Red Cups',      format:'18oz 16-ct',              cost:'4.49', facings:2, status:'new'},
+        {sect:'C', name:'Solo Clear Cups',    format:'12oz Plastic 20-ct',      cost:'3.99', facings:1, status:'new'},
+        // ----- G3C2: Pet treats / display -----
+        {sect:'C', name:'Greenies',           format:'Dental Treats Reg 6oz',   cost:'6.99', facings:2, status:'new'},
+        {sect:'C', name:'Beggin\u2019 Strips',format:'Bacon 6oz',              cost:'4.99', facings:1, status:'new'},
+      ]},
+
+      // SH 4 — eye-level: ANCHOR velocity per section
+      {tier:'eye-level', tiles: [
+        // ----- G3A: Chocolate anchor wall -----
+        {sect:'A', name:'Tony\u2019s Choc',  format:'Milk Chocolate 6.35oz',   cost:'4.49', facings:2, status:'new'},
+        {sect:'A', name:'Tony\u2019s Choc',  format:'Dark Almond SS 6.35oz',   cost:'4.99', facings:2, status:'new'},
+        {sect:'A', name:'Endang. Spec.',      format:'Dark Chocolate 3oz',      cost:'3.99', facings:2, status:'new'},
+        {sect:'A', name:'Hu Kitchen',         format:'Almond Butter Dark 2.1oz',cost:'4.99', facings:1, status:'new'},
+        // ----- G3B: Cleaning anchors (Dawn + Bounty + Lysol) -----
+        {sect:'B', name:'Dawn Dish Soap',     format:'Original 12.6oz',         cost:'3.49', facings:2, status:'new'},
+        {sect:'B', name:'Bounty Paper Twl',   format:'Select-a-Size 1-roll',    cost:'3.99', facings:2, status:'new'},
+        {sect:'B', name:'Lysol Spray',        format:'Disinfectant 12.5oz',     cost:'6.99', facings:1, status:'new'},
+        // ----- G3C1: Paper plates + napkins anchors -----
+        {sect:'C', name:'Dixie Plates',       format:'Heavyweight 8.5" 22-ct', cost:'3.49', facings:2, status:'new'},
+        {sect:'C', name:'Bounty Napkins',     format:'White 200-ct',            cost:'3.99', facings:1, status:'new'},
+        // ----- G3C2: Pet wet-food anchors (highest velocity) -----
+        {sect:'C', name:'Friskies Pate',      format:'Liver & Chicken 5.5oz',   cost:'0.99', facings:3, status:'new'},
+        {sect:'C', name:'Fancy Feast',        format:'Classic Pate Tuna 3oz',   cost:'1.49', facings:2, status:'new'},
+      ]},
+
+      // SH 3 — mid-reach: VARIETY tier per section
+      {tier:'mid-reach', tiles: [
+        // ----- G3A: Value / lower-sugar chocolate -----
+        {sect:'A', name:'Lily\u2019s Sweets',format:'Dark Choc Stevia 3oz',    cost:'4.49', facings:1, status:'new'},
+        {sect:'A', name:'Justin\u2019s',     format:'Dark Choc PB Cups 1.4oz', cost:'2.49', facings:2, status:'new'},
+        {sect:'A', name:'Theo',               format:'Salted Almond Dark 3oz',  cost:'4.49', facings:1, status:'new'},
+        // ----- G3B: Cleaning variety -----
+        {sect:'B', name:'Glass Plus',         format:'Glass Cleaner 32oz',      cost:'4.49', facings:1, status:'new'},
+        {sect:'B', name:'Comet Cleanser',     format:'Powder 14oz',             cost:'2.49', facings:1, status:'new'},
+        {sect:'B', name:'409 Spray',          format:'Multi-Surface 32oz',      cost:'4.99', facings:1, status:'new'},
+        {sect:'B', name:'Sponges',            format:'Scotch-Brite 2-pk',       cost:'2.99', facings:2, status:'new'},
+        // ----- G3C1: Plastic cutlery + foil mid-shelf -----
+        {sect:'C', name:'Hefty Forks',        format:'Plastic Heavy 48-ct',     cost:'2.99', facings:1, status:'new'},
+        {sect:'C', name:'Hefty Spoons',       format:'Plastic Heavy 48-ct',     cost:'2.99', facings:1, status:'new'},
+        {sect:'C', name:'Hefty Knives',       format:'Plastic Heavy 48-ct',     cost:'2.99', facings:1, status:'new'},
+        // ----- G3C2: Dry pet food bags (mid-shelf so heavy-but-reachable) -----
+        {sect:'C', name:'Pedigree Adult',     format:'Roasted Chicken 3.5lb',   cost:'7.99', facings:1, status:'new'},
+        {sect:'C', name:'Friskies Surfin\u2019',format:'Surf & Turf 3.15lb dry',cost:'6.99', facings:1, status:'new'},
+      ]},
+
+      // SH 2 — low-reach: SECONDARY tier per section
+      {tier:'low-reach', tiles: [
+        // ----- G3A: Specialty chocolate variety -----
+        {sect:'A', name:'Endang. Spec.',      format:'Bug Bites Variety 4oz',   cost:'4.49', facings:1, status:'new'},
+        {sect:'A', name:'Justin\u2019s',     format:'Almond Butter Cups 1.4oz',cost:'2.49', facings:1, status:'new'},
+        // ----- G3B: Bleach + bulk cleaning -----
+        {sect:'B', name:'Clorox Bleach',      format:'Concentrate 32oz',        cost:'3.49', facings:2, status:'new'},
+        {sect:'B', name:'Pine-Sol',           format:'Original 28oz',           cost:'4.99', facings:1, status:'new'},
+        {sect:'B', name:'Febreze',            format:'Air Effects 8.8oz',       cost:'4.49', facings:1, status:'new'},
+        // ----- G3C1: Foil + wrap + storage bags -----
+        {sect:'C', name:'Reynolds Wrap',      format:'Aluminum Foil 25 sq ft',  cost:'3.49', facings:1, status:'new'},
+        {sect:'C', name:'Glad Cling Wrap',    format:'Plastic 200 sq ft',       cost:'3.99', facings:1, status:'new'},
+        {sect:'C', name:'Ziploc Sandwich',    format:'Bags 50-ct',              cost:'3.49', facings:2, status:'new'},
+        {sect:'C', name:'Ziploc Storage',     format:'Quart 25-ct',             cost:'3.99', facings:1, status:'new'},
+        // ----- G3C2: Pet treats + small toys low-reach -----
+        {sect:'C', name:'Milk-Bone Sm',       format:'Original Small 24oz',     cost:'4.99', facings:1, status:'new'},
+        {sect:'C', name:'Pup-Peroni',         format:'Original 5.6oz',          cost:'4.99', facings:1, status:'new'},
+        {sect:'C', name:'Temptations',        format:'Cat Treats 3oz',          cost:'2.49', facings:2, status:'new'},
+        {sect:'C', name:'Catnip Mouse',       format:'Plush Toy single',        cost:'3.99', facings:1, status:'new'},
+      ]},
+
+      // SH 1 — kick-plate: BULK / heavy items per section
+      {tier:'kick-plate', tiles: [
+        // ----- G3A: Multi-pack chocolate -----
+        {sect:'A', name:'Tony\u2019s Choc',  format:'6-pack box (gift)',       cost:'27.99',facings:1, status:'new'},
+        {sect:'A', name:'Hu Kitchen',         format:'Salty Caramel 4-pk',      cost:'17.99',facings:1, status:'new'},
+        // ----- G3B: Bulk trash bags + heavy cleaning -----
+        {sect:'B', name:'Hefty Trash Bags',   format:'Kitchen 13gal 30-ct',     cost:'8.99', facings:1, status:'new'},
+        {sect:'B', name:'Glad Small Bags',    format:'4gal 30-ct',              cost:'3.49', facings:1, status:'new'},
+        // ----- G3C1: Bulk paper towels + napkins -----
+        {sect:'C', name:'Bounty Paper Twl',   format:'Select-a-Size 2-roll',    cost:'7.49', facings:1, status:'new'},
+        // ----- G3C2: Cat litter + potty pads (heaviest) -----
+        {sect:'C', name:'Tidy Cats',          format:'Clumping Litter 7lb jug', cost:'8.99', facings:1, status:'new'},
+        {sect:'C', name:'Frisco Potty Pads',  format:'Training Pads 10-ct',     cost:'6.99', facings:1, status:'new'},
+        {sect:'C', name:'Purina Cat Chow',    format:'Complete 3.15lb',         cost:'7.99', facings:1, status:'new'},
+      ]},
+    ];
+    return `
+        <h2 class="slide-title">G3 — Customer-side face</h2>
+        <p class="slide-subtitle">12 ft × 5 shelves × 18" deep — customer-side face of the back gondola, rendered true-to-scale. <strong style="color:#fff;">A</strong> Premium chocolate · <strong style="color:#fff;">B</strong> Cleaning essentials · <strong style="color:#fff;">C1</strong> Paper goods · <strong style="color:#fff;">C2</strong> Pet / bodega animal.</p>
+    <!-- G3 face -->
+    <div style="margin-bottom:24px;">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;border-bottom:2px solid var(--purple);padding-bottom:5px;">
+        <h3 style="font-size:15px;color:#fff;letter-spacing:0.5px;">G3 \u2014 Customer-side face (REPOSITIONED: A=Premium chocolate \u00b7 B=Cleaning essentials \u00b7 C1=Paper 3\u2032 \u00b7 C2=Pet 3\u2032)</h3>
+        <div style="font-size:10px;color:var(--muted);font-family:monospace;letter-spacing:1px;">144" W \u00b7 60" H \u00b7 18" D \u00b7 5 SHELVES @ 12" \u00b7 4 sections (C split)</div>
       </div>
+      
+      <!-- 12-Section strategy band for G3 -->
+      <div style="background:rgba(0,0,0,0.25);border:1px solid var(--border);border-radius:6px;padding:8px 12px;margin-bottom:8px;">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:7px;">
+          <div style="font-family:monospace;font-size:10.5px;color:#afa9ec;letter-spacing:1.5px;font-weight:700;text-transform:uppercase;">▸ G3 \u2014 12-Section Strategy (A/B/C)</div>
+          <span onclick="window.goToSlide('gondola-strategy')" style="cursor:pointer;font-size:10px;color:var(--muted);font-family:monospace;letter-spacing:0.5px;text-decoration:underline;">Full strategy &rarr;</span>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:7px;">
+          <div style="background:rgba(255,255,255,0.03);border:1px solid var(--border);border-left:3px solid #afa9ec;border-radius:5px;padding:8px 11px;display:flex;flex-direction:column;gap:3px;">
+            <div style="display:flex;align-items:baseline;justify-content:space-between;gap:6px;">
+              <div><span style="font-family:monospace;font-size:13px;font-weight:700;color:#fff;letter-spacing:1px;">A</span><span style="font-size:8.5px;color:var(--muted);font-family:monospace;letter-spacing:0.8px;margin-left:5px;">SOUTH (~4 ft)</span></div>
+              <span style="font-family:monospace;font-size:9.5px;color:#afa9ec;font-weight:700;">45–55%</span>
+            </div>
+            <div style="font-size:11.5px;font-weight:600;color:#fff;line-height:1.2;">Premium / functional chocolate</div>
+            <div style="font-size:9.5px;color:var(--muted);line-height:1.35;">Tony’s Chocolonely · Endangered Species · Hu Kitchen</div>
+          </div><div style="background:rgba(255,255,255,0.03);border:1px solid var(--border);border-left:3px solid #afa9ec;border-radius:5px;padding:8px 11px;display:flex;flex-direction:column;gap:3px;">
+            <div style="display:flex;align-items:baseline;justify-content:space-between;gap:6px;">
+              <div><span style="font-family:monospace;font-size:13px;font-weight:700;color:#fff;letter-spacing:1px;">B</span><span style="font-size:8.5px;color:var(--muted);font-family:monospace;letter-spacing:0.8px;margin-left:5px;">MIDDLE (~4 ft)</span></div>
+              <span style="font-family:monospace;font-size:9.5px;color:#afa9ec;font-weight:700;">40–48%</span>
+            </div>
+            <div style="font-size:11.5px;font-weight:600;color:#fff;line-height:1.2;">Cleaning essentials (minimal)</div>
+            <div style="font-size:9.5px;color:var(--muted);line-height:1.35;">Dawn · Lysol Wipes · Bounty · Hefty trash bags · Clorox</div>
+          </div><div style="background:rgba(255,255,255,0.03);border:1px solid var(--border);border-left:3px solid #afa9ec;border-radius:5px;padding:8px 11px;display:flex;flex-direction:column;gap:3px;">
+            <div style="display:flex;align-items:baseline;justify-content:space-between;gap:6px;">
+              <div><span style="font-family:monospace;font-size:13px;font-weight:700;color:#fff;letter-spacing:1px;">C</span><span style="font-size:8.5px;color:var(--muted);font-family:monospace;letter-spacing:0.8px;margin-left:5px;">NORTH (~6 ft, split)</span></div>
+              <span style="font-family:monospace;font-size:9.5px;color:#afa9ec;font-weight:700;">25–35%</span>
+            </div>
+            <div style="font-size:11.5px;font-weight:600;color:#fff;line-height:1.2;">C1 Paper goods (3′) + C2 Pet supplies (3′)</div>
+            <div style="font-size:9.5px;color:var(--muted);line-height:1.35;">Solo cups · Dixie · Hefty cutlery · Friskies · Pedigree · Tidy Cats</div>
+          </div>
+        </div>
+      </div>
+      <!-- PHASE 38: Densified real-scale SVG elevation for G3 -->
+      <div style="background:rgba(0,0,0,0.30);border:1.5px solid var(--purple);border-radius:8px;padding:14px 16px;margin-bottom:10px;">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;">
+          <div style="font-size:12px;color:var(--purple);letter-spacing:1.2px;text-transform:uppercase;font-weight:700;font-family:monospace;">▸ Real-Scale Shelf Elevation · Bodega-density</div>
+          <div style="font-size:10px;color:var(--muted);font-family:monospace;letter-spacing:0.5px;">1 in = 6 px · stack count shown as ×N badge</div>
+        </div>
+${renderGondolaRealScale({ shelves: g3Shelves, sections: [ {key:'A',label:'Premium chocolate',widthInches:48}, {key:'B',label:'Cleaning essentials',widthInches:48}, {key:'C1',label:'Paper',widthInches:24}, {key:'C2',label:'Pet',widthInches:24} ] })}
+        <div style="margin-top:10px;display:flex;gap:18px;flex-wrap:wrap;font-size:10.5px;color:var(--muted);font-family:monospace;letter-spacing:0.3px;">
+          <span><span style="color:#5dcaa5;">▪</span> A · Chocolate (KEHE)</span>
+          <span><span style="color:#85b7eb;">▪</span> B · Cleaning (EBY-BROWN)</span>
+          <span><span style="color:#a4b3ff;">▪</span> C1 · Paper (EBY-BROWN)</span>
+          <span><span style="color:#f0997b;">▪</span> C2 · Pet (EBY-BROWN)</span>
+          <span style="margin-left:auto;"><span style="color:#ff0;">×N</span> = vertical stack height</span>
+          <span><span style="color:#9bd9ff;">📏 18" shelf depth</span> · products 2-6 deep behind front face (Clorox 32oz ×5 deep · wine 750ml ×6 deep · Friskies cans ×6 deep × ×4 stack = 24/slot)</span>
+        </div>
+      </div>
+      ${renderFixtureFooter(g3Shelves, '')}
+    </div>
     `;
   },
 
   'elev-g4': () => {
-    const fmt = n => '$' + Math.round(n).toLocaleString();
-    return `
-      <h2 class="slide-title">G4 — Back gondola, back-side face</h2>
-      <p class="slide-subtitle">12 ft × 5 shelves × 18" deep, double-faced gondola back face. <strong style="color:#5dcaa5;">REPOSITIONED:</strong> A=Curated wine (4') · B=Sake/Shochu/Soju (4') · C=Mixers + garnishes (4').</p>
+    const g4Shelves = [
+      // ============================================================
+      // G4 — REPOSITIONED (12-section strategy: A=Curated wine · B=Sake/Shochu/Soju · C=Cocktail mixers/garnishes)
+      // Replaces legacy snack/pantry mix (now archived)
+      // 5 shelves × 3 sections × ~4 SKUs/section = ~60 SKUs total
+      // ============================================================
 
-      <div id="g4-content-after" style="display:block;">
-        <div class="card" style="border-left:3px solid #5dcaa5;padding:12px 16px;margin-bottom:12px;">
-          <h3 style="color:#5dcaa5;font-size:13px;margin-bottom:6px;">Repositioned · 160 SKUs · ~$3,585 inventory · 3 sections</h3>
-          <p style="font-size:11.5px;line-height:1.5;color:var(--muted);">Phase 24+39: G4 augments the legacy wine base with a 200-SKU premium curated layer (no removals — Uptown preservation). Plus a sake/shochu/soju discovery section (B) and cocktail mixers + garnishes section (C). Full real-scale SVG with 160 product placements lives on the <span onclick="window.goToSlide('gondolas-back')" style="cursor:pointer;color:var(--accent);text-decoration:underline;">combined G3+G4 deep-dive slide</span>.</p>
-        </div>
-        <div style="background:rgba(0,0,0,0.20);border:1px solid var(--border);border-radius:6px;overflow:hidden;margin-bottom:14px;">
-          <table style="width:100%;border-collapse:collapse;">
-            <thead><tr style="background:rgba(93,202,165,0.15);border-bottom:1.5px solid #5dcaa5;">
-              <th style="padding:9px 11px;text-align:left;font-size:10px;color:#5dcaa5;font-family:monospace;letter-spacing:0.8px;">SECTION</th>
-              <th style="padding:9px 11px;text-align:left;font-size:10px;color:#5dcaa5;font-family:monospace;letter-spacing:0.8px;">KEY BRANDS</th>
-              <th style="padding:9px 11px;text-align:right;font-size:10px;color:#5dcaa5;font-family:monospace;letter-spacing:0.8px;">SKUs</th>
-              <th style="padding:9px 11px;text-align:left;font-size:10px;color:#5dcaa5;font-family:monospace;letter-spacing:0.8px;">DIST</th>
-              <th style="padding:9px 11px;text-align:right;font-size:10px;color:#5dcaa5;font-family:monospace;letter-spacing:0.8px;">$ INV</th>
-            </tr></thead>
-            <tbody><tr>
-        <td style="padding:9px 11px;font-size:11.5px;color:#fff;font-weight:600;">A · Curated Wine (4 ft × 5 shelves)</td>
-        <td style="padding:9px 11px;font-size:10.5px;color:#cbd5e0;line-height:1.4;">Decoy · Apothic · Josh Cellars · Whispering Angel · Cloudy Bay · Caymus · Belle Glos · Krug</td>
-        <td style="padding:9px 11px;text-align:right;font-family:monospace;font-size:11px;color:#5dcaa5;font-weight:700;">59 SKUs</td>
-        <td style="padding:9px 11px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">BREAKTHRU</td>
-        <td style="padding:9px 11px;text-align:right;font-family:monospace;font-size:11px;color:var(--teal);font-weight:700;">$2125</td>
-      </tr><tr>
-        <td style="padding:9px 11px;font-size:11.5px;color:#fff;font-weight:600;">B · Sake / Shochu / Soju (4 ft × 5)</td>
-        <td style="padding:9px 11px;font-size:10.5px;color:#cbd5e0;line-height:1.4;">Hokusetsu · Dassai 45 · Hakkaisan · Tozai · Sho Chiku Bai · Iichiko · Mizu · Jinro</td>
-        <td style="padding:9px 11px;text-align:right;font-family:monospace;font-size:11px;color:#5dcaa5;font-weight:700;">50 SKUs</td>
-        <td style="padding:9px 11px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">BREAKTHRU</td>
-        <td style="padding:9px 11px;text-align:right;font-family:monospace;font-size:11px;color:var(--teal);font-weight:700;">$980</td>
-      </tr><tr>
-        <td style="padding:9px 11px;font-size:11.5px;color:#fff;font-weight:600;">C · Mixers + Garnishes (4 ft × 5)</td>
-        <td style="padding:9px 11px;font-size:10.5px;color:#cbd5e0;line-height:1.4;">Fever-Tree · Q Mixers · Topo Chico · Reed\u2019s · Angostura · Luxardo · Filthy · Mezzetta</td>
-        <td style="padding:9px 11px;text-align:right;font-family:monospace;font-size:11px;color:#5dcaa5;font-weight:700;">51 SKUs</td>
-        <td style="padding:9px 11px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">BREAKTHRU</td>
-        <td style="padding:9px 11px;text-align:right;font-family:monospace;font-size:11px;color:var(--teal);font-weight:700;">$480</td>
-      </tr></tbody>
-            <tfoot><tr style="background:rgba(93,202,165,0.10);border-top:2px solid #5dcaa5;">
-              <td style="padding:10px 11px;font-size:11.5px;color:#fff;font-weight:700;font-family:monospace;letter-spacing:1px;">TOTAL G4 (12 ft × 5 shelves × 18" deep)</td>
-              <td style="padding:10px 11px;font-size:10.5px;color:#888;">28 brands across wine/sake/mixers</td>
-              <td style="padding:10px 11px;text-align:right;font-family:monospace;color:#5dcaa5;font-weight:700;">160 SKUs</td>
-              <td style="padding:10px 11px;font-family:monospace;color:#a4b3ff;">BREAKTHRU</td>
-              <td style="padding:10px 11px;text-align:right;font-family:monospace;color:var(--teal);font-weight:700;">$3,585</td>
-            </tr></tfoot>
-          </table>
-        </div>
-        <span onclick="window.goToSlide('gondolas-back')" style="cursor:pointer;display:inline-flex;align-items:center;gap:6px;font-size:11px;color:var(--purple);background:rgba(175,169,236,0.10);border:1px solid rgba(175,169,236,0.35);padding:6px 12px;border-radius:14px;font-family:monospace;letter-spacing:0.5px;">▸ Open dense real-scale SVG (combined G3+G4) →</span>
+      // SH 5 — eye-up: PREMIUM showpiece tier per section
+      {tier:'eye-up', tiles: [
+        // ----- G4A: Premium wine showpiece -----
+        {sect:'A', name:'Cloudy Bay',         format:'Sauv Blanc',        cost:'24.00',facings:1, status:'new'},
+        {sect:'A', name:'Whispering Angel',   format:'Provence Ros\u00e9',cost:'19.00',facings:2, status:'new'},
+        {sect:'A', name:'Belle Glos',         format:'Las Alturas Pinot', cost:'34.00',facings:1, status:'new'},
+        {sect:'A', name:'Frescobaldi',        format:'Chianti Riserva',   cost:'18.00',facings:1, status:'new'},
+        // ----- G4B: Premium sake / Japanese spirits -----
+        {sect:'B', name:'Hokusetsu',          format:'Junmai Daiginjo 720ml',cost:'42.00',facings:1, status:'new'},
+        {sect:'B', name:'Hakkaisan',          format:'Tokubetsu Junmai',  cost:'24.00',facings:1, status:'new'},
+        {sect:'B', name:'Dassai',             format:'45 Junmai Daiginjo',cost:'38.00',facings:1, status:'new'},
+        {sect:'B', name:'Tozai',              format:'Snow Maiden Nigori',cost:'18.00',facings:1, status:'new'},
+        // ----- G4C: Premium mixers -----
+        {sect:'C', name:'Fever-Tree',         format:'Premium Tonic 4-pk',cost:'5.99', facings:2, status:'new'},
+        {sect:'C', name:'Q Mixers',           format:'Spectacular Tonic 4-pk',cost:'5.99', facings:1, status:'new'},
+        {sect:'C', name:'Fever-Tree',         format:'Ginger Beer 4-pk',  cost:'5.99', facings:2, status:'new'},
+        {sect:'C', name:'Topo Chico',         format:'Twist Lime 6-pk',   cost:'7.99', facings:1, status:'new'},
+      ]},
+
+      // SH 4 — eye-level: ANCHOR velocity per section
+      {tier:'eye-level', tiles: [
+        // ----- G4A: Wine anchor brands (highest velocity) -----
+        {sect:'A', name:'Decoy',              format:'Cabernet Sauv',     cost:'14.00',facings:2, status:'new'},
+        {sect:'A', name:'Decoy',              format:'Sauv Blanc',        cost:'14.00',facings:1, status:'new'},
+        {sect:'A', name:'Josh Cellars',       format:'Cabernet Sauv',     cost:'10.00',facings:2, status:'new'},
+        {sect:'A', name:'Josh Cellars',       format:'Pinot Noir',        cost:'10.00',facings:1, status:'new'},
+        {sect:'A', name:'Kim Crawford',       format:'Marlborough Sauv Blanc',cost:'12.00',facings:1, status:'new'},
+        // ----- G4B: Sake/Shochu/Soju anchor -----
+        {sect:'B', name:'Tozai',              format:'Living Jewel Junmai',cost:'14.00',facings:1, status:'new'},
+        {sect:'B', name:'Hakkaisan',          format:'Honjozo 300ml',     cost:'9.99', facings:2, status:'new'},
+        {sect:'B', name:'Jinro',              format:'Soju Original',     cost:'8.99', facings:2, status:'new'},
+        {sect:'B', name:'Yokaichi',           format:'Mugi Shochu',       cost:'19.00',facings:1, status:'new'},
+        // ----- G4C: Mixers anchor -----
+        {sect:'C', name:'Q Mixers',           format:'Indian Tonic 4-pk', cost:'5.49', facings:2, status:'new'},
+        {sect:'C', name:'Fever-Tree',         format:'Mediterranean Tonic',cost:'5.99', facings:1, status:'new'},
+        {sect:'C', name:'Owen\u2019s',       format:'Margarita Mixer',   cost:'8.99', facings:1, status:'new'},
+      ]},
+
+      // SH 3 — mid-reach: VARIETY tier per section
+      {tier:'mid-reach', tiles: [
+        // ----- G4A: Wine mid-tier variety -----
+        {sect:'A', name:'Yellow Tail',        format:'Cabernet Sauv',     cost:'7.00', facings:2, status:'new'},
+        {sect:'A', name:'Yellow Tail',        format:'Chardonnay',        cost:'7.00', facings:1, status:'new'},
+        {sect:'A', name:'Mark West',          format:'Pinot Noir',        cost:'9.00', facings:1, status:'new'},
+        {sect:'A', name:'Apothic',            format:'Red Blend',         cost:'9.00', facings:2, status:'new'},
+        {sect:'A', name:'Bogle',              format:'Petite Sirah',      cost:'10.00',facings:1, status:'new'},
+        // ----- G4B: Sake/Shochu mid-tier -----
+        {sect:'B', name:'Tozai',              format:'Voices Junmai',     cost:'13.00',facings:1, status:'new'},
+        {sect:'B', name:'Sho Chiku Bai',      format:'Classic Junmai 750ml',cost:'14.00',facings:1, status:'new'},
+        {sect:'B', name:'Mizu',               format:'Lemongrass Shochu', cost:'29.00',facings:1, status:'new'},
+        {sect:'B', name:'Iichiko',            format:'Silhouette Mugi Shochu',cost:'19.00',facings:1, status:'new'},
+        // ----- G4C: Mixers + cocktail-prep variety -----
+        {sect:'C', name:'Owen\u2019s',       format:'Whiskey Sour Smoky',cost:'8.99', facings:1, status:'new'},
+        {sect:'C', name:'RealLime',           format:'Lime Juice 15oz',   cost:'3.49', facings:1, status:'new'},
+        {sect:'C', name:'Bittermilk',         format:'#1 Old Fashioned',  cost:'14.99',facings:1, status:'new'},
+        {sect:'C', name:'Liber & Co',         format:'Pineapple Gum syrup',cost:'14.99',facings:1, status:'new'},
+      ]},
+
+      // SH 2 — low-reach: VALUE tier per section
+      {tier:'low-reach', tiles: [
+        // ----- G4A: Wine value -----
+        {sect:'A', name:'90+ Cellars',        format:'Old Vine Malbec',   cost:'8.00', facings:1, status:'new'},
+        {sect:'A', name:'Cupcake',            format:'Red Velvet',        cost:'8.00', facings:2, status:'new'},
+        {sect:'A', name:'Black Box',          format:'Cab Sauv 3L',       cost:'24.00',facings:1, status:'new'},
+        // ----- G4B: Sake mini + Korean BBQ-pairing -----
+        {sect:'B', name:'Sho Chiku Bai',      format:'Sake Mini 180ml',   cost:'4.99', facings:2, status:'new'},
+        {sect:'B', name:'Hakkaisan',          format:'Daiginjo Mini',     cost:'9.99', facings:1, status:'new'},
+        {sect:'B', name:'Chamisul',           format:'Original Soju',     cost:'8.99', facings:2, status:'new'},
+        // ----- G4C: Garnishes + bitters -----
+        {sect:'C', name:'Luxardo',            format:'Maraschino Cherries',cost:'19.99',facings:1, status:'new'},
+        {sect:'C', name:'Mortlach',           format:'Cocktail Cherries', cost:'14.99',facings:1, status:'new'},
+        {sect:'C', name:'Twang',              format:'Margarita Salt',    cost:'4.99', facings:1, status:'new'},
+        {sect:'C', name:'Angostura',          format:'Aromatic Bitters',  cost:'9.99', facings:1, status:'new'},
+        {sect:'C', name:'Peychaud\u2019s',   format:'Bitters',           cost:'12.99',facings:1, status:'new'},
+      ]},
+
+      // SH 1 — kick-plate: BULK + extras per section
+      {tier:'kick-plate', tiles: [
+        // ----- G4A: Wine 1.5L magnums -----
+        {sect:'A', name:'Yellow Tail',        format:'Cab Sauv 1.5L',     cost:'12.00',facings:1, status:'new'},
+        {sect:'A', name:'Decoy',              format:'Cab Sauv 1.5L',     cost:'27.00',facings:1, status:'new'},
+        {sect:'A', name:'Bota Box',           format:'Cab Sauv 3L bag',   cost:'18.00',facings:1, status:'new'},
+        // ----- G4B: Sake + cooking sake bulk -----
+        {sect:'B', name:'Sho Chiku Bai',      format:'Junmai 750ml',      cost:'14.00',facings:1, status:'new'},
+        {sect:'B', name:'Sho Chiku Bai',      format:'Cooking Sake 1.8L', cost:'24.00',facings:1, status:'new'},
+        // ----- G4C: Bulk tonic / club soda for cocktail prep -----
+        {sect:'C', name:'Schweppes',          format:'Tonic 1L',          cost:'3.99', facings:1, status:'new'},
+        {sect:'C', name:'Canada Dry',         format:'Club Soda 1L',      cost:'3.49', facings:1, status:'new'},
+        {sect:'C', name:'Topo Chico',         format:'Mineral Water 1L',  cost:'4.99', facings:1, status:'new'},
+      ]},
+    ];
+    return `
+        <h2 class="slide-title">G4 — Back-side face</h2>
+        <p class="slide-subtitle">12 ft × 5 shelves × 18" deep — back-side face of the back gondola, rendered true-to-scale. <strong style="color:#fff;">A</strong> Curated wine · <strong style="color:#fff;">B</strong> Sake / Shochu / Soju · <strong style="color:#fff;">C</strong> Cocktail mixers + garnishes.</p>
+    <!-- G4 face -->
+    <div style="margin-bottom:18px;">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;border-bottom:2px solid #afa9ec;padding-bottom:5px;">
+        <h3 style="font-size:15px;color:#fff;letter-spacing:0.5px;">G4 \u2014 Back-side face (REPOSITIONED: A=Curated wine \u00b7 B=Sake/Shochu \u00b7 C=Mixers + garnishes)</h3>
+        <div style="font-size:10px;color:var(--muted);font-family:monospace;letter-spacing:1px;">144" W \u00b7 60" H \u00b7 18" D \u00b7 5 SHELVES @ 12" \u00b7 ~190 facings</div>
       </div>
+      
+      <!-- 12-Section strategy band for G4 -->
+      <div style="background:rgba(0,0,0,0.25);border:1px solid var(--border);border-radius:6px;padding:8px 12px;margin-bottom:8px;">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:7px;">
+          <div style="font-family:monospace;font-size:10.5px;color:#efb045;letter-spacing:1.5px;font-weight:700;text-transform:uppercase;">▸ G4 \u2014 12-Section Strategy (A/B/C)</div>
+          <span onclick="window.goToSlide('gondola-strategy')" style="cursor:pointer;font-size:10px;color:var(--muted);font-family:monospace;letter-spacing:0.5px;text-decoration:underline;">Full strategy &rarr;</span>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:7px;">
+          <div style="background:rgba(255,255,255,0.03);border:1px solid var(--border);border-left:3px solid #efb045;border-radius:5px;padding:8px 11px;display:flex;flex-direction:column;gap:3px;">
+            <div style="display:flex;align-items:baseline;justify-content:space-between;gap:6px;">
+              <div><span style="font-family:monospace;font-size:13px;font-weight:700;color:#fff;letter-spacing:1px;">A</span><span style="font-size:8.5px;color:var(--muted);font-family:monospace;letter-spacing:0.8px;margin-left:5px;">SOUTH (~4 ft)</span></div>
+              <span style="font-family:monospace;font-size:9.5px;color:#efb045;font-weight:700;">35–42%</span>
+            </div>
+            <div style="font-size:11.5px;font-weight:600;color:#fff;line-height:1.2;">Curated wine wall (~30 SKUs)</div>
+            <div style="font-size:9.5px;color:var(--muted);line-height:1.35;">By varietal: bubbles · whites · reds · rosé</div>
+          </div><div style="background:rgba(255,255,255,0.03);border:1px solid var(--border);border-left:3px solid #efb045;border-radius:5px;padding:8px 11px;display:flex;flex-direction:column;gap:3px;">
+            <div style="display:flex;align-items:baseline;justify-content:space-between;gap:6px;">
+              <div><span style="font-family:monospace;font-size:13px;font-weight:700;color:#fff;letter-spacing:1px;">B</span><span style="font-size:8.5px;color:var(--muted);font-family:monospace;letter-spacing:0.8px;margin-left:5px;">MIDDLE (~4 ft)</span></div>
+              <span style="font-family:monospace;font-size:9.5px;color:#efb045;font-weight:700;">50–60%</span>
+            </div>
+            <div style="font-size:11.5px;font-weight:600;color:#fff;line-height:1.2;">Sake / Shochu / Soju</div>
+            <div style="font-size:9.5px;color:var(--muted);line-height:1.35;">Hokusetsu · Tozai · Hakkaisan · Jinro</div>
+          </div><div style="background:rgba(255,255,255,0.03);border:1px solid var(--border);border-left:3px solid #efb045;border-radius:5px;padding:8px 11px;display:flex;flex-direction:column;gap:3px;">
+            <div style="display:flex;align-items:baseline;justify-content:space-between;gap:6px;">
+              <div><span style="font-family:monospace;font-size:13px;font-weight:700;color:#fff;letter-spacing:1px;">C</span><span style="font-size:8.5px;color:var(--muted);font-family:monospace;letter-spacing:0.8px;margin-left:5px;">NORTH (~4 ft)</span></div>
+              <span style="font-family:monospace;font-size:9.5px;color:#efb045;font-weight:700;">45–55%</span>
+            </div>
+            <div style="font-size:11.5px;font-weight:600;color:#fff;line-height:1.2;">Cocktail mixers + garnishes</div>
+            <div style="font-size:9.5px;color:var(--muted);line-height:1.35;">Fever-Tree · Q Mixers · Angostura · Luxardo</div>
+          </div>
+        </div>
+      </div>
+      <!-- PHASE 39: Real-scale SVG elevation for G4 -->
+      <div style="background:rgba(0,0,0,0.30);border:1.5px solid #afa9ec;border-radius:8px;padding:14px 16px;margin-bottom:10px;">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;">
+          <div style="font-size:12px;color:#afa9ec;letter-spacing:1.2px;text-transform:uppercase;font-weight:700;font-family:monospace;">▸ G4 Real-Scale Shelf Elevation · Bodega-density</div>
+          <div style="font-size:10px;color:var(--muted);font-family:monospace;letter-spacing:0.5px;">1 in = 6 px · 12" per-shelf · 60" overall</div>
+        </div>
+${renderGondolaRealScale({ shelves: g4Shelves, sectionLabels: { A:'Curated wine', B:'Sake / Shochu / Soju', C:'Mixers + garnishes' } })}
+        <div style="margin-top:10px;display:flex;gap:18px;flex-wrap:wrap;font-size:10.5px;color:var(--muted);font-family:monospace;letter-spacing:0.3px;">
+          <span><span style="color:#f0997b;">▪</span> A · Curated Wine (BREAKTHRU)</span>
+          <span><span style="color:#afa9ec;">▪</span> B · Sake / Shochu / Soju (BREAKTHRU)</span>
+          <span><span style="color:#5dcaa5;">▪</span> C · Mixers + Garnishes (BREAKTHRU)</span>
+          <span style="margin-left:auto;color:#9bd9ff;">📏 18" shelf depth · wine 750ml ×6 deep · sake 720ml ×5 deep · tonic 4-pks ×3 deep</span>
+        </div>
+      </div>
+      ${renderFixtureFooter(g4Shelves, '')}
+    </div>
     `;
   },
 
@@ -8193,7 +8597,6 @@ const renderers = {
   },
 
 
-
   'shelf-s1': () => renderShelfElevation({
     tag: 'S1',
     title: 'S1 \u2014 Entrance HBA Wall (south entrance, left wall)',
@@ -8333,7 +8736,6 @@ const renderers = {
        skus:5, facings:10, color:'#7A4226', textColor:'#fff'},
     ],
   }),
-
 
   // ============================================================
   // RENDERER: Historical Financials (5-yr tax return trend)
@@ -8549,7 +8951,6 @@ const renderers = {
     ],
     footerNote: '<strong style="color:var(--amber);">Strategy:</strong> 32% of Cubs season ticket holders come from outside Chicago, with significant Asian-American + tourist trade from Japan/Korea. Premium Japanese whisky alone justifies the endcap \u2014 average bottle $52+ vs. $14 for the macro shelves.',
   }),
-
 
   historical: () => {
     const years = [
@@ -8950,9 +9351,9 @@ const renderers = {
         <div class="delta up">First full repositioned year</div>
       </div>
       <div class="stat" style="border-left:3px solid var(--blue);">
-        <div class="label">PAYBACK ON $154K CAPITAL</div>
-        <div class="val">~14 months</div>
-        <div class="delta">Capital recovered by Aug 2027</div>
+        <div class="label">PAYBACK ON $118K CAPITAL</div>
+        <div class="val">~13 months</div>
+        <div class="delta">Capital recovered by Jun 2027</div>
       </div>
     </div>
 
@@ -9025,7 +9426,7 @@ const renderers = {
 
     <div class="card accent" style="margin-top:14px;">
       <h3>The investment thesis on a single page</h3>
-      <p style="font-size:13px;">Total Phase 2 capital deployed: <strong>$154,436</strong> ($100K business purchase + $23K new inventory + $15K renovations + $16K working capital). Cumulative net income recovers that capital in <strong>14 months</strong> (Aug 2027). Years 2-3 then return $132K and $142K respectively. Add ancillary revenue ($82-138K/yr) and 2027 All-Star Game halo, and the steady-state earnings power is <strong>$200K+/yr</strong> on top of the building rental income — without ever leaving Wrigleyville real estate, against a fixed cost base that doesn't move.</p>
+      <p style="font-size:13px;">Total Phase 2 capital deployed: <strong>$118,403</strong> ($50K business purchase + $37K new inventory + $15K renovations + $16K working capital). Cumulative net income recovers that capital in <strong>~13 months</strong> (Jun 2027). Years 2-3 then return $132K and $142K respectively. Add ancillary revenue ($82-138K/yr) and 2027 All-Star Game halo, and the steady-state earnings power is <strong>$200K+/yr</strong> on top of the building rental income — without ever leaving Wrigleyville real estate, against a fixed cost base that doesn't move.</p>
     </div>`;
   },
 
@@ -9230,18 +9631,18 @@ const renderers = {
 
   'working-capital': () => `
     <h2 class="slide-title">💵 Working capital + 90-day buffer</h2>
-    <p class="slide-subtitle">Total Day-0 cash to close &mdash; <strong style="color:var(--accent);">$272,292</strong>. Covers the asset purchase, $80,392 of all-new opening inventory across 9 distributors, license/permit reserve, fixtures (SC-1/CG-1 + D19/D20 retrofit), and a 60-day operating cushion. 100% new inventory at open &mdash; no inherited stock.</p>
+    <p class="slide-subtitle">Total Day-0 cash to close &mdash; <strong style="color:var(--accent);">$216,259</strong>. Covers the asset purchase, $94,359 of all-new opening inventory across 9 distributors, license/permit reserve, fixtures (SC-1/CG-1 + D19/D20 retrofit), and a 60-day operating cushion. 100% new inventory at open &mdash; no inherited stock.</p>
     <div class="stat-grid" style="margin-top:14px;">
-      <div class="stat"><div class="label">DAY-0 CASH TO CLOSE</div><div class="val" style="color:var(--accent);">$272,292</div><div class="sub">Itemized below</div></div>
-      <div class="stat"><div class="label">Asset purchase</div><div class="val">$120,000</div><div class="sub">Business + fixtures (asset deal)</div></div>
-      <div class="stat"><div class="label">Opening inventory</div><div class="val">$80,392</div><div class="sub">All-new &middot; 9 distributors</div></div>
+      <div class="stat"><div class="label">DAY-0 CASH TO CLOSE</div><div class="val" style="color:var(--accent);">$216,259</div><div class="sub">Itemized below</div></div>
+      <div class="stat"><div class="label">Asset purchase</div><div class="val">$50,000</div><div class="sub">Business + fixtures (asset deal)</div></div>
+      <div class="stat"><div class="label">Opening inventory</div><div class="val">$94,359</div><div class="sub">All-new &middot; 9 distributors</div></div>
       <div class="stat"><div class="label">60-day cushion</div><div class="val">$28,000</div><div class="sub">Rent + payroll + slow-pay terms</div></div>
     </div>
     <h3 style="font-size:13px;color:var(--accent);letter-spacing:1px;margin-top:18px;border-bottom:1px solid var(--accent);padding-bottom:6px;">Day-0 cash build &mdash; cash required at close</h3>
     <table style="width:100%;border-collapse:collapse;font-size:11.5px;margin-top:8px;">
       <tbody>
-        <tr><td style="padding:5px 0;color:#cbd5e0;">Business + fixtures asset purchase</td><td style="padding:5px 0;text-align:right;font-family:monospace;color:#fff;font-weight:600;">$120,000</td></tr>
-        <tr style="background:rgba(255,255,255,0.02);"><td style="padding:5px 0;color:#cbd5e0;">Opening inventory (all-new &middot; 9 distributors incl. Hannah&rsquo;s)</td><td style="padding:5px 0;text-align:right;font-family:monospace;color:#fff;font-weight:600;">$80,392</td></tr>
+        <tr><td style="padding:5px 0;color:#cbd5e0;">Business + fixtures asset purchase</td><td style="padding:5px 0;text-align:right;font-family:monospace;color:#fff;font-weight:600;">$50,000</td></tr>
+        <tr style="background:rgba(255,255,255,0.02);"><td style="padding:5px 0;color:#cbd5e0;">Opening inventory (all-new &middot; 9 distributors incl. Hannah&rsquo;s)</td><td style="padding:5px 0;text-align:right;font-family:monospace;color:#fff;font-weight:600;">$94,359</td></tr>
         <tr><td style="padding:5px 0;color:#cbd5e0;">Liquor license + permits (Class B &middot; tobacco &middot; vape &middot; lottery &middot; THC)</td><td style="padding:5px 0;text-align:right;font-family:monospace;color:#fff;font-weight:600;">$7,500</td></tr>
         <tr style="background:rgba(255,255,255,0.02);"><td style="padding:5px 0;color:#cbd5e0;">Security deposit (2 mo rent)</td><td style="padding:5px 0;text-align:right;font-family:monospace;color:#fff;font-weight:600;">$8,000</td></tr>
         <tr><td style="padding:5px 0;color:#cbd5e0;">POS + back-office (Clover)</td><td style="padding:5px 0;text-align:right;font-family:monospace;color:#fff;font-weight:600;">$4,500</td></tr>
@@ -9251,7 +9652,7 @@ const renderers = {
         <tr><td style="padding:5px 0;color:#cbd5e0;">Opening marketing + signage</td><td style="padding:5px 0;text-align:right;font-family:monospace;color:#fff;font-weight:600;">$6,000</td></tr>
         <tr style="background:rgba(255,255,255,0.02);"><td style="padding:5px 0;color:#cbd5e0;">60-day operating cushion (rent + payroll + slow-pay terms)</td><td style="padding:5px 0;text-align:right;font-family:monospace;color:#fff;font-weight:600;">$28,000</td></tr>
         <tr><td style="padding:5px 0;color:#cbd5e0;">Less: freezer salvage credit</td><td style="padding:5px 0;text-align:right;font-family:monospace;color:#5dcaa5;font-weight:600;">($1,500)</td></tr>
-        <tr style="border-top:1.5px solid var(--accent);"><td style="padding:8px 0;color:var(--accent);font-weight:800;letter-spacing:0.5px;">TOTAL DAY-0 CASH AT CLOSE</td><td style="padding:8px 0;text-align:right;font-family:monospace;color:var(--accent);font-weight:800;font-size:13.5px;">$272,292</td></tr>
+        <tr style="border-top:1.5px solid var(--accent);"><td style="padding:8px 0;color:var(--accent);font-weight:800;letter-spacing:0.5px;">TOTAL DAY-0 CASH AT CLOSE</td><td style="padding:8px 0;text-align:right;font-family:monospace;color:var(--accent);font-weight:800;font-size:13.5px;">$216,259</td></tr>
       </tbody>
     </table>
     <h3 style="font-size:13px;color:var(--accent);letter-spacing:1px;margin-top:18px;border-bottom:1px solid var(--accent);padding-bottom:6px;">90-day cash burn waterfall (worst case)</h3>
@@ -9272,7 +9673,7 @@ const renderers = {
       </tbody>
     </table>
     <div class="card" style="border-left:3px solid var(--accent);padding:12px 18px;margin-top:14px;font-size:12px;color:var(--muted);">
-      <strong style="color:var(--accent);">Day-0 cash to close = $272,292.</strong> Asset purchase $120k + $80.4k all-new opening inventory + $7.5k license + $8k deposit + $4.5k POS + $2.5k ATM + $8k D19/D20 retrofit + $8.9k SC-1/CG-1 + $6k marketing + $28k 60-day cushion, less $1.5k freezer salvage. Net-15 IL statutory credit on alcohol means a large share of the $80.4k inventory lands before invoice, so true cash-at-close runs lower than the sticker. The 60-day cushion carries rent + payroll until the new mix ramps.
+      <strong style="color:var(--accent);">Day-0 cash to close = $216,259.</strong> Asset purchase $50k + $94.4k all-new opening inventory + $7.5k license + $8k deposit + $4.5k POS + $2.5k ATM + $8k D19/D20 retrofit + $8.9k SC-1/CG-1 + $6k marketing + $28k 60-day cushion, less $1.5k freezer salvage. Net-15 IL statutory credit on alcohol means a large share of the $94.4k inventory lands before invoice, so true cash-at-close runs lower than the sticker. The 60-day cushion carries rent + payroll until the new mix ramps.
     </div>`,
 
   'insurance': () => `
@@ -9288,7 +9689,7 @@ const renderers = {
       <tbody>
         <tr style="border-bottom:1px solid rgba(255,255,255,0.06);"><td style="padding:7px 10px;color:#fff;font-weight:600;">General Liability</td><td style="padding:7px 10px;color:#cbd5e0;font-family:monospace;">$1M / $2M agg · $1k ded</td><td style="padding:7px 10px;color:#cbd5e0;">Slip-and-fall, customer injury, advertising injury</td><td style="padding:7px 10px;text-align:right;font-family:monospace;color:#fff;font-weight:700;">$2,400</td></tr>
         <tr style="border-bottom:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.02);"><td style="padding:7px 10px;color:#fff;font-weight:600;">Liquor Liability (DRAM Shop)</td><td style="padding:7px 10px;color:#cbd5e0;font-family:monospace;">$1M / $2M agg</td><td style="padding:7px 10px;color:#cbd5e0;">Required by IL Class B license. Covers third-party harm from served liquor</td><td style="padding:7px 10px;text-align:right;font-family:monospace;color:#fff;font-weight:700;">$3,200</td></tr>
-        <tr style="border-bottom:1px solid rgba(255,255,255,0.06);"><td style="padding:7px 10px;color:#fff;font-weight:600;">Property / Contents</td><td style="padding:7px 10px;color:#cbd5e0;font-family:monospace;">$120k contents · $2.5k ded</td><td style="padding:7px 10px;color:#cbd5e0;">Inventory + cooler + fixtures fire/theft/vandalism replacement</td><td style="padding:7px 10px;text-align:right;font-family:monospace;color:#fff;font-weight:700;">$1,800</td></tr>
+        <tr style="border-bottom:1px solid rgba(255,255,255,0.06);"><td style="padding:7px 10px;color:#fff;font-weight:600;">Property / Contents</td><td style="padding:7px 10px;color:#cbd5e0;font-family:monospace;">$50k contents · $2.5k ded</td><td style="padding:7px 10px;color:#cbd5e0;">Inventory + cooler + fixtures fire/theft/vandalism replacement</td><td style="padding:7px 10px;text-align:right;font-family:monospace;color:#fff;font-weight:700;">$1,800</td></tr>
         <tr style="border-bottom:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.02);"><td style="padding:7px 10px;color:#fff;font-weight:600;">Equipment Breakdown (cooler/freezer)</td><td style="padding:7px 10px;color:#cbd5e0;font-family:monospace;">$50k limit · $1k ded</td><td style="padding:7px 10px;color:#cbd5e0;">Compressor failure + spoiled product replacement (D1–D22 = $21k risk)</td><td style="padding:7px 10px;text-align:right;font-family:monospace;color:#fff;font-weight:700;">$650</td></tr>
         <tr style="border-bottom:1px solid rgba(255,255,255,0.06);"><td style="padding:7px 10px;color:#fff;font-weight:600;">Workers Compensation</td><td style="padding:7px 10px;color:#cbd5e0;font-family:monospace;">IL statutory · 2 FTE</td><td style="padding:7px 10px;color:#cbd5e0;">Required for any W-2 employee. Retail c-store class code 8017</td><td style="padding:7px 10px;text-align:right;font-family:monospace;color:#fff;font-weight:700;">$2,400</td></tr>
         <tr style="border-bottom:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.02);"><td style="padding:7px 10px;color:#fff;font-weight:600;">Crime / Money &amp; Securities</td><td style="padding:7px 10px;color:#cbd5e0;font-family:monospace;">$25k limit</td><td style="padding:7px 10px;color:#cbd5e0;">Cash-on-premises + employee dishonesty + safe burglary</td><td style="padding:7px 10px;text-align:right;font-family:monospace;color:#fff;font-weight:700;">$680</td></tr>
@@ -10055,12 +10456,12 @@ const renderers = {
 
   'pkt-overview': () => {
     const dists = [
-      { tag:'Breakthru',  slide:'pkt-breakthru',  cat:'BevAlc wholesale',  scope:'Spirits + wine deep catalog, premium', open:25407, annual:18500,  restock:'Biweekly', terms:'Net 30',  margin:'30%', primary:'BC-1 back wall (spirits), G4 wine reset', anchor:true },
+      { tag:'Breakthru',  slide:'pkt-breakthru',  cat:'BevAlc wholesale',  scope:'Spirits + wine deep catalog, premium', open:26557, annual:18500,  restock:'Biweekly', terms:'Net 30',  margin:'30%', primary:'BC-1 back wall (spirits), G4 wine reset', anchor:true },
       { tag:"SG (Southern Glazer's)", slide:'pkt-sg', cat:'BevAlc wholesale', scope:'Mass-market wine + spirits secondary source', open:12497, annual:6200,   restock:'Monthly (backup)', terms:'Net 30',  margin:'27%', primary:'Backup BevAlc when Breakthru is out of stock', anchor:false },
       { tag:'Reyes Beverage Group', slide:'pkt-reyes', cat:'Beer / RTD + Coca-Cola (Chicago Beverage Systems)', scope:'Molson Coors, Constellation (Modelo/Corona), Heineken, craft (Revolution/Half Acre), Athletic NA, + Coca-Cola/Topo Chico CSD', open:8983, annual:23700, restock:'2-3x/week', terms:'Net 14', margin:'27%', primary:'D7-D18 beer/RTD wall, D22 RTD, CSD cooler program', anchor:true },
       { tag:'Lakeshore',  slide:'pkt-lakeshore',  cat:'Beer DSD (regional craft)', scope:'Half Acre, Revolution, Goose Island, regional craft', open:11131, annual:12000, restock:'Weekly', terms:'Net 14',  margin:'30%', primary:'D7 craft IPA, D8 craft + Cutwater, D9 craft + imports', anchor:true },
       { tag:'KeHE / UNFI',slide:'pkt-kehe',       cat:'Natural / specialty foods', scope:'Functional bev (Liquid IV, LMNT, Magic Mind), better-for-you snacks, premium chocolate', open:9186, annual:8200,  restock:'Weekly', terms:'Net 30',  margin:'35%', primary:'D3-D6 functional cooler, G1.5 hangover endcap, G3 international snacks', anchor:true },
-      { tag:'Eby-Brown',  slide:'pkt-eby',        cat:'C-store wholesale',   scope:'Cigarettes, candy, snacks, salty (chips, jerky), pantry, HBA, vape', open:10182, annual:13800, restock:'Weekly', terms:'Net 7',   margin:'24%', primary:'G1B salty heroes, G2B pantry, S4 vape, candy rack, pantry HBA', anchor:true },
+      { tag:'Eby-Brown',  slide:'pkt-eby',        cat:'C-store wholesale',   scope:'Cigarettes, candy, snacks, salty (chips, jerky), pantry, HBA, vape', open:22999, annual:13800, restock:'Weekly', terms:'Net 7',   margin:'24%', primary:'G1B salty heroes, G2B pantry, S4 vape, candy rack, pantry HBA', anchor:true },
       { tag:'THC Direct', slide:'pkt-thc',        cat:'IL-licensed THC bev',  scope:'Cresco, House of Saka, Cycling Frog, Cheech & Chong, Houseplant, Quirk', open:1729, annual:6500, restock:'Biweekly', terms:'Prepay first 90 days, then Net 14', margin:'55%', primary:'D16 THC bev cooler, G3C functional endcap', anchor:true },
       { tag:'Red Bull DSD',slide:'pkt-redbull',  cat:'Energy drink DSD (single-brand)', scope:'Red Bull full SKU set, Red Bull Editions (Sugar-Free, Watermelon, Coconut, etc.)', open:927, annual:5500,  restock:'Weekly (DSD merch)', terms:'Net 14',  margin:'26%', primary:'D3 energy door (anchor SKUs), D21 single-can impulse', anchor:false },
       { tag:"Hannah's Bretzel", slide:'fresh-food-program', cat:'Fresh food (daily DSD)', scope:'Pretzel-bread sandwiches, breakfast + lunch daypart, daily own-fleet delivery', open:350, annual:39000, restock:'Daily 6am', terms:'Net 7', margin:'55%', primary:'SC-1 sandwich cooler (60 SKU)', anchor:true },
@@ -10071,7 +10472,7 @@ const renderers = {
     const pillCss = 'display:inline-flex;align-items:center;gap:6px;font-size:11px;color:#a4b3ff;background:rgba(139,158,255,0.10);border:1px solid rgba(139,158,255,0.35);padding:4px 9px;border-radius:14px;font-family:monospace;letter-spacing:0.5px;cursor:pointer;';
     return `
     <h2 class="slide-title">Distributor overview &mdash; the 9-vendor wholesale stack</h2>
-    <p class="slide-subtitle">Consolidated view of all wholesale distributor relationships. <strong>9 vendors</strong> placing <strong>$80,392 of all-new opening orders</strong> (Day-1 buy) to stock the repositioned store; the remaining differentiation comes from local Chicago vendors (next slide). Click any row to drill into the full packet.</p>
+    <p class="slide-subtitle">Consolidated view of all wholesale distributor relationships. <strong>9 vendors</strong> placing <strong>$94,359 of all-new opening orders</strong> (Day-1 buy) to stock the repositioned store; the remaining differentiation comes from local Chicago vendors (next slide). Click any row to drill into the full packet.</p>
 
     <div class="stat-grid" style="grid-template-columns:repeat(4,1fr);">
       <div class="stat" style="border-left:3px solid var(--accent);">
@@ -10285,7 +10686,6 @@ const renderers = {
         <div class="delta">Beer, wine, spirits, snacks, etc.</div>
       </div>
     </div>
-
 
     <!-- PHASE 19 + 20 — Side-by-side floor plans: Uptown reference + 3814 mapping -->
     <h3 style="color:#fff;margin:18px 0 8px;font-size:14px;letter-spacing:0.5px;">\u25e9 Floor Plans \u2014 Uptown product mapping (standalone study, NOT the 3814 repositioning plan)</h3>
@@ -10924,7 +11324,7 @@ const renderers = {
       <h2 class="slide-title">All Fixtures &mdash; Full Inventory</h2>
       <p class="slide-subtitle">Every fixture in the 735 SF store, grouped by zone role. Total: <strong style="color:#fff;">42 fixtures</strong> — 22 cooler doors + 4 gondola faces + 3 endcaps + 5 counter fixtures + 8 wall shelves. Click any fixture tag to jump to its detailed elevation. See the <span onclick="window.goToSlide('store-strategy')" style="cursor:pointer;color:var(--accent);text-decoration:underline;">Overall Store Strategy</span> slide for how these zones work together.</p>
 
-      <div style="background:rgba(133,183,235,0.10);border:1.5px solid var(--blue);border-radius:8px;padding:14px 16px;margin-bottom:14px;"><div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px;"><h3 style="font-size:14px;color:var(--blue);letter-spacing:0.8px;text-transform:uppercase;font-family:monospace;">THE COLD WALL</h3><span style="font-size:10.5px;color:#888;font-family:monospace;">22 fixtures</span></div><p style="font-size:11.5px;color:var(--muted);line-height:1.45;margin:6px 0 12px;">Velocity + freshness anchor — 22 cooler doors (30 W × 76 H × 24 D each). Carries the highest-turn categories: beer, CSDs, energy, water, juice, dairy, plus frozen meals + ice cream pints (D19/D20) and the bagged-ice bin.</p><table style="width:100%;border-collapse:collapse;background:rgba(0,0,0,0.20);"><thead><tr style="background:rgba(255,255,255,0.04);"><th style="padding:6px 10px;text-align:left;font-size:10px;color:#888;font-family:monospace;letter-spacing:0.8px;">FIXTURE</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#888;font-family:monospace;letter-spacing:0.8px;">CATEGORY</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#888;font-family:monospace;letter-spacing:0.8px;">DIMENSIONS</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#888;font-family:monospace;letter-spacing:0.8px;">DISTRIBUTOR</th></tr></thead><tbody><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('elev-lower-left')" style="cursor:pointer;color:var(--blue);text-decoration:underline;">D1</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Pepsi-Coke CSD wall</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">30 in × 76 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">REYES</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('elev-lower-left')" style="cursor:pointer;color:var(--blue);text-decoration:underline;">D2</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Specialty soda + mixers</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">30 in × 76 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">REYES</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('elev-lower-left')" style="cursor:pointer;color:var(--blue);text-decoration:underline;">D3</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Energy + premium water</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">30 in × 76 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">EBY-BROWN</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('elev-lower-left')" style="cursor:pointer;color:var(--blue);text-decoration:underline;">D4</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Protein + sport + dairy</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">30 in × 76 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">KEHE</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('elev-lower-left')" style="cursor:pointer;color:var(--blue);text-decoration:underline;">D5</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Yerba + Pure Tea + AriZona</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">30 in × 76 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">EBY-BROWN</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('elev-lower-left')" style="cursor:pointer;color:var(--blue);text-decoration:underline;">D6</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Juice + eggs + butter/cheese</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">30 in × 76 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">KEHE</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('elev-upper-left')" style="cursor:pointer;color:var(--blue);text-decoration:underline;">D7</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Craft IPA + Lagunitas</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">30 in × 76 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">LAKESHORE</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('elev-upper-left')" style="cursor:pointer;color:var(--blue);text-decoration:underline;">D8</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Craft + Cutwater RTD</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">30 in × 76 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">REYES</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('elev-upper-left')" style="cursor:pointer;color:var(--blue);text-decoration:underline;">D9</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Imports + macros</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">30 in × 76 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">REYES</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('elev-upper-left')" style="cursor:pointer;color:var(--blue);text-decoration:underline;">D10</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Macro lager 30-pks</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">30 in × 76 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">REYES</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('elev-upper-left')" style="cursor:pointer;color:var(--blue);text-decoration:underline;">D11</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Beer 12-packs</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">30 in × 76 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">REYES</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('elev-upper-left')" style="cursor:pointer;color:var(--blue);text-decoration:underline;">D12</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Wide 2-door craft beer</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">60 in × 76 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">LAKESHORE</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('elev-right')" style="cursor:pointer;color:var(--blue);text-decoration:underline;">D13</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Beer singles + craft wall</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">30 in × 76 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">LAKESHORE</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('elev-right')" style="cursor:pointer;color:var(--blue);text-decoration:underline;">D14</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Beer + RTD singles</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">30 in × 76 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">REYES</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('elev-right')" style="cursor:pointer;color:var(--blue);text-decoration:underline;">D15</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Singles + 4-pks (RTD spirits)</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">30 in × 76 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">BREAKTHRU</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('elev-right')" style="cursor:pointer;color:var(--blue);text-decoration:underline;">D16</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">High Noon + THC bev</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">30 in × 76 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">THC DIRECT</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('elev-right')" style="cursor:pointer;color:var(--blue);text-decoration:underline;">D17</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Champagne + hard seltzer</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">30 in × 76 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">BREAKTHRU</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('elev-right')" style="cursor:pointer;color:var(--blue);text-decoration:underline;">D18</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Chandon + Truly / Vizzy</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">30 in × 76 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">BREAKTHRU</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('elev-right')" style="cursor:pointer;color:var(--blue);text-decoration:underline;">D19</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">❄️ Frozen meals</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">30 in × 76 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">BREAKTHRU</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('elev-right')" style="cursor:pointer;color:var(--blue);text-decoration:underline;">D20</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">🍦 Ice cream pints</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">30 in × 76 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">BREAKTHRU</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('elev-right')" style="cursor:pointer;color:var(--blue);text-decoration:underline;">D21</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Red Bull DSD</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">30 in × 76 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">RED BULL</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('elev-right')" style="cursor:pointer;color:var(--blue);text-decoration:underline;">D22</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Poppi / Monaco / RTD</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">30 in × 76 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">EBY-BROWN</td></tr></tbody></table></div><div style="background:rgba(175,169,236,0.10);border:1.5px solid var(--purple);border-radius:8px;padding:14px 16px;margin-bottom:14px;"><div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px;"><h3 style="font-size:14px;color:var(--purple);letter-spacing:0.8px;text-transform:uppercase;font-family:monospace;">THE CENTER (gondolas)</h3><span style="font-size:10.5px;color:#888;font-family:monospace;">8 fixtures · 7 A/B/C sub-sections</span></div><p style="font-size:11.5px;color:var(--muted);line-height:1.45;margin:6px 0 12px;">Two 12-ft double-faced gondolas (144 W × 60 H × 18 D per face) + 4 endcaps. The 12-section A/B/C strategy is detailed on the dedicated Gondola Strategy slide. Each face carries a different category complementing the cooler wall it faces. <strong style="color:#9bd9ff;">Shelf depth 18"</strong> means tall slim products (Clorox, Pine-Sol, wine 750ml) typically stack 5-6 deep behind the front face.</p><table style="width:100%;border-collapse:collapse;background:rgba(0,0,0,0.20);"><thead><tr style="background:rgba(255,255,255,0.04);"><th style="padding:6px 10px;text-align:left;font-size:10px;color:#888;font-family:monospace;letter-spacing:0.8px;">FIXTURE</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#888;font-family:monospace;letter-spacing:0.8px;">CATEGORY</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#888;font-family:monospace;letter-spacing:0.8px;">DIMENSIONS</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#888;font-family:monospace;letter-spacing:0.8px;">DISTRIBUTOR</th></tr></thead><tbody><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('elev-g1')" style="cursor:pointer;color:var(--purple);text-decoration:underline;">G1</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Front gondola — front face (Hydration / RTD coffee / Late-night fuel)</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">144 in × 60 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">EBY-BROWN</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('endcap-g15')" style="cursor:pointer;color:var(--purple);text-decoration:underline;">G1.5</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Hydration endcap (south)</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">16 in × 60 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">REYES</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('elev-g2')" style="cursor:pointer;color:var(--purple);text-decoration:underline;">G2</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Front gondola — back face (Pantry heroes / Coffee-breakfast)</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">144 in × 60 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">EBY-BROWN + KEHE</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('endcap-g25')" style="cursor:pointer;color:var(--purple);text-decoration:underline;">G2.5</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Late-Night Fuel endcap (north)</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">16 in × 60 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">EBY-BROWN</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('gondolas-back')" style="cursor:pointer;color:var(--purple);text-decoration:underline;">G3</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Back gondola — front face (Chocolate / Cleaning / Paper / Pet)</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">144 in × 60 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">EBY-BROWN / KEHE</td></tr><tr style="background:rgba(175,169,236,0.04);"><td style="padding:6px 10px 6px 26px;font-family:monospace;font-size:11px;font-weight:600;color:#a4b3ff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('gondolas-back')" style="cursor:pointer;color:#afa9ec;text-decoration:underline;">↳ G3-A</span></td><td style="padding:6px 10px;font-size:11px;color:#cbd5e0;">Premium chocolate (Tony's, Endangered Species, Hu Kitchen)</td><td style="padding:6px 10px;font-size:10.5px;color:#888;font-family:monospace;width:120px;">48 in × 60 in (4')</td><td style="padding:6px 10px;font-size:10.5px;color:#888;font-family:monospace;">KEHE</td></tr><tr style="background:rgba(175,169,236,0.04);"><td style="padding:6px 10px 6px 26px;font-family:monospace;font-size:11px;font-weight:600;color:#a4b3ff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('gondolas-back')" style="cursor:pointer;color:#afa9ec;text-decoration:underline;">↳ G3-B</span></td><td style="padding:6px 10px;font-size:11px;color:#cbd5e0;">Cleaning essentials (Dawn, Lysol, Bounty, Hefty, Clorox)</td><td style="padding:6px 10px;font-size:10.5px;color:#888;font-family:monospace;width:120px;">48 in × 60 in (4')</td><td style="padding:6px 10px;font-size:10.5px;color:#888;font-family:monospace;">EBY-BROWN</td></tr><tr style="background:rgba(175,169,236,0.04);"><td style="padding:6px 10px 6px 26px;font-family:monospace;font-size:11px;font-weight:600;color:#a4b3ff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('gondolas-back')" style="cursor:pointer;color:#afa9ec;text-decoration:underline;">↳ G3-C1</span></td><td style="padding:6px 10px;font-size:11px;color:#cbd5e0;">Paper goods (Solo cups, Dixie plates, Hefty cutlery, foil)</td><td style="padding:6px 10px;font-size:10.5px;color:#888;font-family:monospace;width:120px;">24 in × 60 in (2')</td><td style="padding:6px 10px;font-size:10.5px;color:#888;font-family:monospace;">EBY-BROWN</td></tr><tr style="background:rgba(175,169,236,0.04);"><td style="padding:6px 10px 6px 26px;font-family:monospace;font-size:11px;font-weight:600;color:#a4b3ff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('gondolas-back')" style="cursor:pointer;color:#afa9ec;text-decoration:underline;">↳ G3-C2</span></td><td style="padding:6px 10px;font-size:11px;color:#cbd5e0;">Pet / Bodega Animal (Friskies, Fancy Feast, Tidy Cats)</td><td style="padding:6px 10px;font-size:10.5px;color:#888;font-family:monospace;width:120px;">24 in × 60 in (2')</td><td style="padding:6px 10px;font-size:10.5px;color:#888;font-family:monospace;">EBY-BROWN</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('endcap-g35')" style="cursor:pointer;color:var(--purple);text-decoration:underline;">G3.5</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Adaptogen Discovery endcap (south)</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">32 in × 60 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">KEHE</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('gondolas-back')" style="cursor:pointer;color:var(--purple);text-decoration:underline;">G4</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Back gondola — back face (legacy wine + 200-SKU premium augment)</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">144 in × 60 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">BREAKTHRU</td></tr><tr style="background:rgba(175,169,236,0.04);"><td style="padding:6px 10px 6px 26px;font-family:monospace;font-size:11px;font-weight:600;color:#a4b3ff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('gondolas-back')" style="cursor:pointer;color:#afa9ec;text-decoration:underline;">↳ G4-A</span></td><td style="padding:6px 10px;font-size:11px;color:#cbd5e0;">Curated wine (~30 SKU bubbles · whites · reds · rosé)</td><td style="padding:6px 10px;font-size:10.5px;color:#888;font-family:monospace;width:120px;">48 in × 60 in (4')</td><td style="padding:6px 10px;font-size:10.5px;color:#888;font-family:monospace;">BREAKTHRU</td></tr><tr style="background:rgba(175,169,236,0.04);"><td style="padding:6px 10px 6px 26px;font-family:monospace;font-size:11px;font-weight:600;color:#a4b3ff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('gondolas-back')" style="cursor:pointer;color:#afa9ec;text-decoration:underline;">↳ G4-B</span></td><td style="padding:6px 10px;font-size:11px;color:#cbd5e0;">Sake / Shochu / Soju (Hokusetsu, Tozai, Hakkaisan, Jinro)</td><td style="padding:6px 10px;font-size:10.5px;color:#888;font-family:monospace;width:120px;">48 in × 60 in (4')</td><td style="padding:6px 10px;font-size:10.5px;color:#888;font-family:monospace;">BREAKTHRU</td></tr><tr style="background:rgba(175,169,236,0.04);"><td style="padding:6px 10px 6px 26px;font-family:monospace;font-size:11px;font-weight:600;color:#a4b3ff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('gondolas-back')" style="cursor:pointer;color:#afa9ec;text-decoration:underline;">↳ G4-C</span></td><td style="padding:6px 10px;font-size:11px;color:#cbd5e0;">Cocktail mixers + garnishes (Fever-Tree, Q, Angostura, Luxardo)</td><td style="padding:6px 10px;font-size:10.5px;color:#888;font-family:monospace;width:120px;">48 in × 60 in (4')</td><td style="padding:6px 10px;font-size:10.5px;color:#888;font-family:monospace;">BREAKTHRU</td></tr></tbody></table></div><div style="background:rgba(239,176,69,0.10);border:1.5px solid var(--amber);border-radius:8px;padding:14px 16px;margin-bottom:14px;"><div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px;"><h3 style="font-size:14px;color:var(--amber);letter-spacing:0.8px;text-transform:uppercase;font-family:monospace;">THE COUNTER ZONE</h3><span style="font-size:10.5px;color:#888;font-family:monospace;">5 fixtures</span></div><p style="font-size:11.5px;color:var(--muted);line-height:1.45;margin:6px 0 12px;">Behind the cashier — high-margin, age-gated, and impulse. Tobacco, vape, lottery, candy, mini-bottles, and the spirits library. The dollar-density-per-SF leader.</p><table style="width:100%;border-collapse:collapse;background:rgba(0,0,0,0.20);"><thead><tr style="background:rgba(255,255,255,0.04);"><th style="padding:6px 10px;text-align:left;font-size:10px;color:#888;font-family:monospace;letter-spacing:0.8px;">FIXTURE</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#888;font-family:monospace;letter-spacing:0.8px;">CATEGORY</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#888;font-family:monospace;letter-spacing:0.8px;">DIMENSIONS</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#888;font-family:monospace;letter-spacing:0.8px;">DISTRIBUTOR</th></tr></thead><tbody><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('elev-oc1')" style="cursor:pointer;color:var(--amber);text-decoration:underline;">OC-1</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Over-counter (cigarettes / vape / lottery / candy)</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">120 in × 84 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">EBY-BROWN</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('elev-bc1')" style="cursor:pointer;color:var(--amber);text-decoration:underline;">BC-1</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Back counter — spirits + premium liquor library</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">120 in × 96 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">BREAKTHRU + SG</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('fixture-sc1')" style="cursor:pointer;color:var(--amber);text-decoration:underline;">SC-1</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Sandwich cooler (Hannah's Bretzel · 60 SKU)</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">48 W × 30 D × 60 H</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">HANNAH'S / KEHE</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('fixture-cg1')" style="cursor:pointer;color:var(--amber);text-decoration:underline;">CG-1</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Candy grab-and-go (25 SKU impulse)</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">48 W × 22 D × 42 H</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">EBY-BROWN</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('door-d19')" style="cursor:pointer;color:var(--amber);text-decoration:underline;">FC-1</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Front-counter shelving (clerk side — TBD)</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">—</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">—</td></tr></tbody></table></div><div style="background:rgba(240,153,123,0.10);border:1.5px solid var(--coral);border-radius:8px;padding:14px 16px;margin-bottom:14px;"><div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px;"><h3 style="font-size:14px;color:var(--coral);letter-spacing:0.8px;text-transform:uppercase;font-family:monospace;">THE WALL SHELVES (vestibule + capture)</h3><span style="font-size:10.5px;color:#888;font-family:monospace;">8 fixtures</span></div><p style="font-size:11.5px;color:var(--muted);line-height:1.45;margin:6px 0 12px;">Wall shelves and angled racks at entrances + impulse spots. HBA, travel-size, vape impulse, Plan B, and dedicated capture zones for forgotten essentials.</p><table style="width:100%;border-collapse:collapse;background:rgba(0,0,0,0.20);"><thead><tr style="background:rgba(255,255,255,0.04);"><th style="padding:6px 10px;text-align:left;font-size:10px;color:#888;font-family:monospace;letter-spacing:0.8px;">FIXTURE</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#888;font-family:monospace;letter-spacing:0.8px;">CATEGORY</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#888;font-family:monospace;letter-spacing:0.8px;">DIMENSIONS</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#888;font-family:monospace;letter-spacing:0.8px;">DISTRIBUTOR</th></tr></thead><tbody><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('shelf-s1')" style="cursor:pointer;color:var(--coral);text-decoration:underline;">S1</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Entrance HBA wall (south)</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">36 in × 60 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">KEHE/EBY-BROWN</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('shelf-s2')" style="cursor:pointer;color:var(--coral);text-decoration:underline;">S2</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Travel HBA (mid-west angled)</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">24 in × 36 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">KEHE/EBY-BROWN</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('shelf-s25')" style="cursor:pointer;color:var(--coral);text-decoration:underline;">S2.5</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Plan B + emergency contraception</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">18 in × 24 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">KEHE</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('shelf-s3')" style="cursor:pointer;color:var(--coral);text-decoration:underline;">S3</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Vape shelf (mid-west)</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">24 in × 12 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">EBY-BROWN</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('shelf-s4')" style="cursor:pointer;color:var(--coral);text-decoration:underline;">S4</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Vape shelf (vestibule north)</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">30 in × 18 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">EBY-BROWN</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('shelf-s5')" style="cursor:pointer;color:var(--coral);text-decoration:underline;">S5</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Sundries (east entrance vestibule)</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">30 in × 24 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">EBY-BROWN</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('shelf-s6')" style="cursor:pointer;color:var(--coral);text-decoration:underline;">S6</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Endcap gondola shelf (front-counter)</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">24 in × 60 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">EBY-BROWN</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('shelf-s7')" style="cursor:pointer;color:var(--coral);text-decoration:underline;">S7</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Endcap gondola shelf (BC-1 / back)</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">24 in × 60 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">EBY-BROWN</td></tr></tbody></table></div>
+      <div style="background:rgba(133,183,235,0.10);border:1.5px solid var(--blue);border-radius:8px;padding:14px 16px;margin-bottom:14px;"><div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px;"><h3 style="font-size:14px;color:var(--blue);letter-spacing:0.8px;text-transform:uppercase;font-family:monospace;">THE COLD WALL</h3><span style="font-size:10.5px;color:#888;font-family:monospace;">22 fixtures</span></div><p style="font-size:11.5px;color:var(--muted);line-height:1.45;margin:6px 0 12px;">Velocity + freshness anchor — 22 cooler doors (30 W × 76 H × 24 D each). Carries the highest-turn categories: beer, CSDs, energy, water, juice, dairy, plus frozen meals + ice cream pints (D19/D20) and the bagged-ice bin.</p><table style="width:100%;border-collapse:collapse;background:rgba(0,0,0,0.20);"><thead><tr style="background:rgba(255,255,255,0.04);"><th style="padding:6px 10px;text-align:left;font-size:10px;color:#888;font-family:monospace;letter-spacing:0.8px;">FIXTURE</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#888;font-family:monospace;letter-spacing:0.8px;">CATEGORY</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#888;font-family:monospace;letter-spacing:0.8px;">DIMENSIONS</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#888;font-family:monospace;letter-spacing:0.8px;">DISTRIBUTOR</th></tr></thead><tbody><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('elev-lower-left')" style="cursor:pointer;color:var(--blue);text-decoration:underline;">D1</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Pepsi-Coke CSD wall</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">30 in × 76 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">REYES</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('elev-lower-left')" style="cursor:pointer;color:var(--blue);text-decoration:underline;">D2</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Specialty soda + mixers</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">30 in × 76 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">REYES</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('elev-lower-left')" style="cursor:pointer;color:var(--blue);text-decoration:underline;">D3</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Energy + premium water</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">30 in × 76 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">EBY-BROWN</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('elev-lower-left')" style="cursor:pointer;color:var(--blue);text-decoration:underline;">D4</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Protein + sport + dairy</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">30 in × 76 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">KEHE</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('elev-lower-left')" style="cursor:pointer;color:var(--blue);text-decoration:underline;">D5</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Yerba + Pure Tea + AriZona</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">30 in × 76 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">EBY-BROWN</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('elev-lower-left')" style="cursor:pointer;color:var(--blue);text-decoration:underline;">D6</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Juice + eggs + butter/cheese</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">30 in × 76 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">KEHE</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('elev-upper-left')" style="cursor:pointer;color:var(--blue);text-decoration:underline;">D7</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Craft IPA + Lagunitas</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">30 in × 76 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">LAKESHORE</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('elev-upper-left')" style="cursor:pointer;color:var(--blue);text-decoration:underline;">D8</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Craft + Cutwater RTD</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">30 in × 76 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">REYES</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('elev-upper-left')" style="cursor:pointer;color:var(--blue);text-decoration:underline;">D9</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Imports + macros</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">30 in × 76 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">REYES</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('elev-upper-left')" style="cursor:pointer;color:var(--blue);text-decoration:underline;">D10</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Macro lager 30-pks</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">30 in × 76 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">REYES</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('elev-upper-left')" style="cursor:pointer;color:var(--blue);text-decoration:underline;">D11</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Beer 12-packs</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">30 in × 76 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">REYES</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('elev-upper-left')" style="cursor:pointer;color:var(--blue);text-decoration:underline;">D12</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Wide 2-door craft beer</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">60 in × 76 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">LAKESHORE</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('elev-right')" style="cursor:pointer;color:var(--blue);text-decoration:underline;">D13</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Beer singles + craft wall</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">30 in × 76 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">LAKESHORE</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('elev-right')" style="cursor:pointer;color:var(--blue);text-decoration:underline;">D14</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Beer + RTD singles</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">30 in × 76 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">REYES</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('elev-right')" style="cursor:pointer;color:var(--blue);text-decoration:underline;">D15</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Singles + 4-pks (RTD spirits)</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">30 in × 76 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">BREAKTHRU</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('elev-right')" style="cursor:pointer;color:var(--blue);text-decoration:underline;">D16</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">High Noon + THC bev</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">30 in × 76 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">THC DIRECT</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('elev-right')" style="cursor:pointer;color:var(--blue);text-decoration:underline;">D17</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Champagne + hard seltzer</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">30 in × 76 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">BREAKTHRU</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('elev-right')" style="cursor:pointer;color:var(--blue);text-decoration:underline;">D18</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Chandon + Truly / Vizzy</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">30 in × 76 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">BREAKTHRU</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('elev-right')" style="cursor:pointer;color:var(--blue);text-decoration:underline;">D19</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">❄️ Frozen meals</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">30 in × 76 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">BREAKTHRU</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('elev-right')" style="cursor:pointer;color:var(--blue);text-decoration:underline;">D20</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">🍦 Ice cream pints</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">30 in × 76 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">BREAKTHRU</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('elev-right')" style="cursor:pointer;color:var(--blue);text-decoration:underline;">D21</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Red Bull DSD</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">30 in × 76 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">RED BULL</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('elev-right')" style="cursor:pointer;color:var(--blue);text-decoration:underline;">D22</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Poppi / Monaco / RTD</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">30 in × 76 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">EBY-BROWN</td></tr></tbody></table></div><div style="background:rgba(175,169,236,0.10);border:1.5px solid var(--purple);border-radius:8px;padding:14px 16px;margin-bottom:14px;"><div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px;"><h3 style="font-size:14px;color:var(--purple);letter-spacing:0.8px;text-transform:uppercase;font-family:monospace;">THE CENTER (gondolas)</h3><span style="font-size:10.5px;color:#888;font-family:monospace;">8 fixtures · 7 A/B/C sub-sections</span></div><p style="font-size:11.5px;color:var(--muted);line-height:1.45;margin:6px 0 12px;">Two 12-ft double-faced gondolas (144 W × 60 H × 18 D per face) + 4 endcaps. The 12-section A/B/C strategy is detailed on the dedicated Gondola Strategy slide. Each face carries a different category complementing the cooler wall it faces. <strong style="color:#9bd9ff;">Shelf depth 18"</strong> means tall slim products (Clorox, Pine-Sol, wine 750ml) typically stack 5-6 deep behind the front face.</p><table style="width:100%;border-collapse:collapse;background:rgba(0,0,0,0.20);"><thead><tr style="background:rgba(255,255,255,0.04);"><th style="padding:6px 10px;text-align:left;font-size:10px;color:#888;font-family:monospace;letter-spacing:0.8px;">FIXTURE</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#888;font-family:monospace;letter-spacing:0.8px;">CATEGORY</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#888;font-family:monospace;letter-spacing:0.8px;">DIMENSIONS</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#888;font-family:monospace;letter-spacing:0.8px;">DISTRIBUTOR</th></tr></thead><tbody><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('elev-g1')" style="cursor:pointer;color:var(--purple);text-decoration:underline;">G1</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Front gondola — front face (Hydration / RTD coffee / Late-night fuel)</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">144 in × 60 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">EBY-BROWN</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('endcap-g15')" style="cursor:pointer;color:var(--purple);text-decoration:underline;">G1.5</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Hydration endcap (south)</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">16 in × 60 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">REYES</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('elev-g2')" style="cursor:pointer;color:var(--purple);text-decoration:underline;">G2</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Front gondola — back face (Pantry heroes / Coffee-breakfast)</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">144 in × 60 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">EBY-BROWN + KEHE</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('endcap-g25')" style="cursor:pointer;color:var(--purple);text-decoration:underline;">G2.5</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Late-Night Fuel endcap (north)</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">16 in × 60 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">EBY-BROWN</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('elev-g3')" style="cursor:pointer;color:var(--purple);text-decoration:underline;">G3</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Back gondola — front face (Chocolate / Cleaning / Paper / Pet)</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">144 in × 60 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">EBY-BROWN / KEHE</td></tr><tr style="background:rgba(175,169,236,0.04);"><td style="padding:6px 10px 6px 26px;font-family:monospace;font-size:11px;font-weight:600;color:#a4b3ff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('elev-g3')" style="cursor:pointer;color:#afa9ec;text-decoration:underline;">↳ G3-A</span></td><td style="padding:6px 10px;font-size:11px;color:#cbd5e0;">Premium chocolate (Tony's, Endangered Species, Hu Kitchen)</td><td style="padding:6px 10px;font-size:10.5px;color:#888;font-family:monospace;width:120px;">48 in × 60 in (4')</td><td style="padding:6px 10px;font-size:10.5px;color:#888;font-family:monospace;">KEHE</td></tr><tr style="background:rgba(175,169,236,0.04);"><td style="padding:6px 10px 6px 26px;font-family:monospace;font-size:11px;font-weight:600;color:#a4b3ff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('elev-g3')" style="cursor:pointer;color:#afa9ec;text-decoration:underline;">↳ G3-B</span></td><td style="padding:6px 10px;font-size:11px;color:#cbd5e0;">Cleaning essentials (Dawn, Lysol, Bounty, Hefty, Clorox)</td><td style="padding:6px 10px;font-size:10.5px;color:#888;font-family:monospace;width:120px;">48 in × 60 in (4')</td><td style="padding:6px 10px;font-size:10.5px;color:#888;font-family:monospace;">EBY-BROWN</td></tr><tr style="background:rgba(175,169,236,0.04);"><td style="padding:6px 10px 6px 26px;font-family:monospace;font-size:11px;font-weight:600;color:#a4b3ff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('elev-g3')" style="cursor:pointer;color:#afa9ec;text-decoration:underline;">↳ G3-C1</span></td><td style="padding:6px 10px;font-size:11px;color:#cbd5e0;">Paper goods (Solo cups, Dixie plates, Hefty cutlery, foil)</td><td style="padding:6px 10px;font-size:10.5px;color:#888;font-family:monospace;width:120px;">24 in × 60 in (2')</td><td style="padding:6px 10px;font-size:10.5px;color:#888;font-family:monospace;">EBY-BROWN</td></tr><tr style="background:rgba(175,169,236,0.04);"><td style="padding:6px 10px 6px 26px;font-family:monospace;font-size:11px;font-weight:600;color:#a4b3ff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('elev-g3')" style="cursor:pointer;color:#afa9ec;text-decoration:underline;">↳ G3-C2</span></td><td style="padding:6px 10px;font-size:11px;color:#cbd5e0;">Pet / Bodega Animal (Friskies, Fancy Feast, Tidy Cats)</td><td style="padding:6px 10px;font-size:10.5px;color:#888;font-family:monospace;width:120px;">24 in × 60 in (2')</td><td style="padding:6px 10px;font-size:10.5px;color:#888;font-family:monospace;">EBY-BROWN</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('endcap-g35')" style="cursor:pointer;color:var(--purple);text-decoration:underline;">G3.5</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Adaptogen Discovery endcap (south)</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">32 in × 60 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">KEHE</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('elev-g4')" style="cursor:pointer;color:var(--purple);text-decoration:underline;">G4</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Back gondola — back face (legacy wine + 200-SKU premium augment)</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">144 in × 60 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">BREAKTHRU</td></tr><tr style="background:rgba(175,169,236,0.04);"><td style="padding:6px 10px 6px 26px;font-family:monospace;font-size:11px;font-weight:600;color:#a4b3ff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('elev-g4')" style="cursor:pointer;color:#afa9ec;text-decoration:underline;">↳ G4-A</span></td><td style="padding:6px 10px;font-size:11px;color:#cbd5e0;">Curated wine (~30 SKU bubbles · whites · reds · rosé)</td><td style="padding:6px 10px;font-size:10.5px;color:#888;font-family:monospace;width:120px;">48 in × 60 in (4')</td><td style="padding:6px 10px;font-size:10.5px;color:#888;font-family:monospace;">BREAKTHRU</td></tr><tr style="background:rgba(175,169,236,0.04);"><td style="padding:6px 10px 6px 26px;font-family:monospace;font-size:11px;font-weight:600;color:#a4b3ff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('elev-g4')" style="cursor:pointer;color:#afa9ec;text-decoration:underline;">↳ G4-B</span></td><td style="padding:6px 10px;font-size:11px;color:#cbd5e0;">Sake / Shochu / Soju (Hokusetsu, Tozai, Hakkaisan, Jinro)</td><td style="padding:6px 10px;font-size:10.5px;color:#888;font-family:monospace;width:120px;">48 in × 60 in (4')</td><td style="padding:6px 10px;font-size:10.5px;color:#888;font-family:monospace;">BREAKTHRU</td></tr><tr style="background:rgba(175,169,236,0.04);"><td style="padding:6px 10px 6px 26px;font-family:monospace;font-size:11px;font-weight:600;color:#a4b3ff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('elev-g4')" style="cursor:pointer;color:#afa9ec;text-decoration:underline;">↳ G4-C</span></td><td style="padding:6px 10px;font-size:11px;color:#cbd5e0;">Cocktail mixers + garnishes (Fever-Tree, Q, Angostura, Luxardo)</td><td style="padding:6px 10px;font-size:10.5px;color:#888;font-family:monospace;width:120px;">48 in × 60 in (4')</td><td style="padding:6px 10px;font-size:10.5px;color:#888;font-family:monospace;">BREAKTHRU</td></tr></tbody></table></div><div style="background:rgba(239,176,69,0.10);border:1.5px solid var(--amber);border-radius:8px;padding:14px 16px;margin-bottom:14px;"><div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px;"><h3 style="font-size:14px;color:var(--amber);letter-spacing:0.8px;text-transform:uppercase;font-family:monospace;">THE COUNTER ZONE</h3><span style="font-size:10.5px;color:#888;font-family:monospace;">5 fixtures</span></div><p style="font-size:11.5px;color:var(--muted);line-height:1.45;margin:6px 0 12px;">Behind the cashier — high-margin, age-gated, and impulse. Tobacco, vape, lottery, candy, mini-bottles, and the spirits library. The dollar-density-per-SF leader.</p><table style="width:100%;border-collapse:collapse;background:rgba(0,0,0,0.20);"><thead><tr style="background:rgba(255,255,255,0.04);"><th style="padding:6px 10px;text-align:left;font-size:10px;color:#888;font-family:monospace;letter-spacing:0.8px;">FIXTURE</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#888;font-family:monospace;letter-spacing:0.8px;">CATEGORY</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#888;font-family:monospace;letter-spacing:0.8px;">DIMENSIONS</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#888;font-family:monospace;letter-spacing:0.8px;">DISTRIBUTOR</th></tr></thead><tbody><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('elev-oc1')" style="cursor:pointer;color:var(--amber);text-decoration:underline;">OC-1</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Over-counter (cigarettes / vape / lottery / candy)</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">120 in × 84 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">EBY-BROWN</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('elev-bc1')" style="cursor:pointer;color:var(--amber);text-decoration:underline;">BC-1</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Back counter — spirits + premium liquor library</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">120 in × 96 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">BREAKTHRU + SG</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('fixture-sc1')" style="cursor:pointer;color:var(--amber);text-decoration:underline;">SC-1</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Sandwich cooler (Hannah's Bretzel · 60 SKU)</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">48 W × 30 D × 60 H</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">HANNAH'S / KEHE</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('fixture-cg1')" style="cursor:pointer;color:var(--amber);text-decoration:underline;">CG-1</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Candy grab-and-go (25 SKU impulse)</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">48 W × 22 D × 42 H</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">EBY-BROWN</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('door-d19')" style="cursor:pointer;color:var(--amber);text-decoration:underline;">FC-1</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Front-counter shelving (clerk side — TBD)</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">—</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">—</td></tr></tbody></table></div><div style="background:rgba(240,153,123,0.10);border:1.5px solid var(--coral);border-radius:8px;padding:14px 16px;margin-bottom:14px;"><div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px;"><h3 style="font-size:14px;color:var(--coral);letter-spacing:0.8px;text-transform:uppercase;font-family:monospace;">THE WALL SHELVES (vestibule + capture)</h3><span style="font-size:10.5px;color:#888;font-family:monospace;">8 fixtures</span></div><p style="font-size:11.5px;color:var(--muted);line-height:1.45;margin:6px 0 12px;">Wall shelves and angled racks at entrances + impulse spots. HBA, travel-size, vape impulse, Plan B, and dedicated capture zones for forgotten essentials.</p><table style="width:100%;border-collapse:collapse;background:rgba(0,0,0,0.20);"><thead><tr style="background:rgba(255,255,255,0.04);"><th style="padding:6px 10px;text-align:left;font-size:10px;color:#888;font-family:monospace;letter-spacing:0.8px;">FIXTURE</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#888;font-family:monospace;letter-spacing:0.8px;">CATEGORY</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#888;font-family:monospace;letter-spacing:0.8px;">DIMENSIONS</th><th style="padding:6px 10px;text-align:left;font-size:10px;color:#888;font-family:monospace;letter-spacing:0.8px;">DISTRIBUTOR</th></tr></thead><tbody><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('shelf-s1')" style="cursor:pointer;color:var(--coral);text-decoration:underline;">S1</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Entrance HBA wall (south)</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">36 in × 60 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">KEHE/EBY-BROWN</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('shelf-s2')" style="cursor:pointer;color:var(--coral);text-decoration:underline;">S2</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Travel HBA (mid-west angled)</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">24 in × 36 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">KEHE/EBY-BROWN</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('shelf-s25')" style="cursor:pointer;color:var(--coral);text-decoration:underline;">S2.5</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Plan B + emergency contraception</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">18 in × 24 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">KEHE</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('shelf-s3')" style="cursor:pointer;color:var(--coral);text-decoration:underline;">S3</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Vape shelf (mid-west)</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">24 in × 12 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">EBY-BROWN</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('shelf-s4')" style="cursor:pointer;color:var(--coral);text-decoration:underline;">S4</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Vape shelf (vestibule north)</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">30 in × 18 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">EBY-BROWN</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('shelf-s5')" style="cursor:pointer;color:var(--coral);text-decoration:underline;">S5</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Sundries (east entrance vestibule)</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">30 in × 24 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">EBY-BROWN</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('shelf-s6')" style="cursor:pointer;color:var(--coral);text-decoration:underline;">S6</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Endcap gondola shelf (front-counter)</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">24 in × 60 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">EBY-BROWN</td></tr><tr><td style="padding:8px 10px;font-family:monospace;font-size:12.5px;font-weight:700;color:#fff;letter-spacing:0.5px;width:55px;"><span onclick="window.goToSlide('shelf-s7')" style="cursor:pointer;color:var(--coral);text-decoration:underline;">S7</span></td><td style="padding:8px 10px;font-size:11.5px;color:#fff;">Endcap gondola shelf (BC-1 / back)</td><td style="padding:8px 10px;font-size:10.5px;color:#cbd5e0;font-family:monospace;width:120px;">24 in × 60 in</td><td style="padding:8px 10px;font-size:10.5px;color:#a4b3ff;font-family:monospace;">EBY-BROWN</td></tr></tbody></table></div>
 
       <div style="margin-top:14px;display:flex;flex-wrap:wrap;gap:8px;">
         <span onclick="window.goToSlide('store-strategy')" style="cursor:pointer;display:inline-flex;align-items:center;gap:6px;font-size:11px;color:var(--accent);background:rgba(139,158,255,0.10);border:1px solid rgba(139,158,255,0.35);padding:6px 12px;border-radius:14px;font-family:monospace;letter-spacing:0.5px;">← Overall Store Strategy</span>
@@ -11160,7 +11560,7 @@ const renderers = {
     
     <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap;">
       <span onclick="window.goToSlide('elev-g1')" style="cursor:pointer;display:inline-flex;align-items:center;gap:6px;font-size:11px;color:#5dcaa5;background:rgba(93,202,165,0.10);border:1px solid rgba(93,202,165,0.35);padding:5px 11px;border-radius:14px;font-family:monospace;letter-spacing:0.5px;">G1 + G2 detail &rarr;</span>
-      <span onclick="window.goToSlide('gondolas-back')" style="cursor:pointer;display:inline-flex;align-items:center;gap:6px;font-size:11px;color:#afa9ec;background:rgba(175,169,236,0.10);border:1px solid rgba(175,169,236,0.35);padding:5px 11px;border-radius:14px;font-family:monospace;letter-spacing:0.5px;">G3 + G4 detail &rarr;</span>
+      <span onclick="window.goToSlide('elev-g3')" style="cursor:pointer;display:inline-flex;align-items:center;gap:6px;font-size:11px;color:#afa9ec;background:rgba(175,169,236,0.10);border:1px solid rgba(175,169,236,0.35);padding:5px 11px;border-radius:14px;font-family:monospace;letter-spacing:0.5px;">G3 + G4 detail &rarr;</span>
       <span onclick="window.goToSlide('master-sheet')" style="cursor:pointer;display:inline-flex;align-items:center;gap:6px;font-size:11px;color:#a4b3ff;background:rgba(139,158,255,0.10);border:1px solid rgba(139,158,255,0.35);padding:5px 11px;border-radius:14px;font-family:monospace;letter-spacing:0.5px;">Master fixture sheet &rarr;</span>
       <span onclick="window.goToSlide('floorplan')" style="cursor:pointer;display:inline-flex;align-items:center;gap:6px;font-size:11px;color:var(--muted);background:rgba(255,255,255,0.04);border:1px solid var(--border);padding:5px 11px;border-radius:14px;font-family:monospace;letter-spacing:0.5px;">&larr; Floor plan</span>
     </div>`,
@@ -12415,7 +12815,6 @@ window.cwEditor = (function () {
 
 
 
-
 // ============================================================
 // RANKER TOGGLE — switches SKU ranker between velocity/volume/price
 // Wired to button[onclick="rankerToggle(this)"] inside distributor cards.
@@ -12600,7 +12999,6 @@ window.rankerToggle = function(btn) {
   }
 })();
 
-
 // PRELOAD door registry — call wall renderers once so their side-effect
 // (registerDoorWallData) populates DOOR_REGISTRY. Without this, the
 // individual D1..D22 slides show "door data not loaded".
@@ -12608,7 +13006,6 @@ window.rankerToggle = function(btn) {
 // helpers are defined). Without this move, renderSlides() pre-renders elev-d1..d6
 // before the helpers exist and throws TypeError, breaking ALL subsequent slides.
 </script>
-
 
 <!-- ============================================================ -->
 <!-- FLOOR PLAN EDITOR — drag fixtures to reposition zones        -->
