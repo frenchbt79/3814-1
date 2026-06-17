@@ -454,10 +454,11 @@ const slides = [
   { id: 'door-d22', section: '6 · Cooler Wall', label: 'D22 — Poppi / Monaco / RTD', type: 'door-d22' },
   { id: 'fixture-sc1', section: '7 · Fresh Food & Impulse', label: 'SC-1 — 🥪 Hannah’s sandwich cooler', type: 'fixture-sc1' },
   { id: 'fixture-cg1', section: '7 · Fresh Food & Impulse', label: 'CG-1 — 🍫 Candy grab-and-go', type: 'fixture-cg1' },
+  { id: 'fixture-pr1', section: '7 · Fresh Food & Impulse', label: 'PR-1 — 🥬 Fresh produce rack', type: 'fixture-pr1' },
   { id: 'elev-g1', section: '8 · Center Gondolas', label: 'G1 — Customer-side face (BFY snacks · juice · soda)', type: 'elev-g1' },
   { id: 'elev-g2', section: '8 · Center Gondolas', label: 'G2 — Back-side face (Late-night fuel · Pantry · Coffee)', type: 'elev-g2' },
   { id: 'endcap-g15', section: '8 · Center Gondolas', label: '   ⤷ G1.5 endcap (Hangover Recovery)', type: 'endcap-g15' },
-  { id: 'endcap-g25', section: '8 · Center Gondolas', label: '   ⤷ G2.5 endcap (Late-Night Fuel)', type: 'endcap-g25' },
+  { id: 'endcap-g25', section: '8 · Center Gondolas', label: '   ⤷ G2.5 endcap (Protein + Late-Night Fuel)', type: 'endcap-g25' },
   { id: 'elev-g3', section: '8 · Center Gondolas', label: 'G3 — Customer-side face (Chocolate · Cleaning · Paper · Pet)', type: 'elev-g3' },
   { id: 'elev-g4', section: '8 · Center Gondolas', label: 'G4 — Back-side face (Curated wine · Sake/Shochu · Mixers)', type: 'elev-g4' },
 
@@ -894,6 +895,14 @@ const SKUDB = [
     {zone:'G1', fixture:'gondola', dist:'EBY-BROWN', shelf:1, sku:'M&M', size:'Variety Mix 6-pack', qty:5, unitCost:8.99, status:'new'},
     {zone:'G1', fixture:'gondola', dist:'EBY-BROWN', shelf:1, sku:'Snickers', size:'Minis Family Size', qty:10, unitCost:7.99, status:'new'},
     {zone:'G1', fixture:'gondola', dist:'EBY-BROWN', shelf:1, sku:'Skittles', size:'Original 14.5oz Sharing', qty:3, unitCost:4.49, status:'new'},
+    {zone:'G1', fixture:'gondola', dist:'KEHE', shelf:4, sku:'RXBAR', size:'Chocolate Sea Salt', qty:12, unitCost:2.00, status:'new'},
+    {zone:'G1', fixture:'gondola', dist:'KEHE', shelf:4, sku:'David Protein Bar', size:'bar', qty:12, unitCost:2.95, status:'new'},
+    {zone:'G1', fixture:'gondola', dist:'KEHE', shelf:4, sku:'Quest Bar', size:'bar', qty:12, unitCost:2.25, status:'new'},
+    {zone:'G1', fixture:'gondola', dist:'KEHE', shelf:3, sku:'Built Bar', size:'bar', qty:12, unitCost:1.95, status:'new'},
+    {zone:'G1', fixture:'gondola', dist:'KEHE', shelf:3, sku:'Barebells', size:'bar', qty:12, unitCost:2.75, status:'new'},
+    {zone:'G1', fixture:'gondola', dist:'KEHE', shelf:3, sku:'Quest Protein Chips', size:'bag', qty:6, unitCost:2.50, status:'new'},
+    {zone:'G1', fixture:'gondola', dist:'KEHE', shelf:2, sku:'Chomps Jalape\u00f1o Beef', size:'stick', qty:12, unitCost:2.50, status:'new'},
+    {zone:'G1', fixture:'gondola', dist:'KEHE', shelf:2, sku:'Chomps Sea Salt Turkey', size:'stick', qty:12, unitCost:2.50, status:'new'},
     {zone:'G2', fixture:'gondola', dist:'EBY-BROWN', shelf:5, sku:'Buldak', size:'Hot Chicken Cup', qty:6, unitCost:2.95, status:'new'},
     {zone:'G2', fixture:'gondola', dist:'EBY-BROWN', shelf:5, sku:'Buldak', size:'Carbonara Cup', qty:6, unitCost:2.95, status:'new'},
     {zone:'G2', fixture:'gondola', dist:'EBY-BROWN', shelf:5, sku:'Buldak', size:'Cheese Cup', qty:3, unitCost:2.95, status:'new'},
@@ -1064,68 +1073,80 @@ const SKUDB = [
     {zone:'G4', fixture:'gondola', dist:'BREAKTHRU', shelf:1, sku:'Canada Dry', size:'Club Soda 1L', qty:3, unitCost:3.49, status:'new'},
     {zone:'G4', fixture:'gondola', dist:'BREAKTHRU', shelf:1, sku:'Topo Chico', size:'Mineral Water 1L', qty:3, unitCost:4.99, status:'new'},
     // === Endcap inventory regenerated from planograms 2026-06-16 (G1.5/G2.5/G3.5) ===
-    {zone:'G1.5', fixture:'endcap', dist:'KEHE', shelf:5, sku:'Magic Mind', size:'Productivity 2oz', qty:30, unitCost:9.99, status:'new'},
-    {zone:'G1.5', fixture:'endcap', dist:'KEHE', shelf:5, sku:'Magic Mind', size:'Sleep 2oz', qty:20, unitCost:9.99, status:'new'},
-    {zone:'G1.5', fixture:'endcap', dist:'KEHE', shelf:5, sku:'Morning Recov.', size:'Original 3.4oz', qty:9, unitCost:5.99, status:'new'},
-    {zone:'G1.5', fixture:'endcap', dist:'KEHE', shelf:4, sku:'Liquid IV', size:'Lemon Lime', qty:6, unitCost:1.85, status:'new'},
+    {zone:'G1.5', fixture:'endcap', dist:'KEHE', shelf:5, sku:'Magic Mind', size:'Productivity 2oz', qty:80, unitCost:9.99, status:'new'},
+    {zone:'G1.5', fixture:'endcap', dist:'KEHE', shelf:5, sku:'Magic Mind', size:'Sleep 2oz', qty:70, unitCost:9.99, status:'new'},
+    {zone:'G1.5', fixture:'endcap', dist:'KEHE', shelf:5, sku:'Morning Recov.', size:'Original 3.4oz', qty:18, unitCost:5.99, status:'new'},
+    {zone:'G1.5', fixture:'endcap', dist:'KEHE', shelf:4, sku:'Liquid IV', size:'Lemon Lime', qty:9, unitCost:1.85, status:'new'},
     {zone:'G1.5', fixture:'endcap', dist:'KEHE', shelf:4, sku:'Liquid IV', size:'Passion Fruit', qty:6, unitCost:1.85, status:'new'},
     {zone:'G1.5', fixture:'endcap', dist:'KEHE', shelf:4, sku:'Liquid IV', size:'Strawberry', qty:6, unitCost:1.85, status:'new'},
-    {zone:'G1.5', fixture:'endcap', dist:'KEHE', shelf:4, sku:'Liquid IV', size:'Acai Berry', qty:3, unitCost:1.85, status:'new'},
-    {zone:'G1.5', fixture:'endcap', dist:'KEHE', shelf:4, sku:'Liquid IV', size:'Tangerine', qty:3, unitCost:1.85, status:'new'},
-    {zone:'G1.5', fixture:'endcap', dist:'KEHE', shelf:3, sku:'LMNT', size:'Citrus Salt', qty:6, unitCost:2.0, status:'new'},
-    {zone:'G1.5', fixture:'endcap', dist:'KEHE', shelf:3, sku:'LMNT', size:'Raspberry', qty:6, unitCost:2.0, status:'new'},
-    {zone:'G1.5', fixture:'endcap', dist:'KEHE', shelf:3, sku:'LMNT', size:'Watermelon', qty:3, unitCost:2.0, status:'new'},
-    {zone:'G1.5', fixture:'endcap', dist:'KEHE', shelf:3, sku:'LMNT', size:'Mango Chili', qty:3, unitCost:2.0, status:'new'},
-    {zone:'G1.5', fixture:'endcap', dist:'KEHE', shelf:3, sku:'LMNT', size:'Variety', qty:6, unitCost:2.0, status:'new'},
-    {zone:'G1.5', fixture:'endcap', dist:'KEHE', shelf:2, sku:'DripDrop', size:'Berry stick', qty:12, unitCost:1.5, status:'new'},
-    {zone:'G1.5', fixture:'endcap', dist:'KEHE', shelf:2, sku:'DripDrop', size:'Watermelon', qty:3, unitCost:1.5, status:'new'},
+    {zone:'G1.5', fixture:'endcap', dist:'KEHE', shelf:4, sku:'Liquid IV', size:'Acai Berry', qty:6, unitCost:1.85, status:'new'},
+    {zone:'G1.5', fixture:'endcap', dist:'KEHE', shelf:4, sku:'Liquid IV', size:'Tangerine', qty:6, unitCost:1.85, status:'new'},
+    {zone:'G1.5', fixture:'endcap', dist:'KEHE', shelf:4, sku:'Liquid IV', size:'Sugar-Free stick', qty:6, unitCost:1.85, status:'new'},
+    {zone:'G1.5', fixture:'endcap', dist:'KEHE', shelf:3, sku:'LMNT', size:'Citrus Salt', qty:9, unitCost:2, status:'new'},
+    {zone:'G1.5', fixture:'endcap', dist:'KEHE', shelf:3, sku:'LMNT', size:'Raspberry', qty:6, unitCost:2, status:'new'},
+    {zone:'G1.5', fixture:'endcap', dist:'KEHE', shelf:3, sku:'LMNT', size:'Watermelon', qty:6, unitCost:2, status:'new'},
+    {zone:'G1.5', fixture:'endcap', dist:'KEHE', shelf:3, sku:'LMNT', size:'Mango Chili', qty:6, unitCost:2, status:'new'},
+    {zone:'G1.5', fixture:'endcap', dist:'KEHE', shelf:3, sku:'LMNT', size:'Variety', qty:6, unitCost:2, status:'new'},
+    {zone:'G1.5', fixture:'endcap', dist:'KEHE', shelf:3, sku:'LMNT', size:'Chocolate stick', qty:6, unitCost:2, status:'new'},
+    {zone:'G1.5', fixture:'endcap', dist:'KEHE', shelf:2, sku:'DripDrop', size:'Berry stick', qty:18, unitCost:1.5, status:'new'},
+    {zone:'G1.5', fixture:'endcap', dist:'KEHE', shelf:2, sku:'DripDrop', size:'Watermelon stick', qty:18, unitCost:1.5, status:'new'},
     {zone:'G1.5', fixture:'endcap', dist:'KEHE', shelf:2, sku:'Pedialyte', size:'Sport Strawberry', qty:6, unitCost:1.75, status:'new'},
-    {zone:'G1.5', fixture:'endcap', dist:'KEHE', shelf:2, sku:'Pedialyte', size:'Sport Grape', qty:3, unitCost:1.75, status:'new'},
-    {zone:'G1.5', fixture:'endcap', dist:'KEHE', shelf:1, sku:'Pedialyte', size:'Fruit Punch 1L', qty:6, unitCost:5.5, status:'new'},
-    {zone:'G1.5', fixture:'endcap', dist:'KEHE', shelf:1, sku:'Pedialyte', size:'Grape 1L', qty:3, unitCost:5.5, status:'new'},
-    {zone:'G1.5', fixture:'endcap', dist:'KEHE', shelf:1, sku:'Pedialyte', size:'Strawberry 1L', qty:3, unitCost:5.5, status:'new'},
-    {zone:'G1.5', fixture:'endcap', dist:'KEHE', shelf:1, sku:'Pedialyte', size:'Bubblegum 1L', qty:3, unitCost:5.5, status:'new'},
-    {zone:'G2.5', fixture:'endcap', dist:'EBY-BROWN', shelf:5, sku:'Takis', size:'Fuego XL 9.9oz', qty:9, unitCost:2.5, status:'new'},
-    {zone:'G2.5', fixture:'endcap', dist:'EBY-BROWN', shelf:5, sku:'Takis', size:'Blue Heat XL', qty:6, unitCost:2.5, status:'new'},
-    {zone:'G2.5', fixture:'endcap', dist:'EBY-BROWN', shelf:5, sku:'Hot Cheetos', size:'XXTRA Flamin Hot 8.5oz', qty:6, unitCost:2.99, status:'new'},
-    {zone:'G2.5', fixture:'endcap', dist:'EBY-BROWN', shelf:5, sku:'Buldak', size:'Hot Chicken Chips', qty:6, unitCost:3.49, status:'new'},
-    {zone:'G2.5', fixture:'endcap', dist:'EBY-BROWN', shelf:4, sku:'Jack Link’s', size:'Original 1.25oz', qty:9, unitCost:2.5, status:'new'},
-    {zone:'G2.5', fixture:'endcap', dist:'EBY-BROWN', shelf:4, sku:'Jack Link’s', size:'Teriyaki 1.25oz', qty:6, unitCost:2.5, status:'new'},
-    {zone:'G2.5', fixture:'endcap', dist:'EBY-BROWN', shelf:4, sku:'Country Archer', size:'Grass-Fed Original', qty:6, unitCost:4.0, status:'new'},
-    {zone:'G2.5', fixture:'endcap', dist:'EBY-BROWN', shelf:4, sku:'Chomps', size:'Grass-Fed Beef stick', qty:12, unitCost:2.5, status:'new'},
-    {zone:'G2.5', fixture:'endcap', dist:'EBY-BROWN', shelf:3, sku:'Buldak', size:'Hot Chicken Cup', qty:9, unitCost:2.95, status:'new'},
-    {zone:'G2.5', fixture:'endcap', dist:'EBY-BROWN', shelf:3, sku:'Buldak', size:'Carbonara Cup', qty:6, unitCost:2.95, status:'new'},
-    {zone:'G2.5', fixture:'endcap', dist:'EBY-BROWN', shelf:3, sku:'Cup Noodles', size:'Spicy Chicken', qty:9, unitCost:1.25, status:'new'},
-    {zone:'G2.5', fixture:'endcap', dist:'EBY-BROWN', shelf:3, sku:'Shin Black', size:'Spicy Beef bowl', qty:6, unitCost:3.5, status:'new'},
-    {zone:'G2.5', fixture:'endcap', dist:'EBY-BROWN', shelf:2, sku:'Hot Tamales', size:'Fierce Cinnamon 5oz', qty:6, unitCost:2.49, status:'new'},
-    {zone:'G2.5', fixture:'endcap', dist:'EBY-BROWN', shelf:2, sku:'Trolli', size:'Sour Brite Crawlers', qty:6, unitCost:1.99, status:'new'},
+    {zone:'G1.5', fixture:'endcap', dist:'KEHE', shelf:2, sku:'Pedialyte', size:'Sport Grape', qty:6, unitCost:1.75, status:'new'},
+    {zone:'G1.5', fixture:'endcap', dist:'KEHE', shelf:2, sku:'Pedialyte', size:'Sport Orange', qty:6, unitCost:1.75, status:'new'},
+    {zone:'G1.5', fixture:'endcap', dist:'KEHE', shelf:2, sku:'Liquid IV', size:'Hydration stick (single)', qty:12, unitCost:2.5, status:'new'},
+    {zone:'G1.5', fixture:'endcap', dist:'KEHE', shelf:1, sku:'Pedialyte', size:'Fruit Punch 1L', qty:9, unitCost:5.5, status:'new'},
+    {zone:'G1.5', fixture:'endcap', dist:'KEHE', shelf:1, sku:'Pedialyte', size:'Grape 1L', qty:6, unitCost:5.5, status:'new'},
+    {zone:'G1.5', fixture:'endcap', dist:'KEHE', shelf:1, sku:'Pedialyte', size:'Strawberry 1L', qty:6, unitCost:5.5, status:'new'},
+    {zone:'G1.5', fixture:'endcap', dist:'KEHE', shelf:1, sku:'Pedialyte', size:'Bubblegum 1L', qty:6, unitCost:5.5, status:'new'},
+    {zone:'G1.5', fixture:'endcap', dist:'KEHE', shelf:1, sku:'Pedialyte', size:'Unflavored 1L', qty:6, unitCost:5.5, status:'new'},
+    {zone:'G2.5', fixture:'endcap', dist:'KEHE', shelf:5, sku:'RXBAR', size:'bar', qty:24, unitCost:2, status:'new'},
+    {zone:'G2.5', fixture:'endcap', dist:'KEHE', shelf:5, sku:'David Protein Bar', size:'bar', qty:18, unitCost:2.95, status:'new'},
+    {zone:'G2.5', fixture:'endcap', dist:'KEHE', shelf:5, sku:'Built Bar', size:'bar', qty:18, unitCost:1.95, status:'new'},
+    {zone:'G2.5', fixture:'endcap', dist:'KEHE', shelf:5, sku:'Barebells', size:'bar', qty:18, unitCost:2.75, status:'new'},
+    {zone:'G2.5', fixture:'endcap', dist:'KEHE', shelf:5, sku:'Quest Bar', size:'bar', qty:24, unitCost:2.25, status:'new'},
+    {zone:'G2.5', fixture:'endcap', dist:'KEHE', shelf:4, sku:'Chomps Original Beef', size:'stick', qty:30, unitCost:2.5, status:'new'},
+    {zone:'G2.5', fixture:'endcap', dist:'KEHE', shelf:4, sku:'Chomps Jalapeño Beef', size:'stick', qty:24, unitCost:2.5, status:'new'},
+    {zone:'G2.5', fixture:'endcap', dist:'KEHE', shelf:4, sku:'Chomps Sea Salt Turkey', size:'stick', qty:24, unitCost:2.5, status:'new'},
+    {zone:'G2.5', fixture:'endcap', dist:'KEHE', shelf:4, sku:'Chomps Pepperoni', size:'stick', qty:24, unitCost:2.5, status:'new'},
+    {zone:'G2.5', fixture:'endcap', dist:'EBY-BROWN', shelf:3, sku:'Takis', size:'Fuego XL 9.9oz', qty:3, unitCost:2.5, status:'new'},
+    {zone:'G2.5', fixture:'endcap', dist:'EBY-BROWN', shelf:3, sku:'Buldak', size:'Hot Chicken Chips', qty:3, unitCost:3.49, status:'new'},
+    {zone:'G2.5', fixture:'endcap', dist:'EBY-BROWN', shelf:3, sku:'Hot Cheetos', size:'XXTRA Flamin Hot 8.5oz', qty:9, unitCost:2.99, status:'new'},
+    {zone:'G2.5', fixture:'endcap', dist:'EBY-BROWN', shelf:3, sku:'Takis', size:'Blue Heat XL', qty:6, unitCost:2.5, status:'new'},
+    {zone:'G2.5', fixture:'endcap', dist:'EBY-BROWN', shelf:2, sku:'Buldak', size:'Hot Chicken Cup', qty:6, unitCost:2.95, status:'new'},
+    {zone:'G2.5', fixture:'endcap', dist:'EBY-BROWN', shelf:2, sku:'Buldak', size:'Carbonara Cup', qty:6, unitCost:2.95, status:'new'},
+    {zone:'G2.5', fixture:'endcap', dist:'EBY-BROWN', shelf:2, sku:'Cup Noodles', size:'Spicy Chicken', qty:9, unitCost:1.25, status:'new'},
     {zone:'G2.5', fixture:'endcap', dist:'EBY-BROWN', shelf:2, sku:'Sour Patch Kids', size:'Original 5oz', qty:6, unitCost:2.49, status:'new'},
-    {zone:'G2.5', fixture:'endcap', dist:'EBY-BROWN', shelf:2, sku:'Twizzlers', size:'Strawberry Pull-n-Peel', qty:3, unitCost:2.49, status:'new'},
-    {zone:'G2.5', fixture:'endcap', dist:'EBY-BROWN', shelf:1, sku:'Liquid Death', size:'Mountain 1L', qty:9, unitCost:1.99, status:'new'},
-    {zone:'G2.5', fixture:'endcap', dist:'EBY-BROWN', shelf:1, sku:'Liquid Death', size:'Sparkling 1L', qty:8, unitCost:2.2, status:'new'},
-    {zone:'G2.5', fixture:'endcap', dist:'EBY-BROWN', shelf:1, sku:'Smartwater', size:'1L bottle', qty:10, unitCost:2.99, status:'new'},
-    {zone:'G2.5', fixture:'endcap', dist:'EBY-BROWN', shelf:1, sku:'Liquid IV', size:'Hydration stick (single)', qty:18, unitCost:2.5, status:'new'},
-    {zone:'G3.5', fixture:'endcap', dist:'KEHE', shelf:5, sku:'Magic Mind', size:'Productivity 2oz', qty:40, unitCost:9.99, status:'new'},
-    {zone:'G3.5', fixture:'endcap', dist:'KEHE', shelf:5, sku:'Magic Mind', size:'Sleep 2oz', qty:30, unitCost:9.99, status:'new'},
-    {zone:'G3.5', fixture:'endcap', dist:'KEHE', shelf:4, sku:'5-Hour Energy', size:'Berry', qty:6, unitCost:2.5, status:'new'},
+    {zone:'G2.5', fixture:'endcap', dist:'KEHE', shelf:1, sku:'Liquid Death', size:'Mountain 1L', qty:9, unitCost:1.99, status:'new'},
+    {zone:'G2.5', fixture:'endcap', dist:'KEHE', shelf:1, sku:'Liquid Death', size:'Sparkling 1L', qty:8, unitCost:2.2, status:'new'},
+    {zone:'G2.5', fixture:'endcap', dist:'KEHE', shelf:1, sku:'Smartwater', size:'1L bottle', qty:10, unitCost:2.99, status:'new'},
+    {zone:'G2.5', fixture:'endcap', dist:'KEHE', shelf:1, sku:'Liquid IV', size:'Hydration stick (single)', qty:18, unitCost:2.5, status:'new'},
+    {zone:'G2.5', fixture:'endcap', dist:'KEHE', shelf:1, sku:'Liquid Death', size:'Severed Lime 1L', qty:6, unitCost:2.2, status:'new'},
+    {zone:'G3.5', fixture:'endcap', dist:'KEHE', shelf:5, sku:'Magic Mind', size:'Productivity 2oz', qty:110, unitCost:9.99, status:'new'},
+    {zone:'G3.5', fixture:'endcap', dist:'KEHE', shelf:5, sku:'Magic Mind', size:'Sleep 2oz', qty:100, unitCost:9.99, status:'new'},
+    {zone:'G3.5', fixture:'endcap', dist:'KEHE', shelf:4, sku:'5-Hour Energy', size:'Berry', qty:9, unitCost:2.5, status:'new'},
     {zone:'G3.5', fixture:'endcap', dist:'KEHE', shelf:4, sku:'5-Hour Energy', size:'Orange', qty:6, unitCost:2.5, status:'new'},
-    {zone:'G3.5', fixture:'endcap', dist:'KEHE', shelf:4, sku:'5-Hour Energy', size:'Grape', qty:3, unitCost:2.5, status:'new'},
-    {zone:'G3.5', fixture:'endcap', dist:'KEHE', shelf:4, sku:'5-Hour Energy', size:'Pomegranate', qty:3, unitCost:2.5, status:'new'},
+    {zone:'G3.5', fixture:'endcap', dist:'KEHE', shelf:4, sku:'5-Hour Energy', size:'Grape', qty:6, unitCost:2.5, status:'new'},
+    {zone:'G3.5', fixture:'endcap', dist:'KEHE', shelf:4, sku:'5-Hour Energy', size:'Pomegranate', qty:6, unitCost:2.5, status:'new'},
     {zone:'G3.5', fixture:'endcap', dist:'KEHE', shelf:4, sku:'5-Hour Extra', size:'Tropical Burst', qty:6, unitCost:2.75, status:'new'},
+    {zone:'G3.5', fixture:'endcap', dist:'KEHE', shelf:4, sku:'5-Hour Energy', size:'Decaf shot', qty:10, unitCost:2.5, status:'new'},
     {zone:'G3.5', fixture:'endcap', dist:'KEHE', shelf:3, sku:'Recess', size:'Pomegranate Hibiscus', qty:6, unitCost:3.5, status:'new'},
     {zone:'G3.5', fixture:'endcap', dist:'KEHE', shelf:3, sku:'Recess', size:'Blackberry Chai', qty:6, unitCost:3.5, status:'new'},
-    {zone:'G3.5', fixture:'endcap', dist:'KEHE', shelf:3, sku:'Recess', size:'Coconut Lime', qty:3, unitCost:3.5, status:'new'},
+    {zone:'G3.5', fixture:'endcap', dist:'KEHE', shelf:3, sku:'Recess', size:'Coconut Lime', qty:6, unitCost:3.5, status:'new'},
     {zone:'G3.5', fixture:'endcap', dist:'KEHE', shelf:3, sku:'Recess Mood', size:'Magic Mango', qty:6, unitCost:3.99, status:'new'},
-    {zone:'G3.5', fixture:'endcap', dist:'KEHE', shelf:3, sku:'Recess Mood', size:'Wild Berry', qty:3, unitCost:3.99, status:'new'},
-    {zone:'G3.5', fixture:'endcap', dist:'KEHE', shelf:2, sku:'Liquid IV Energy', size:'Tropical Punch', qty:6, unitCost:2.25, status:'new'},
+    {zone:'G3.5', fixture:'endcap', dist:'KEHE', shelf:3, sku:'Recess Mood', size:'Wild Berry', qty:9, unitCost:3.99, status:'new'},
+    {zone:'G3.5', fixture:'endcap', dist:'KEHE', shelf:3, sku:'Recess', size:'Half-Day shot', qty:10, unitCost:3.5, status:'new'},
+    {zone:'G3.5', fixture:'endcap', dist:'KEHE', shelf:2, sku:'Liquid IV Energy', size:'Tropical Punch', qty:9, unitCost:2.25, status:'new'},
     {zone:'G3.5', fixture:'endcap', dist:'KEHE', shelf:2, sku:'Liquid IV Energy', size:'Citrus', qty:6, unitCost:2.25, status:'new'},
-    {zone:'G3.5', fixture:'endcap', dist:'KEHE', shelf:2, sku:'Liquid IV Energy', size:'Yuzu Pineapple', qty:3, unitCost:2.25, status:'new'},
-    {zone:'G3.5', fixture:'endcap', dist:'KEHE', shelf:2, sku:'Liquid IV Energy', size:'Strawberry Lemonade', qty:3, unitCost:2.25, status:'new'},
-    {zone:'G3.5', fixture:'endcap', dist:'KEHE', shelf:2, sku:'Liquid IV Energy', size:'Watermelon Twist', qty:3, unitCost:2.25, status:'new'},
-    {zone:'G3.5', fixture:'endcap', dist:'KEHE', shelf:1, sku:'LMNT Singles', size:'Citrus caddy', qty:6, unitCost:2.0, status:'new'},
-    {zone:'G3.5', fixture:'endcap', dist:'KEHE', shelf:1, sku:'LMNT Singles', size:'Raspberry caddy', qty:6, unitCost:2.0, status:'new'},
-    {zone:'G3.5', fixture:'endcap', dist:'KEHE', shelf:1, sku:'LMNT Singles', size:'Watermelon caddy', qty:3, unitCost:2.0, status:'new'},
-    {zone:'G3.5', fixture:'endcap', dist:'KEHE', shelf:1, sku:'LMNT Singles', size:'Variety pack', qty:10, unitCost:2.0, status:'new'},
+    {zone:'G3.5', fixture:'endcap', dist:'KEHE', shelf:2, sku:'Liquid IV Energy', size:'Yuzu Pineapple', qty:6, unitCost:2.25, status:'new'},
+    {zone:'G3.5', fixture:'endcap', dist:'KEHE', shelf:2, sku:'Liquid IV Energy', size:'Strawberry Lemonade', qty:6, unitCost:2.25, status:'new'},
+    {zone:'G3.5', fixture:'endcap', dist:'KEHE', shelf:2, sku:'Liquid IV Energy', size:'Watermelon Twist', qty:6, unitCost:2.25, status:'new'},
+    {zone:'G3.5', fixture:'endcap', dist:'KEHE', shelf:2, sku:'Liquid IV Energy', size:'Focus stick', qty:6, unitCost:2.25, status:'new'},
+    {zone:'G3.5', fixture:'endcap', dist:'KEHE', shelf:1, sku:'LMNT Singles', size:'Citrus caddy', qty:9, unitCost:2, status:'new'},
+    {zone:'G3.5', fixture:'endcap', dist:'KEHE', shelf:1, sku:'LMNT Singles', size:'Raspberry caddy', qty:6, unitCost:2, status:'new'},
+    {zone:'G3.5', fixture:'endcap', dist:'KEHE', shelf:1, sku:'LMNT Singles', size:'Watermelon caddy', qty:6, unitCost:2, status:'new'},
+    {zone:'G3.5', fixture:'endcap', dist:'KEHE', shelf:1, sku:'LMNT Singles', size:'Mango Chili caddy', qty:6, unitCost:2, status:'new'},
+    {zone:'G3.5', fixture:'endcap', dist:'KEHE', shelf:1, sku:'LMNT Singles', size:'Variety pack', qty:10, unitCost:2, status:'new'},
+    {zone:'G3.5', fixture:'endcap', dist:'KEHE', shelf:1, sku:'LMNT Singles', size:'Chocolate stick', qty:6, unitCost:2, status:'new'},
     // === Door inventory regenerated from rebalanced planograms 2026-06-16 (D1-D22, real c-store fit) ===
     {zone:'D1', fixture:'cooler', dist:'REYES', shelf:5, sku:'Coca-Cola', size:'20oz bottle', qty:21, unitCost:1.99, status:'new'},
     {zone:'D1', fixture:'cooler', dist:'REYES', shelf:5, sku:'Coke Zero', size:'20oz bottle', qty:14, unitCost:1.99, status:'new'},
@@ -1456,21 +1477,6 @@ const SKUDB = [
     {zone:'D18', fixture:'cooler', dist:'BREAKTHRU', shelf:1, sku:'Mionetto Prosecco', size:'187ml', qty:15, unitCost:4.5, status:'new'},
     {zone:'D18', fixture:'cooler', dist:'BREAKTHRU', shelf:1, sku:'La Marca Prosecco', size:'187ml', qty:9, unitCost:4.5, status:'new'},
     {zone:'D18', fixture:'cooler', dist:'BREAKTHRU', shelf:1, sku:'Chandon', size:'187ml split', qty:9, unitCost:6.0, status:'new'},
-    {zone:'D19', fixture:'cooler', dist:'KEHE', shelf:5, sku:'Hot Pockets Pepperoni Pizza', size:'2-pk', qty:12, unitCost:2.1, status:'new'},
-    {zone:'D19', fixture:'cooler', dist:'KEHE', shelf:5, sku:'Hot Pockets Ham & Cheese', size:'2-pk', qty:6, unitCost:2.1, status:'new'},
-    {zone:'D19', fixture:'cooler', dist:'KEHE', shelf:5, sku:'Jimmy Dean Sausage Biscuit', size:'2-pk', qty:6, unitCost:2.4, status:'new'},
-    {zone:'D19', fixture:'cooler', dist:'KEHE', shelf:4, sku:'DiGiorno Rising Crust Pepperoni', size:'27.5oz', qty:18, unitCost:4.75, status:'new'},
-    {zone:'D19', fixture:'cooler', dist:'KEHE', shelf:4, sku:'DiGiorno Three Meat', size:'28.2oz', qty:50, unitCost:4.75, status:'new'},
-    {zone:'D19', fixture:'cooler', dist:'KEHE', shelf:4, sku:'Red Baron Classic Pepperoni', size:'20.6oz', qty:12, unitCost:3.5, status:'new'},
-    {zone:'D19', fixture:'cooler', dist:'KEHE', shelf:3, sku:'Stouffer’s Lasagna', size:'19oz', qty:6, unitCost:3.25, status:'new'},
-    {zone:'D19', fixture:'cooler', dist:'KEHE', shelf:3, sku:'Stouffer’s Mac & Cheese', size:'12oz', qty:30, unitCost:2.4, status:'new'},
-    {zone:'D19', fixture:'cooler', dist:'KEHE', shelf:3, sku:'Marie Callender’s Chicken Pot Pie', size:'10oz', qty:9, unitCost:1.85, status:'new'},
-    {zone:'D19', fixture:'cooler', dist:'KEHE', shelf:2, sku:'Totino’s Pizza Rolls', size:'24-ct', qty:9, unitCost:2.75, status:'new'},
-    {zone:'D19', fixture:'cooler', dist:'KEHE', shelf:2, sku:'Bagel Bites Cheese & Pepperoni', size:'9-ct', qty:6, unitCost:3.1, status:'new'},
-    {zone:'D19', fixture:'cooler', dist:'KEHE', shelf:2, sku:'El Monterey Bean & Cheese Burrito', size:'8-pk', qty:4, unitCost:1.4, status:'new'},
-    {zone:'D19', fixture:'cooler', dist:'KEHE', shelf:1, sku:'White Castle Cheeseburger Sliders', size:'6-pk', qty:6, unitCost:4.25, status:'new'},
-    {zone:'D19', fixture:'cooler', dist:'KEHE', shelf:1, sku:'Jose Ole Taquitos', size:'20-ct', qty:9, unitCost:4.0, status:'new'},
-    {zone:'D19', fixture:'cooler', dist:'KEHE', shelf:1, sku:'Hot Pockets Philly Steak', size:'2-pk', qty:6, unitCost:2.1, status:'new'},
     {zone:'D20', fixture:'cooler', dist:'KEHE', shelf:5, sku:'Ben & Jerry’s Half Baked', size:'pint', qty:20, unitCost:3.65, status:'new'},
     {zone:'D20', fixture:'cooler', dist:'KEHE', shelf:5, sku:'Ben & Jerry’s Cherry Garcia', size:'pint', qty:15, unitCost:3.65, status:'new'},
     {zone:'D20', fixture:'cooler', dist:'KEHE', shelf:5, sku:'Ben & Jerry’s Phish Food', size:'pint', qty:10, unitCost:3.65, status:'new'},
@@ -1655,6 +1661,47 @@ const SKUDB = [
     {zone:'MX-1', fixture:'mixer-shelf', dist:'BREAKTHRU', shelf:1, sku:'Clear Party Cups 16oz (50-ct)', size:'50-ct', qty:18, unitCost:4.5, status:'new'},
     {zone:'MX-1', fixture:'mixer-shelf', dist:'BREAKTHRU', shelf:1, sku:'Plastic Shot Cups (100-ct)', size:'100-ct', qty:18, unitCost:3.0, status:'new'},
     {zone:'MX-1', fixture:'mixer-shelf', dist:'BREAKTHRU', shelf:1, sku:'Cocktail Picks / Stirrers', size:'pack', qty:12, unitCost:2.5, status:'new'},
+    // === Fresh produce rack 2026-06-17: cocktail citrus + grab-go fruit + aromatics + sandwich support (PR-1, KeHE/local DSD) ===
+    {zone:'PR-1', fixture:'produce-rack', dist:'KEHE', shelf:1, sku:'Limes', size:'each', qty:120, unitCost:0.18, status:'new'},
+    {zone:'PR-1', fixture:'produce-rack', dist:'KEHE', shelf:1, sku:'Lemons', size:'each', qty:90, unitCost:0.25, status:'new'},
+    {zone:'PR-1', fixture:'produce-rack', dist:'KEHE', shelf:1, sku:'Navel Oranges', size:'each', qty:48, unitCost:0.4, status:'new'},
+    {zone:'PR-1', fixture:'produce-rack', dist:'KEHE', shelf:1, sku:'Bananas', size:'each', qty:90, unitCost:0.2, status:'new'},
+    {zone:'PR-1', fixture:'produce-rack', dist:'KEHE', shelf:1, sku:'Honeycrisp Apples', size:'each', qty:48, unitCost:0.55, status:'new'},
+    {zone:'PR-1', fixture:'produce-rack', dist:'KEHE', shelf:1, sku:'Cuties Clementines', size:'3 lb bag', qty:12, unitCost:3.5, status:'new'},
+    {zone:'PR-1', fixture:'produce-rack', dist:'KEHE', shelf:1, sku:'Hass Avocados', size:'each', qty:48, unitCost:0.65, status:'new'},
+    {zone:'PR-1', fixture:'produce-rack', dist:'KEHE', shelf:1, sku:'Roma Tomatoes', size:'each', qty:40, unitCost:0.4, status:'new'},
+    {zone:'PR-1', fixture:'produce-rack', dist:'KEHE', shelf:1, sku:'Jalapeños', size:'each', qty:40, unitCost:0.2, status:'new'},
+    {zone:'PR-1', fixture:'produce-rack', dist:'KEHE', shelf:1, sku:'Yellow Onions', size:'each', qty:30, unitCost:0.45, status:'new'},
+    {zone:'PR-1', fixture:'produce-rack', dist:'KEHE', shelf:1, sku:'Red Onions', size:'each', qty:24, unitCost:0.55, status:'new'},
+    {zone:'PR-1', fixture:'produce-rack', dist:'KEHE', shelf:1, sku:'Garlic', size:'bulb', qty:30, unitCost:0.4, status:'new'},
+    {zone:'PR-1', fixture:'produce-rack', dist:'KEHE', shelf:1, sku:'Ginger Root', size:'each', qty:24, unitCost:0.5, status:'new'},
+    {zone:'PR-1', fixture:'produce-rack', dist:'KEHE', shelf:1, sku:'Fresh Cilantro', size:'bunch', qty:24, unitCost:0.79, status:'new'},
+    {zone:'PR-1', fixture:'produce-rack', dist:'KEHE', shelf:1, sku:'Fresh Mint (cocktail)', size:'bunch', qty:18, unitCost:1.25, status:'new'},
+    {zone:'PR-1', fixture:'produce-rack', dist:'KEHE', shelf:1, sku:'Strawberries', size:'1 lb clamshell', qty:18, unitCost:2.5, status:'new'},
+    {zone:'PR-1', fixture:'produce-rack', dist:'KEHE', shelf:1, sku:'Blueberries', size:'pint', qty:12, unitCost:2.75, status:'new'},
+    {zone:'PR-1', fixture:'produce-rack', dist:'KEHE', shelf:1, sku:'Romaine Hearts', size:'3-pk', qty:12, unitCost:2.5, status:'new'},
+    {zone:'PR-1', fixture:'produce-rack', dist:'KEHE', shelf:1, sku:'Baby Spinach', size:'5 oz', qty:12, unitCost:2.5, status:'new'},
+    // === D19 frozen redesign 2026-06-17: cut Hot Pockets, +Healthy Choice/Amy's/Screamin' Sicilian/Stouffer's FBP/Tombstone/TGIF/Eggo ===
+    {zone:'D19', fixture:'cooler', dist:'KEHE', shelf:5, sku:'Screamin’ Sicilian Supreme', size:'24oz', qty:15, unitCost:4.5, status:'new'},
+    {zone:'D19', fixture:'cooler', dist:'KEHE', shelf:5, sku:'DiGiorno Rising Crust Pepperoni', size:'27.5oz', qty:15, unitCost:4.75, status:'new'},
+    {zone:'D19', fixture:'cooler', dist:'KEHE', shelf:5, sku:'DiGiorno Three Meat', size:'28.2oz', qty:50, unitCost:4.75, status:'new'},
+    {zone:'D19', fixture:'cooler', dist:'KEHE', shelf:4, sku:'Red Baron Classic Pepperoni', size:'20.6oz', qty:9, unitCost:3.5, status:'new'},
+    {zone:'D19', fixture:'cooler', dist:'KEHE', shelf:4, sku:'Tombstone Original Pepperoni', size:'19.3oz', qty:9, unitCost:3.25, status:'new'},
+    {zone:'D19', fixture:'cooler', dist:'KEHE', shelf:4, sku:'Amy’s Cheese Pizza', size:'13oz', qty:6, unitCost:5.5, status:'new'},
+    {zone:'D19', fixture:'cooler', dist:'KEHE', shelf:4, sku:'Stouffer’s French Bread Pizza', size:'2-pk', qty:6, unitCost:2.75, status:'new'},
+    {zone:'D19', fixture:'cooler', dist:'KEHE', shelf:3, sku:'Stouffer’s Lasagna', size:'19oz', qty:3, unitCost:3.25, status:'new'},
+    {zone:'D19', fixture:'cooler', dist:'KEHE', shelf:3, sku:'Stouffer’s Mac & Cheese', size:'12oz', qty:40, unitCost:2.4, status:'new'},
+    {zone:'D19', fixture:'cooler', dist:'KEHE', shelf:3, sku:'Marie Callender’s Chicken Pot Pie', size:'10oz', qty:12, unitCost:1.85, status:'new'},
+    {zone:'D19', fixture:'cooler', dist:'KEHE', shelf:3, sku:'Healthy Choice Power Bowl', size:'9.5oz', qty:6, unitCost:3.25, status:'new'},
+    {zone:'D19', fixture:'cooler', dist:'KEHE', shelf:2, sku:'Totino’s Pizza Rolls', size:'24-ct', qty:6, unitCost:2.75, status:'new'},
+    {zone:'D19', fixture:'cooler', dist:'KEHE', shelf:2, sku:'Bagel Bites Cheese & Pepperoni', size:'9-ct', qty:6, unitCost:3.1, status:'new'},
+    {zone:'D19', fixture:'cooler', dist:'KEHE', shelf:2, sku:'El Monterey Bean & Cheese Burrito', size:'8-pk', qty:2, unitCost:1.4, status:'new'},
+    {zone:'D19', fixture:'cooler', dist:'KEHE', shelf:2, sku:'Hot Pockets Pepperoni Pizza', size:'2-pk', qty:3, unitCost:2.1, status:'new'},
+    {zone:'D19', fixture:'cooler', dist:'KEHE', shelf:2, sku:'TGI Fridays Mozzarella Sticks', size:'11oz', qty:6, unitCost:4.25, status:'new'},
+    {zone:'D19', fixture:'cooler', dist:'KEHE', shelf:1, sku:'White Castle Cheeseburger Sliders', size:'6-pk', qty:3, unitCost:4.25, status:'new'},
+    {zone:'D19', fixture:'cooler', dist:'KEHE', shelf:1, sku:'Jose Ole Taquitos', size:'20-ct', qty:9, unitCost:4.0, status:'new'},
+    {zone:'D19', fixture:'cooler', dist:'KEHE', shelf:1, sku:'Jimmy Dean Sausage Biscuit', size:'2-pk', qty:6, unitCost:2.4, status:'new'},
+    {zone:'D19', fixture:'cooler', dist:'KEHE', shelf:1, sku:'Eggo Homestyle Waffles', size:'10-ct', qty:9, unitCost:2.95, status:'new'},
 ];
 
 // PHASE 35: Comprehensive legacy tile inventory extracted from elevation arrays
@@ -1673,9 +1720,9 @@ const DIST_META = {
   'BREAKTHRU':     {name:'Breakthru Beverage', color:'#8b9eff', accent:'rgba(139,158,255,0.12)', border:'rgba(139,158,255,0.5)', existing:0, newOrder:26557, total:26557, terms:'Net-15 per IL Liquor Control Act', delivery:'1-2x/week', contact:'(708) 271-2500', companyName:'Breakthru Beverage Illinois', hqAddress:'7400 N Industrial Dr, Cicero, IL 60804', hqPhone:'(708) 271-2500', website:'breakthrubev.com', portfolio:'Premium spirits (Casamigos, Don Julio, Clase Azul, Angel\'s Envy, Woodford) · Amari/aperitifs (Aperol, Campari, Fernet) · Wine (Caymus, Whispering Angel, Veuve Clicquot, La Marca) · RTDs (Cutwater, Surfside, NÜTRL, High Noon)'},
   'SG':            {name:"Southern Glazer's Wine & Spirits", color:'#f0997b', accent:'rgba(240,153,123,0.12)', border:'rgba(240,153,123,0.5)', existing:0, newOrder:12497, total:12497, terms:'Net-15 per IL Liquor Control Act', delivery:'1-2x/week', contact:'(847) 678-1234', companyName:"Southern Glazer's Wine & Spirits", hqAddress:'1830 Oakton St, Elk Grove Village, IL 60007', hqPhone:'(847) 671-7000', website:'southernglazers.com', portfolio:'Core spirits (Hennessy, Jack Daniel\'s, Crown Royal, Tito\'s, Grey Goose, Patrón) · Fireball (top-3 SKU in 60613) · Value bourbon/vodka · Sauv Blanc, Red Blends'},
   'LAKESHORE':     {name:'Lakeshore Beverage / Specialty', color:'#afa9ec', accent:'rgba(175,169,236,0.12)', border:'rgba(175,169,236,0.5)', existing:0, newOrder:11131, total:11131, terms:'Net-15 per IL Liquor Control Act', delivery:'1-2x/week (small order)', contact:'(630) 773-9323', companyName:'Lakeshore Beverage', hqAddress:'12530 W 159th St, Lemont, IL 60439', hqPhone:'(630) 773-9323', website:'lakeshorebev.com', portfolio:"Jeppson's Mal\u00f6rt (750ml + 50ml minis) \u00b7 Koval Bourbon \u00b7 FEW Spirits Bourbon \u00b7 Specialty Chicago craft spirits — small dedicated section on BC-1 wall."},
-  'EBY-BROWN':     {name:'Eby-Brown', color:'#f09595', accent:'rgba(240,149,149,0.12)', border:'rgba(240,149,149,0.5)', existing:0, newOrder:22999, total:22999, terms:'Net-15 to Net-30', delivery:'1-2x/week', contact:'(800) 532-9276', companyName:'Eby-Brown Company', hqAddress:'215 W Diehl Rd, Naperville, IL 60563', hqPhone:'(630) 778-2800', website:'ebybrown.com', portfolio:'Cigarettes (Marlboro, Newport, Camel, American Spirit) · Cigars (Black & Mild, Swisher, Backwoods) · Vape/nicotine (JUUL, NJOY, Zyn, On!, Velo) · Snacks (Doritos, Takis, Cheetos) · Candy · OTC · Energy shots · Lighters'},
+  'EBY-BROWN':     {name:'Eby-Brown', color:'#f09595', accent:'rgba(240,149,149,0.12)', border:'rgba(240,149,149,0.5)', existing:0, newOrder:22717, total:22717, terms:'Net-15 to Net-30', delivery:'1-2x/week', contact:'(800) 532-9276', companyName:'Eby-Brown Company', hqAddress:'215 W Diehl Rd, Naperville, IL 60563', hqPhone:'(630) 778-2800', website:'ebybrown.com', portfolio:'Cigarettes (Marlboro, Newport, Camel, American Spirit) · Cigars (Black & Mild, Swisher, Backwoods) · Vape/nicotine (JUUL, NJOY, Zyn, On!, Velo) · Snacks (Doritos, Takis, Cheetos) · Candy · OTC · Energy shots · Lighters'},
   'REYES':         {name:'Reyes Beverage Group (Chicago Beverage Systems + Reyes Coca-Cola)', color:'#efb045', accent:'rgba(239,176,69,0.12)', border:'rgba(239,176,69,0.5)', existing:0, newOrder:8983, total:8983, terms:'Net-15 beer, COD non-alc to start', delivery:'2-3x/week', contact:'(847) 678-9000', companyName:'Reyes Beverage Group', hqAddress:'6250 N River Rd, Rosemont, IL 60018', hqPhone:'(847) 678-9000', website:'reyesholdings.com', portfolio:'Molson Coors (Miller, Coors, Blue Moon) · Constellation (Modelo, Corona, Pacifico) · Heineken · Boston Beer (Twisted Tea, Truly) · White Claw · High Noon · Athletic Brewing NA · Goose Island · Half Acre · Revolution · Maplewood · Pipeworks · Coca-Cola full line · Vitaminwater · BodyArmor · Topo Chico'},
-  'KEHE':          {name:'KeHE / UNFI (Specialty Food)', color:'#5dcaa5', accent:'rgba(93,202,165,0.12)', border:'rgba(93,202,165,0.5)', existing:0, newOrder:9186, total:9186, terms:'Net-30 after credit approval', delivery:'1x/week', contact:'KeHE: (800) 950-3322 / UNFI: (800) 451-2525', companyName:'KeHE Distributors', hqAddress:'1245 E Diehl Rd, Naperville, IL 60563', hqPhone:'(630) 343-1000', website:'kehe.com', portfolio:'Functional beverages (Olipop, Poppi, Liquid Death, GT\'s Synergy, Health-Ade) · Fresh food (sandwiches, salads, yogurt, charcuterie) · Premium snacks (Siete, Pipcorn, Hu, Chomps, RXBAR, David Protein) · Coffee (La Colombe, Stumptown) · Better-for-you mainstream chocolate (Tony\'s Chocolonely, Endangered Species) · Specialty cheese (Boursin, BelGioioso) · Hangover recovery (Liquid IV, LMNT, Pedialyte)'},
+  'KEHE':          {name:'KeHE / UNFI (Specialty Food)', color:'#5dcaa5', accent:'rgba(93,202,165,0.12)', border:'rgba(93,202,165,0.5)', existing:0, newOrder:13480, total:13480, terms:'Net-30 after credit approval', delivery:'1x/week', contact:'KeHE: (800) 950-3322 / UNFI: (800) 451-2525', companyName:'KeHE Distributors', hqAddress:'1245 E Diehl Rd, Naperville, IL 60563', hqPhone:'(630) 343-1000', website:'kehe.com', portfolio:'Functional beverages (Olipop, Poppi, Liquid Death, GT\'s Synergy, Health-Ade) · Fresh food (sandwiches, salads, yogurt, charcuterie) · Premium snacks (Siete, Pipcorn, Hu, Chomps, RXBAR, David Protein) · Coffee (La Colombe, Stumptown) · Better-for-you mainstream chocolate (Tony\'s Chocolonely, Endangered Species) · Specialty cheese (Boursin, BelGioioso) · Hangover recovery (Liquid IV, LMNT, Pedialyte)'},
   'THC DIRECT':    {name:'THC Beverage Direct', color:'#afa9ec', accent:'rgba(175,169,236,0.12)', border:'rgba(175,169,236,0.5)', existing:0, newOrder:1729, total:1729, terms:'Net-30 after credit approval', delivery:'2-4 week reorder', contact:'WYNK / Plift / Cann / BRĒZ direct wholesale', companyName:'THC Beverage Direct (multi-brand)', hqAddress:'Direct wholesale: WYNK, Plift, Cann, BRĒZ', hqPhone:'(see brand sites)', website:'wynkdrinks.com / pliftbev.com / drinkcann.com', portfolio:'WYNK Delta-9 (Lime/Mango/Black Cherry) · Plift THC seltzer · Cann Social Tonic · BRĒZ cannabis-infused · Hi5 Seltzer · IL hemp-derived Delta-9 under 0.3% by dry weight, 21+ only'},
   'RED BULL':      {name:'Red Bull (Direct DSD)', color:'#f09595', accent:'rgba(240,149,149,0.12)', border:'rgba(240,149,149,0.5)', existing:0, newOrder:927, total:927, terms:'COD 90 days then Net-14', delivery:'Weekly with dedicated merchandiser', contact:'(773) 252-1022', companyName:'Red Bull North America', hqAddress:'1740 Stewart St, Santa Monica, CA 90404', hqPhone:'(773) 252-1022 (Chicago DSD)', website:'redbull.com', portfolio:'Red Bull Original · Sugarfree · Editions (Tropical, Watermelon, Blueberry, Juneberry) · 12oz tallboys · Direct store delivery, dedicated merchandiser, rep manages cooler placement (D21 — distributor-locked face)'},
 };
@@ -1727,7 +1774,7 @@ function renderDistPacket(packetKey) {
       'F1':'elev-freezers','F2':'elev-freezers','F3':'elev-freezers',
       'OC-1':'elev-oc1','BC-1':'elev-bc1','BC-2':'elev-bc1',
       'G1':'elev-g1','G2':'elev-g1','G2.5':'elev-g1','G1.5':'elev-g1',
-      'G3':'gondolas-back','G4':'gondolas-back','G3.5':'gondolas-back','G4.5':'gondolas-back',
+      'G3':'gondolas-back','G4':'gondolas-back','G3.5':'gondolas-back',
     };
     const elev = elevMap[z];
     return {zone:z, items:items, total:total, newCount:newCount, expandCount:expandCount, currentCount:currentCount, fixture:fixture, elev:elev};
@@ -3366,7 +3413,7 @@ function deriveSkuCategory(s) {
   }
 
   // G4 = curated wine reset
-  if (zone === 'G4' || zone === 'G4.5') {
+  if (zone === 'G4') {
     if (name.match(/champagne|prosecco|brut|cremant|cava|sparkling|chandon|veuve|pol roger|moet|moët|billecart|peters|p[ée]ters|mumm|ruinart|egly|larmandier|cordon/)) return 'Champagne / Sparkling';
     if (name.match(/sake|soju|shochu|whisky|whiskey|hakushu|hibiki|nikka|suntory|toki/)) return 'Sake / Japanese Spirits';
     if (name.match(/ros[ée]|rosato|whispering angel/)) return 'Rosé Wine';
@@ -4168,7 +4215,7 @@ const renderers = {
             <li><strong>Going-concern business + Class B liquor license</strong> from East Lakeview Food &amp; Liquor Inc (operating since 1/30/2004). Acquisition price $50,000 for the going-concern business, licenses, and fixtures. Existing inventory does <strong>not</strong> transfer — the seller takes all product at close and the store opens on 100% new stock.</li>
             <li><strong>Building acquired for $50,000</strong> by 3814 Clark LLC (separate entity). Owning the building removes the outside landlord &mdash; the $4,000/mo lease becomes an internal payment to the building LLC, so the store&rsquo;s real occupancy cost going forward is property tax + insurance.</li>
             <li><strong>Tobacco license</strong> transfers with the business &mdash; enables the high-margin Zyn pouch wall, vape mod cabinet, and cigarette program (~$6,250 of inventory at OC-1 alone).</li>
-            <li><strong>~$94,359 of all-new opening inventory</strong> ordered Day 1 across 9 distributors (Reyes Beverage Group, Breakthru, Southern Glazer’s, Eby-Brown, Lakeshore, KeHE, THC Direct, Red Bull, Hannah’s Bretzel) to execute the repositioning &mdash; Net-15 IL statutory credit on alcohol delivers a large share before invoice.</li>
+            <li><strong>~$98,371 of all-new opening inventory</strong> ordered Day 1 across 9 distributors (Reyes Beverage Group, Breakthru, Southern Glazer’s, Eby-Brown, Lakeshore, KeHE, THC Direct, Red Bull, Hannah’s Bretzel) to execute the repositioning &mdash; Net-15 IL statutory credit on alcohol delivers a large share before invoice.</li>
             <li><strong>Sole operator: 3814 Clark LLC</strong> (Bradley French, sole member). No partners, no minority stakes. Clean cap table.</li>
           </ul>
         </div>
@@ -4408,7 +4455,7 @@ const renderers = {
       'F1':'elev-freezers','F2':'elev-freezers','F3':'elev-freezers',
       'OC-1':'elev-oc1','BC-1':'elev-bc1','BC-2':'elev-bc1',
       'G1':'elev-g1','G2':'elev-g1','G2.5':'elev-g1','G1.5':'elev-g1',
-      'G3':'gondolas-back','G4':'gondolas-back','G3.5':'gondolas-back','G4.5':'gondolas-back',
+      'G3':'gondolas-back','G4':'gondolas-back','G3.5':'gondolas-back',
       'S1':'shelf-s1','S2':'shelf-s2','S2.5':'shelf-s25','S3':'shelf-s3','S4':'shelf-s4','S5':'shelf-s5','S6':'shelf-s6','S7':'shelf-s7',
       'ICE':'elev-f3',
     };
@@ -5009,7 +5056,7 @@ const renderers = {
         staticCard('G2','Late-night fuel · Pantry heroes · Coffee/breakfast (12-section A/B/C)','EBY-BROWN + KEHE','elev-g2', 400, 1800, 60, 85, mode),
         staticCard('G2.5','Late-Night Fuel endcap','EBY-BROWN + KEHE','endcap-g25', 0, 480, 0, 16, mode),
       ].join('');
-      // Back gondola group: G3 (snacks+pantry 4-zone) → G3.5 (Adaptogen Pick) → G4 (220-SKU curated wine) → G4.5 (Sake/Soju, NEW Phase 2)
+      // Back gondola group: G3 (snacks+pantry 4-zone) → G3.5 (Adaptogen Pick) → G4 (220-SKU curated wine + sake/soju)
       const gondolasBack = [
         staticCard('G3','Back gondola — front face (Chocolate · Cleaning · Paper 3′ + Pet 3′)','EBY-BROWN / KEHE','elev-g3', 900, 1740, 110, 70, mode),
         staticCard('G3.5','Adaptogen Discovery endcap','KEHE','endcap-g35', 280, 280, 32, 12, mode),
@@ -5084,13 +5131,13 @@ const renderers = {
 
   inventory: () => {
     const fmt = n => '$' + n.toLocaleString();
-    // Opening order by distributor (Day-1 buy). Sums to the $94,359 headline.
+    // Opening order by distributor (Day-1 buy). Sums to the $98,371 headline.
     const dists = [
       ['Breakthru','pkt-breakthru',26557,'Spirits · wine · champagne · premium RTD','#A66AB3'],
       ['Reyes Beverage Group','pkt-reyes',8983,'Beer · RTD · Constellation · Athletic · craft + Coca-Cola CSD','#BA6375'],
-      ['Eby-Brown','pkt-eby',22999,'Cigarettes · vape · candy · salty snacks · pantry','#C7833F'],
+      ['Eby-Brown','pkt-eby',22717,'Cigarettes · vape · candy · salty snacks · pantry','#C7833F'],
       ['Lakeshore','pkt-lakeshore',11131,'Regional + local craft beer (Half Acre, Revolution)','#3E946B'],
-      ['KeHE / UNFI','pkt-kehe',9186,'Functional bev · fresh food · premium snacks + chocolate','#58BFA9'],
+      ['KeHE / UNFI','pkt-kehe',13480,'Functional bev · fresh food · premium snacks + chocolate','#58BFA9'],
       ['Southern Glazer’s','pkt-sg',12497,'Value spirits · mini-bottle wall · backup BevAlc','#D77A67'],
       ['THC Direct','pkt-thc',1729,'Hemp-derived THC beverage (prepay first 90 days)','#C65C9A'],
       ['Hannah’s Bretzel','fresh-food-program',350,'Fresh pretzel-bread sandwiches (daily 6am DSD)','#5dcaa5'],
@@ -5100,9 +5147,9 @@ const renderers = {
     const maxD = Math.max(...dists.map(d=>d[2]));
     // Category share of the repositioned mix (see Category mix slide for $).
     const cats = [
-      ['Liquor',21.0,'#F0997B'],['Wine',17.9,'#AFA9EC'],['Tobacco / Vape',16.1,'#888780'],
-      ['Beer',12.8,'#85B7EB'],['Non-Alc Cold',10.9,'#5DCAA5'],['Seltzer / RTD / THC',9.1,'#5DCAA5'],
-      ['Premium Snacks',5.5,'#97C459'],['HBA / Essentials',3.0,'#FAC775'],['Hangover / Recovery',2.2,'#EFB045'],['Party / Mixers',1.5,'#ED93B1'],
+      ['Liquor',20.2,'#F0997B'],['Wine',17.2,'#AFA9EC'],['Tobacco / Vape',15.4,'#888780'],
+      ['Beer',12.3,'#85B7EB'],['Non-Alc Cold',10.6,'#5DCAA5'],['Seltzer / RTD / THC',8.8,'#5DCAA5'],
+      ['Premium Snacks',6.2,'#97C459'],['Hangover / Recovery',4.7,'#EFB045'],['HBA / Essentials',2.8,'#FAC775'],['Party / Mixers',1.4,'#ED93B1'],['Fresh Produce',0.4,'#9CCC65'],
     ];
     const maxPct = Math.max(...cats.map(c=>c[1]));
     return `
@@ -5113,7 +5160,7 @@ const renderers = {
       <div class="stat"><div class="label">OPENING INVENTORY</div><div class="val" style="color:var(--accent);">${fmt(total)}</div><div class="sub">100% new at open</div></div>
       <div class="stat"><div class="label">DISTRIBUTORS</div><div class="val">${dists.length}</div><div class="sub">All secured (verbal commits)</div></div>
       <div class="stat"><div class="label">BLENDED MARGIN</div><div class="val">~38%</div><div class="sub">Premium-led mix</div></div>
-      <div class="stat" onclick="window.goToSlide('working-capital')" style="cursor:pointer;"><div class="label">DAY-0 CASH TO CLOSE</div><div class="val" style="color:var(--teal);">$216,259</div><div class="sub">Working-capital build &rarr;</div></div>
+      <div class="stat" onclick="window.goToSlide('working-capital')" style="cursor:pointer;"><div class="label">DAY-0 CASH TO CLOSE</div><div class="val" style="color:var(--teal);">$187,771</div><div class="sub">Working-capital build &rarr;</div></div>
     </div>
 
     <h3 style="font-size:13px;color:var(--accent);letter-spacing:1px;margin:6px 0 10px;border-bottom:1px solid var(--accent);padding-bottom:6px;">Opening order by distributor</h3>
@@ -5164,7 +5211,7 @@ const renderers = {
       G3:'gondolas-back',G4:'gondolas-back','G3.5':'endcap-g35',
       S1:'shelf-s1',S2:'shelf-s2','S2.5':'shelf-s25',S3:'shelf-s3',S4:'shelf-s4',S5:'shelf-s5',S6:'shelf-s6',S7:'shelf-s7',
       ATM:'atm-revenue',ICE:'elev-right',
-      'SC-1':'fixture-sc1','CG-1':'fixture-cg1','FC-1':'door-d19','BC-1':'elev-bc1'
+      'SC-1':'fixture-sc1','CG-1':'fixture-cg1','PR-1':'fixture-pr1','FC-1':'door-d19','BC-1':'elev-bc1'
     };
     const click = (tag) => { const s = route[tag]; return s ? `style="cursor:pointer;" onclick="window.cwFixtureRoute&&window.cwFixtureRoute('${tag}','${s}',event)" data-fixture-tag="${tag}" data-fixture-slide="${s}"` : `data-fixture-tag="${tag}"`; };
     const C = {
@@ -5219,8 +5266,9 @@ const renderers = {
       ['D20',762,846,74,74,'fresh','D20','Ice Cream'],
       ['S6',540,924,94,54,'shelf','S6','Endcap'],
       ['FC-1',540,984,94,492,'counter','FC-1','Front counter'],
-      ['SC-1',490,1056,44,150,'fresh','SC-1','Sandwich'],
-      ['CG-1',490,1238,44,150,'candy','CG-1','Candy'],
+      ['SC-1',490,1164,44,150,'fresh','SC-1','Sandwich'],
+      ['PR-1',492,1006,40,150,'fresh','PR-1','Produce'],
+      ['CG-1',490,1322,44,150,'candy','CG-1','Candy'],
       ['S7',758,924,74,54,'shelf','S7','Endcap'],
       ['BC-1',758,984,74,492,'gondB','BC-1','Back counter'],
       ['S2.5',430,1500,98,30,'shelf','S2.5','OTC/Plan B']
@@ -5238,7 +5286,7 @@ const renderers = {
     const outline = "M 270,56 L 722,56 L 778,58 L 784,700 L 844,766 L 846,1562 L 138,1566 L 142,876 L 268,786 Z";
     const catOf = (tag) => {
       if (tag === 'ATM' || tag === 'ICE') return 'Other';
-      if (tag === 'SC-1' || tag === 'CG-1') return 'Fresh & impulse';
+      if (tag === 'SC-1' || tag === 'CG-1' || tag === 'PR-1') return 'Fresh & impulse';
       if (tag === 'FC-1' || tag === 'BC-1') return 'Counters';
       if (/^G[0-9]\.5$/.test(tag)) return 'Endcaps';
       if (/^G[0-9]$/.test(tag)) return 'Gondolas';
@@ -5251,10 +5299,11 @@ const renderers = {
     const byCat = {};
     F.forEach(f => { const c = catOf(f[0]); (byCat[c] = byCat[c] || []).push(f); });
     const listClick = (tag) => { const s = route[tag]; return s ? `style="cursor:pointer;" onclick="window.cwFixtureRoute&&window.cwFixtureRoute('${tag}','${s}',event)"` : ''; };
+    const gondAbc = {'G1':'A Recovery · B Salty heroes · C Grab-and-go','G2':'A Late-night fuel · B Pantry · C Coffee','G3':'A Chocolate · B Cleaning · C1 Paper · C2 Pet','G4':'A Wine · B Sake/Shochu · C Mixers'};
     const fixtureList = catOrder.filter(c => byCat[c]).map(c => {
       const items = byCat[c].slice().sort((a,b) => natKey(a[0]) < natKey(b[0]) ? -1 : 1).map(f => {
         const tag = f[0], kind = f[5], l2 = f[7] || '', col = C[kind] || C.cooler;
-        return `<div ${listClick(tag)} onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='transparent'" style="display:flex;align-items:center;padding:3px 6px;border-radius:4px;font-size:11.5px;"><span style="flex:0 0 10px;width:10px;height:10px;border-radius:2px;margin-right:9px;background:${col[0]};border:1px solid ${col[1]};"></span><span style="font-family:monospace;font-weight:700;color:#fff;">${tag}</span><span style="color:#aab4c0;margin-left:8px;">${l2}</span></div>`;
+        return `<div ${listClick(tag)} onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='transparent'" style="display:flex;align-items:center;padding:3px 6px;border-radius:4px;font-size:11.5px;"><span style="flex:0 0 10px;width:10px;height:10px;border-radius:2px;margin-right:9px;background:${col[0]};border:1px solid ${col[1]};"></span><span style="font-family:monospace;font-weight:700;color:#fff;">${tag}</span><span style="color:#aab4c0;margin-left:8px;">${l2}</span></div>${gondAbc[tag] ? `<div style="font-size:9px;color:#7c8794;font-family:monospace;padding:1px 6px 3px 27px;line-height:1.4;">${gondAbc[tag]}</div>` : ''}`;
       }).join('');
       return `<div style="margin-bottom:12px;"><div style="font-size:10px;letter-spacing:1.2px;text-transform:uppercase;color:var(--teal);font-family:monospace;border-bottom:1px solid rgba(93,202,165,0.3);padding-bottom:3px;margin-bottom:5px;display:flex;justify-content:space-between;">${c}<span style="color:#667;">${byCat[c].length}</span></div>${items}</div>`;
     }).join('');
@@ -5312,28 +5361,30 @@ const renderers = {
     
     // Categories with full data (BEFORE %, AFTER %, $ shift, color, narrative)
     const cats = [
-      {n:'Liquor',           bef$:16460, befPct:23.6, aft$:19831, aftPct:21.0, color:'#F0997B',
+      {n:'Liquor',           bef$:16460, befPct:23.6, aft$:19831, aftPct:20.2, color:'#F0997B',
        why:'Premium tequila, mezcal, Japanese whisky, and Chicago craft (Mal\u00f6rt, Koval, FEW) added to BC-1 wall.'},
-      {n:'Beer',             bef$:12195, befPct:17.5, aft$:12120, aftPct:12.8, color:'#85B7EB',
+      {n:'Beer',             bef$:12195, befPct:17.5, aft$:12120, aftPct:12.3, color:'#85B7EB',
        why:'Regional craft (Half Acre, Revolution) + N.A. craft (Athletic, HOP WTR) + Mexican imports expanded.'},
-      {n:'Tobacco/Vape',     bef$:12400, befPct:17.8, aft$:15151, aftPct:16.1, color:'#888780',
+      {n:'Tobacco/Vape',     bef$:12400, befPct:17.8, aft$:15151, aftPct:15.4, color:'#888780',
        why:'High-velocity cigarettes, vape, and Zyn run through the OC-1 counter, itemized at wholesale - a smaller share of a beverage-led repositioned mix.'},
-      {n:'Seltzer/RTD/THC',  bef$:6350,  befPct:9.1,  aft$:8629, aftPct:9.1, color:'#5DCAA5',
+      {n:'Seltzer/RTD/THC',  bef$:6350,  befPct:9.1,  aft$:8629, aftPct:8.8, color:'#5DCAA5',
        why:'High Noon expanded + Tip Top / Post Meridiem premium RTDs added + 2 full doors of THC beverage NEW.'},
-      {n:'Wine',             bef$:7970,  befPct:11.4, aft$:16898, aftPct:17.9, color:'#AFA9EC',
+      {n:'Wine',             bef$:7970,  befPct:11.4, aft$:16898, aftPct:17.2, color:'#AFA9EC',
        why:'Curated wine program layered on the chilled set - Loire Sancerre, grower Champagne (Veuve, Moet), Oregon + Sonoma Pinot, Napa Cab, premium rose, plus value tier. Hotel Zachary tourist + neighborhood driver.'},
-      {n:'Premium Snacks',   bef$:2775,  befPct:4.0,  aft$:5151, aftPct:5.5,  color:'#97C459',
+      {n:'Premium Snacks',   bef$:2775,  befPct:4.0,  aft$:6108, aftPct:6.2,  color:'#97C459',
        why:'Protein bar wall (G3) + BFY chips on G1 + premium chocolate endcap. Highest absolute % gain in mix.'},
-      {n:'Non-Alc Cold',     bef$:2005,  befPct:2.9,  aft$:10278, aftPct:10.9,  color:'#5DCAA5',
+      {n:'Non-Alc Cold',     bef$:2005,  befPct:2.9,  aft$:10423, aftPct:10.6,  color:'#5DCAA5',
        why:'Olipop, Liquid Death, Poppi, Recess, Cold Brew, protein shakes \u2014 fastest-growing C-store segment.'},
-      {n:'Hangover/Recovery',bef$:0,     befPct:0,    aft$:2117, aftPct:2.2,  color:'#EFB045',
+      {n:'Hangover/Recovery',bef$:0,     befPct:0,    aft$:4592, aftPct:4.7,  color:'#EFB045',
        why:'Entirely NEW category. Liquid IV, LMNT, Pedialyte, DripDrop, Magic Mind, Morning Recovery on G1.5 endcap.'},
-      {n:'Party/Mixers',     bef$:1000,  befPct:1.4,  aft$:1383, aftPct:1.5,  color:'#ED93B1',
+      {n:'Party/Mixers',     bef$:1000,  befPct:1.4,  aft$:1383, aftPct:1.4,  color:'#ED93B1',
        why:'Tonic, club soda, Q-mixer, Topo Chico, ginger beer expanded \u2014 supports the BC-1 cocktail program.'},
       {n:'Grocery/Cleaning', bef$:7200,  befPct:10.3, aft$:0,     aftPct:0,    color:'#aa6666',
        why:'ENTIRELY EXITED. The cleaning aisle (Tide gallon, mops) and canned grocery (Chef Boyardee) are the largest space-recovery wins.'},
-      {n:'HBA/Essentials',   bef$:2435,  befPct:3.5,  aft$:2801, aftPct:3.0,  color:'#FAC775',
+      {n:'HBA/Essentials',   bef$:2435,  befPct:3.5,  aft$:2801, aftPct:2.8,  color:'#FAC775',
        why:'Right-sized to a small impulse footprint on BC-2 (condoms, Plan B, OTC, kratom). No more gallon shampoo.'},
+      {n:'Fresh Produce',    bef$:0,     befPct:0,    aft$:435,  aftPct:0.4,  color:'#9CCC65',
+       why:'NEW - small high-turn produce rack beside SC-1: cocktail citrus (limes, lemons, mint), grab-go fruit, avocados + aromatics. Modern-bodega fresh credential that also feeds the cocktail program.'},
     ];
     
     const totalBef = cats.reduce((s,c) => s + c.bef$, 0);
@@ -6045,7 +6096,7 @@ const renderers = {
       {tag:'D16',w:120,name:'THC + CBD Beverage',sub:'Dedicated hemp-derived THC + CBD cooler — zero local competition',type:'cooler',dist:'THC DIRECT'},
       {tag:'D17',w:120,name:'Champagne + Grower Sparkling',sub:'Premium real Champagne + grower bubbles — hotel + celebration',type:'cooler',dist:'BREAKTHRU'},
       {tag:'D18',w:120,name:'Cava + Crémant + Pét-Nat',sub:'Discovery sparkling — Spanish Cava, French Crémant, natural Pét-Nat',type:'cooler',dist:'BREAKTHRU'},
-      {tag:'D19',w:120,name:'❄️ Frozen Meals',sub:'Frozen meals + handhelds — late-night fuel',type:'cooler',dist:'KEHE'},
+      {tag:'D19',w:120,name:'❄️ Frozen Meals',sub:'Frozen pizza + entrées + handhelds — game-day & late-night',type:'cooler',dist:'KEHE'},
       {tag:'D20',w:120,name:'🍦 Ice Cream Pints',sub:'Premium pints + novelties — impulse + late-night',type:'cooler',dist:'KEHE'},
       {tag:'D21',w:120,name:'Red Bull DSD',sub:'Red Bull dedicated merchandiser — full Editions set',type:'cooler',dist:'RED BULL'},
       {tag:'D22',w:120,name:'Modern Functional RTD',sub:'Better-for-you soda + functional + premium RTD impulse',type:'cooler',dist:'EBY-BROWN'},
@@ -6164,29 +6215,34 @@ const renderers = {
       ],
       'D19': [
         {tier:'eye-up', tiles:[
-          {name:'Hot Pockets Pepperoni Pizza',format:'2-pk',cost:'2.10',facings:4,status:'new'},
-          {name:'Hot Pockets Ham & Cheese',format:'2-pk',cost:'2.10',facings:2,status:'new'},
-          {name:'Jimmy Dean Sausage Biscuit',format:'2-pk',cost:'2.40',facings:2,status:'new'},
+          {name:'Screamin’ Sicilian Supreme',format:'24oz',cost:'4.50',facings:5,status:'new'},
+          {name:'DiGiorno Rising Crust Pepperoni',format:'27.5oz',cost:'4.75',facings:5,status:'new'},
+          {name:'DiGiorno Three Meat',format:'28.2oz',cost:'4.75',facings:5,status:'new'},
         ]},
         {tier:'eye-level', tiles:[
-          {name:'DiGiorno Rising Crust Pepperoni',format:'27.5oz',cost:'4.75',facings:6,status:'new'},
-          {name:'DiGiorno Three Meat',format:'28.2oz',cost:'4.75',facings:5,status:'new'},
-          {name:'Red Baron Classic Pepperoni',format:'20.6oz',cost:'3.50',facings:4,status:'new'},
+          {name:'Red Baron Classic Pepperoni',format:'20.6oz',cost:'3.50',facings:3,status:'new'},
+          {name:'Tombstone Original Pepperoni',format:'19.3oz',cost:'3.25',facings:3,status:'new'},
+          {name:'Amy’s Cheese Pizza',format:'13oz',cost:'5.50',facings:2,status:'new'},
+          {name:'Stouffer’s French Bread Pizza',format:'2-pk',cost:'2.75',facings:2,status:'new'},
         ]},
         {tier:'mid-reach', tiles:[
-          {name:'Stouffer’s Lasagna',format:'19oz',cost:'3.25',facings:2,status:'new'},
-          {name:'Stouffer’s Mac & Cheese',format:'12oz',cost:'2.40',facings:3,status:'new'},
-          {name:'Marie Callender’s Chicken Pot Pie',format:'10oz',cost:'1.85',facings:3,status:'new'},
+          {name:'Stouffer’s Lasagna',format:'19oz',cost:'3.25',facings:1,status:'new'},
+          {name:'Stouffer’s Mac & Cheese',format:'12oz',cost:'2.40',facings:4,status:'new'},
+          {name:'Marie Callender’s Chicken Pot Pie',format:'10oz',cost:'1.85',facings:4,status:'new'},
+          {name:'Healthy Choice Power Bowl',format:'9.5oz',cost:'3.25',facings:2,status:'new'},
         ]},
         {tier:'low-reach', tiles:[
-          {name:'Totino’s Pizza Rolls',format:'24-ct',cost:'2.75',facings:3,status:'new'},
+          {name:'Totino’s Pizza Rolls',format:'24-ct',cost:'2.75',facings:2,status:'new'},
           {name:'Bagel Bites Cheese & Pepperoni',format:'9-ct',cost:'3.10',facings:2,status:'new'},
-          {name:'El Monterey Bean & Cheese Burrito',format:'8-pk',cost:'1.40',facings:2,status:'new'},
+          {name:'El Monterey Bean & Cheese Burrito',format:'8-pk',cost:'1.40',facings:1,status:'new'},
+          {name:'Hot Pockets Pepperoni Pizza',format:'2-pk',cost:'2.10',facings:1,status:'new'},
+          {name:'TGI Fridays Mozzarella Sticks',format:'11oz',cost:'4.25',facings:2,status:'new'},
         ]},
         {tier:'kick-plate', tiles:[
-          {name:'White Castle Cheeseburger Sliders',format:'6-pk',cost:'4.25',facings:2,status:'new'},
+          {name:'White Castle Cheeseburger Sliders',format:'6-pk',cost:'4.25',facings:1,status:'new'},
           {name:'Jose Ole Taquitos',format:'20-ct',cost:'4.00',facings:3,status:'new'},
-          {name:'Hot Pockets Philly Steak',format:'2-pk',cost:'2.10',facings:2,status:'new'},
+          {name:'Jimmy Dean Sausage Biscuit',format:'2-pk',cost:'2.40',facings:2,status:'new'},
+          {name:'Eggo Homestyle Waffles',format:'10-ct',cost:'2.95',facings:3,status:'new'},
         ]},
       ],
       'D20': [
@@ -7232,6 +7288,9 @@ const renderers = {
         {sect:'A', name:'Liquid IV',          format:'Strawberry stick',   cost:'1.85', facings:2, status:'new'},
         {sect:'A', name:'LMNT',               format:'Citrus Salt stick',  cost:'2.00', facings:2, status:'new'},
         {sect:'A', name:'LMNT',               format:'Watermelon stick',   cost:'2.00', facings:1, status:'new'},
+        {sect:'A', name:'RXBAR',              format:'bar', cost:'2.00', facings:2, status:'new'},
+        {sect:'A', name:'David Protein Bar',  format:'bar', cost:'2.95', facings:2, status:'new'},
+        {sect:'A', name:'Quest Bar',          format:'bar', cost:'2.25', facings:2, status:'new'},
         // ----- G1B: Lay\u2019s + Doritos + Cheetos anchor wall -----
         {sect:'B', name:'Lay\u2019s',        format:'Classic 2.625oz',    cost:'1.99', facings:3, status:'new'},
         {sect:'B', name:'Lay\u2019s',        format:'Sour Cream + Onion 2.625oz',cost:'1.99', facings:2, status:'new'},
@@ -7253,12 +7312,15 @@ const renderers = {
         {sect:'A', name:'DripDrop',           format:'Watermelon stick',   cost:'1.50', facings:1, status:'new'},
         {sect:'A', name:'Pedialyte Sport',    format:'Strawberry stick',   cost:'1.75', facings:2, status:'new'},
         {sect:'A', name:'Hi5',                format:'Hangover Recovery',  cost:'4.99', facings:1, status:'new'},
+        {sect:'A', name:'Built Bar',          format:'bar', cost:'1.95', facings:2, status:'new'},
+        {sect:'A', name:'Barebells',          format:'bar', cost:'2.75', facings:2, status:'new'},
         // ----- G1B: Spicy chip bay (Late-Night Fuel category) -----
         {sect:'B', name:'Takis',              format:'Fuego 4oz',          cost:'2.99', facings:3, status:'new'},
         {sect:'B', name:'Takis',              format:'Blue Heat 4oz',      cost:'2.99', facings:2, status:'new'},
         {sect:'B', name:'Hot Cheetos',        format:'XXTRA Flamin Hot 8.5oz',cost:'2.99', facings:2, status:'new'},
         {sect:'B', name:'Buldak',             format:'Hot Chicken Chips',  cost:'3.49', facings:2, status:'new'},
         {sect:'B', name:'Cheetos',            format:'Flamin\u2019 Hot 2.625oz',cost:'1.99', facings:2, status:'new'},
+        {sect:'B', name:'Quest Protein Chips', format:'bag', cost:'2.50', facings:2, status:'new'},
         // ----- G1C: Gum + mints (impulse) -----
         {sect:'C', name:'Trident',            format:'Spearmint 14-stick', cost:'1.99', facings:2, status:'new'},
         {sect:'C', name:'5 Gum',              format:'Cobalt Peppermint',  cost:'1.99', facings:2, status:'new'},
@@ -7284,6 +7346,8 @@ const renderers = {
         {sect:'C', name:'Chomps',             format:'Grass-Fed Beef stick',cost:'2.50', facings:2, status:'new'},
         {sect:'C', name:'Country Archer',     format:'Grass-Fed Original', cost:'4.00', facings:1, status:'new'},
         {sect:'C', name:'Slim Jim',           format:'Original Giant',     cost:'1.99', facings:2, status:'new'},
+        {sect:'C', name:'Chomps Jalape\u00f1o Beef', format:'stick', cost:'2.50', facings:2, status:'new'},
+        {sect:'C', name:'Chomps Sea Salt Turkey',  format:'stick', cost:'2.50', facings:2, status:'new'},
       ]},
 
       // SH 1 — kick-plate: BULK / multi-pack tier per section
@@ -8515,7 +8579,7 @@ ${renderGondolaRealScale({ shelves: g4Shelves, sectionLabels: { A:'Curated wine'
     </div>
 
     <div class="card" style="border-left:3px solid var(--amber);padding:12px 18px;margin-top:14px;font-size:12.5px;">
-      <strong style="color:var(--amber);">Endcaps:</strong> G4.5 (north endcap, faces entrance) = Sake / Soju / Japanese Whisky \u00b7 G3.5 (south endcap, faces back) = Adaptogen Discovery. See dedicated endcap slides.
+      <strong style="color:var(--amber);">Endcaps:</strong> G3.5 (south endcap, faces back) = Adaptogen Discovery. See dedicated endcap slides.
     </div>`;
   },
 
@@ -8664,16 +8728,16 @@ ${renderGondolaRealScale({ shelves: g4Shelves, sectionLabels: { A:'Curated wine'
   // RENDERER: Historical Financials (5-yr tax return trend)
   // ============================================================
   // ============================================================
-  // ENDCAPS — G1.5, G2.5, G3.5, G4.5
+  // ENDCAPS — G1.5, G2.5, G3.5
   // 30" wide × 60" tall × 5 shelves. Tile-based elevations.
   // 30" = 5 facings of 3" product per shelf, so ~25 facings/face
   // ============================================================
   
   'endcap-g25': () => renderTileFixture({
     tag: 'G2.5',
-    title: 'G2.5 \u2014 Late-Night Fuel anchor (north endcap, faces entrance)',
-    subtitle: 'Bar-close (10pm\u2013close) walk-out grab-and-go anchor. Spicy chips, hot ramen sampler, jerky, single-serve heat-and-eat. Highest-velocity bar-close demand window in the store. Pairs with G2A (deep ramen) + G1B (spicy chip bay) per the 12-section strategy.',
-    dims: '30" W \u00d7 80" H \u00d7 24" D',
+    title: 'G2.5 \u2014 Protein + Late-Night Fuel anchor (north endcap, faces entrance)',
+    subtitle: 'Protein-forward grab-and-go on top (RXBAR, David, Built, Barebells, Quest + Chomps meat sticks) over the bar-close (10pm\u2013close) munchie set below \u2014 spicy chips, hot ramen, candy, 1L water. Captures the post-gym + late-night protein customer AND the Wrigleyville bar-close walk-out window. Pairs with G2A (deep ramen) + G1B (spicy chip bay) per the 12-section strategy.',
+    dims: '16" W \u00d7 80" H \u00d7 24" D',
     cost: '$420 planned',
     status: 'NEW',
     accent: '#efb045',
@@ -8682,50 +8746,48 @@ ${renderGondolaRealScale({ shelves: g4Shelves, sectionLabels: { A:'Curated wine'
     parentSlide: 'elev-g1',
     parentName: 'Snack Gondolas (G1+G2)',
     shelves: [
-      // SH 5 \u2014 eye-up: spicy/late-night flavor anchor (premium tier)
+      // SH 5 \u2014 eye-up: HERO protein bars (KeHE) \u2014 post-gym + late-night protein
       {tier:'eye-up', tiles: [
-        {name:'Takis',           format:'Fuego XL 9.9oz',         cost:'2.50', facings:3, status:'new'},
-        {name:'Takis',           format:'Blue Heat XL',           cost:'2.50', facings:2, status:'new'},
-        {name:'Hot Cheetos',     format:'XXTRA Flamin Hot 8.5oz', cost:'2.99', facings:2, status:'new'},
-        {name:'Buldak',          format:'Hot Chicken Chips',      cost:'3.49', facings:2, status:'new'},
+        {name:'RXBAR', format:'bar', cost:'2.00', facings:4, status:'new'},
+        {name:'David Protein Bar', format:'bar', cost:'2.95', facings:3, status:'new'},
+        {name:'Built Bar', format:'bar', cost:'1.95', facings:3, status:'new'},
+        {name:'Barebells', format:'bar', cost:'2.75', facings:3, status:'new'},
+        {name:'Quest Bar', format:'bar', cost:'2.25', facings:4, status:'new'},
       ]},
-      // SH 4 \u2014 eye-level: jerky / protein impulse (high-velocity)
       {tier:'eye-level', tiles: [
-        {name:'Jack Link\u2019s', format:'Original 1.25oz',      cost:'2.50', facings:3, status:'new'},
-        {name:'Jack Link\u2019s', format:'Teriyaki 1.25oz',      cost:'2.50', facings:2, status:'new'},
-        {name:'Country Archer',  format:'Grass-Fed Original',     cost:'4.00', facings:2, status:'new'},
-        {name:'Chomps',          format:'Grass-Fed Beef stick',   cost:'2.50', facings:2, status:'new'},
+        {name:'Chomps Original Beef', format:'stick', cost:'2.50', facings:5, status:'new'},
+        {name:'Chomps Jalapeño Beef', format:'stick', cost:'2.50', facings:4, status:'new'},
+        {name:'Chomps Sea Salt Turkey', format:'stick', cost:'2.50', facings:4, status:'new'},
+        {name:'Chomps Pepperoni', format:'stick', cost:'2.50', facings:4, status:'new'},
       ]},
-      // SH 3 \u2014 mid-reach: hot ramen sampler / heat-and-eat anchor
       {tier:'mid-reach', tiles: [
-        {name:'Buldak',          format:'Hot Chicken Cup',        cost:'2.95', facings:3, status:'new'},
-        {name:'Buldak',          format:'Carbonara Cup',          cost:'2.95', facings:2, status:'new'},
-        {name:'Cup Noodles',     format:'Spicy Chicken',          cost:'1.25', facings:3, status:'new'},
-        {name:'Shin Black',      format:'Spicy Beef bowl',        cost:'3.50', facings:2, status:'new'},
+        {name:'Takis', format:'Fuego XL 9.9oz', cost:'2.50', facings:1, status:'new'},
+        {name:'Buldak', format:'Hot Chicken Chips', cost:'3.49', facings:1, status:'new'},
+        {name:'Hot Cheetos', format:'XXTRA Flamin Hot 8.5oz', cost:'2.99', facings:3, status:'new'},
+        {name:'Takis', format:'Blue Heat XL', cost:'2.50', facings:2, status:'new'},
       ]},
-      // SH 2 \u2014 low-reach: spicy candy + late-night sweet impulse
       {tier:'low-reach', tiles: [
-        {name:'Hot Tamales',     format:'Fierce Cinnamon 5oz',    cost:'2.49', facings:2, status:'new'},
-        {name:'Trolli',          format:'Sour Brite Crawlers',    cost:'1.99', facings:2, status:'new'},
-        {name:'Sour Patch Kids', format:'Original 5oz',           cost:'2.49', facings:2, status:'new'},
-        {name:'Twizzlers',       format:'Strawberry Pull-n-Peel', cost:'2.49', facings:1, status:'new'},
+        {name:'Buldak', format:'Hot Chicken Cup', cost:'2.95', facings:2, status:'new'},
+        {name:'Buldak', format:'Carbonara Cup', cost:'2.95', facings:2, status:'new'},
+        {name:'Cup Noodles', format:'Spicy Chicken', cost:'1.25', facings:3, status:'new'},
+        {name:'Sour Patch Kids', format:'Original 5oz', cost:'2.49', facings:2, status:'new'},
       ]},
-      // SH 1 \u2014 kick-plate: 1L water + electrolyte for the bar-close walk
       {tier:'kick-plate', tiles: [
-        {name:'Liquid Death',    format:'Mountain 1L',            cost:'1.99', facings:3, status:'new'},
-        {name:'Liquid Death',    format:'Sparkling 1L',           cost:'2.20', facings:2, status:'new'},
-        {name:'Smartwater',      format:'1L bottle',              cost:'2.99', facings:2, status:'new'},
-        {name:'Liquid IV',       format:'Hydration stick (single)',cost:'2.50', facings:3, status:'new'},
+        {name:'Liquid Death', format:'Mountain 1L', cost:'1.99', facings:3, status:'new'},
+        {name:'Liquid Death', format:'Sparkling 1L', cost:'2.20', facings:2, status:'new'},
+        {name:'Smartwater', format:'1L bottle', cost:'2.99', facings:2, status:'new'},
+        {name:'Liquid IV', format:'Hydration stick (single)', cost:'2.50', facings:3, status:'new'},
+        {name:'Liquid Death', format:'Severed Lime 1L', cost:'2.20', facings:2, status:'new'},
       ]},
     ],
-    footerNote: '<strong style="color:var(--amber);">Strategy:</strong> Highest-velocity bar-close demand window. Spicy chips + hot ramen + jerky + 1L water-on-the-walk-home. ~38% gross margin blended, fast turn (3\u20134 days). Anchors the 12-section Late-Night Fuel category which also lives across <span style="cursor:pointer;color:var(--accent);" onclick="window.goToSlide(\u0027elev-g1\u0027)">G2A (deep ramen)</span> and <span style="cursor:pointer;color:var(--accent);" onclick="window.goToSlide(\u0027elev-g1\u0027)">G1B (spicy chip bay)</span>. Replaces the legacy premium-chocolate gifting concept which doesn\u2019t fit the Wrigleyville bodega thesis.',
+    footerNote: '<strong style="color:var(--amber);">Strategy:</strong> Protein-forward hero \u2014 RXBAR, David, Built, Barebells, Quest bars + Chomps meat sticks (KeHE) own the eye-up + eye-level tiers, the highest-value real estate. The bar-close munchie set (spicy chips, hot ramen, candy, 1L water \u2014 Eby-Brown) anchors the lower shelves for the 10pm\u2013close walk-out window. ~40% gross margin blended, fast turn. Anchors the 12-section Late-Night Fuel category which also lives across <span style="cursor:pointer;color:var(--accent);" onclick="window.goToSlide(\u0027elev-g1\u0027)">G2A (deep ramen)</span> and <span style="cursor:pointer;color:var(--accent);" onclick="window.goToSlide(\u0027elev-g1\u0027)">G1B (spicy chip bay)</span>.',
   }),
 
   'endcap-g15': () => renderTileFixture({
     tag: 'G1.5',
     title: 'G1.5 \u2014 South endcap of lower gondola (faces back of store)',
     subtitle: 'Hangover Recovery station \u2014 Liquid IV, LMNT, Pedialyte, Magic Mind, Morning Recovery. Late-night/morning-after impulse capture for the bar crowd. Entirely NEW category.',
-    dims: '30" W \u00d7 60" H \u00d7 24" D',
+    dims: '16" W \u00d7 60" H \u00d7 24" D',
     cost: '$420 planned',
     status: 'NEW',
     accent: '#efb045',
@@ -8734,41 +8796,41 @@ ${renderGondolaRealScale({ shelves: g4Shelves, sectionLabels: { A:'Curated wine'
     parentSlide: 'elev-g1',
     parentName: 'Snack Gondolas (G1+G2)',
     shelves: [
-      // SH 5: Functional shots (eye-level for the bar-crawl crowd)
       {tier:'eye-up', tiles: [
-        {name:'Magic Mind', format:'Productivity 2oz', cost:'9.99', facings:3, status:'new'},
-        {name:'Magic Mind', format:'Sleep 2oz', cost:'9.99', facings:2, status:'new'},
-        {name:'Morning Recov.', format:'Original 3.4oz', cost:'5.99', facings:3, status:'new'},
+        {name:'Magic Mind', format:'Productivity 2oz', cost:'9.99', facings:8, status:'new'},
+        {name:'Magic Mind', format:'Sleep 2oz', cost:'9.99', facings:7, status:'new'},
+        {name:'Morning Recov.', format:'Original 3.4oz', cost:'5.99', facings:6, status:'new'},
       ]},
-      // SH 4: Liquid IV (brand leader)
       {tier:'eye-level', tiles: [
-        {name:'Liquid IV', format:'Lemon Lime', cost:'1.85', facings:2, status:'new'},
+        {name:'Liquid IV', format:'Lemon Lime', cost:'1.85', facings:3, status:'new'},
         {name:'Liquid IV', format:'Passion Fruit', cost:'1.85', facings:2, status:'new'},
         {name:'Liquid IV', format:'Strawberry', cost:'1.85', facings:2, status:'new'},
-        {name:'Liquid IV', format:'Acai Berry', cost:'1.85', facings:1, status:'new'},
-        {name:'Liquid IV', format:'Tangerine', cost:'1.85', facings:1, status:'new'},
+        {name:'Liquid IV', format:'Acai Berry', cost:'1.85', facings:2, status:'new'},
+        {name:'Liquid IV', format:'Tangerine', cost:'1.85', facings:2, status:'new'},
+        {name:'Liquid IV', format:'Sugar-Free stick', cost:'1.85', facings:1, status:'new'},
       ]},
-      // SH 3: LMNT
       {tier:'mid-reach', tiles: [
-        {name:'LMNT', format:'Citrus Salt', cost:'2.00', facings:2, status:'new'},
+        {name:'LMNT', format:'Citrus Salt', cost:'2.00', facings:3, status:'new'},
         {name:'LMNT', format:'Raspberry', cost:'2.00', facings:2, status:'new'},
-        {name:'LMNT', format:'Watermelon', cost:'2.00', facings:1, status:'new'},
-        {name:'LMNT', format:'Mango Chili', cost:'2.00', facings:1, status:'new'},
+        {name:'LMNT', format:'Watermelon', cost:'2.00', facings:2, status:'new'},
+        {name:'LMNT', format:'Mango Chili', cost:'2.00', facings:2, status:'new'},
         {name:'LMNT', format:'Variety', cost:'2.00', facings:2, status:'new'},
+        {name:'LMNT', format:'Chocolate stick', cost:'2.00', facings:1, status:'new'},
       ]},
-      // SH 2: DripDrop + Pedialyte sticks
       {tier:'low-reach', tiles: [
-        {name:'DripDrop', format:'Berry stick', cost:'1.50', facings:2, status:'new'},
-        {name:'DripDrop', format:'Watermelon', cost:'1.50', facings:1, status:'new'},
+        {name:'DripDrop', format:'Berry stick', cost:'1.50', facings:3, status:'new'},
+        {name:'DripDrop', format:'Watermelon stick', cost:'1.50', facings:3, status:'new'},
         {name:'Pedialyte', format:'Sport Strawberry', cost:'1.75', facings:2, status:'new'},
-        {name:'Pedialyte', format:'Sport Grape', cost:'1.75', facings:1, status:'new'},
+        {name:'Pedialyte', format:'Sport Grape', cost:'1.75', facings:2, status:'new'},
+        {name:'Pedialyte', format:'Sport Orange', cost:'1.75', facings:2, status:'new'},
+        {name:'Liquid IV', format:'Hydration stick (single)', cost:'2.50', facings:2, status:'new'},
       ]},
-      // SH 1: Pedialyte 1L bottles (kick-plate)
       {tier:'kick-plate', tiles: [
-        {name:'Pedialyte', format:'Fruit Punch 1L', cost:'5.50', facings:2, status:'new'},
-        {name:'Pedialyte', format:'Grape 1L', cost:'5.50', facings:1, status:'new'},
-        {name:'Pedialyte', format:'Strawberry 1L', cost:'5.50', facings:1, status:'new'},
-        {name:'Pedialyte', format:'Bubblegum 1L', cost:'5.50', facings:1, status:'new'},
+        {name:'Pedialyte', format:'Fruit Punch 1L', cost:'5.50', facings:3, status:'new'},
+        {name:'Pedialyte', format:'Grape 1L', cost:'5.50', facings:2, status:'new'},
+        {name:'Pedialyte', format:'Strawberry 1L', cost:'5.50', facings:2, status:'new'},
+        {name:'Pedialyte', format:'Bubblegum 1L', cost:'5.50', facings:2, status:'new'},
+        {name:'Pedialyte', format:'Unflavored 1L', cost:'5.50', facings:2, status:'new'},
       ]},
     ],
     footerNote: '<strong style="color:var(--amber);">Strategy:</strong> Wrigleyville bar-crowd late-night + morning-after demand. Faces the back of the store so reluctant customers can grab without parading past the line. Premium price tolerance \u2014 nobody comparison-shops Liquid IV at 2 AM.',
@@ -8778,7 +8840,7 @@ ${renderGondolaRealScale({ shelves: g4Shelves, sectionLabels: { A:'Curated wine'
     tag: 'G3.5',
     title: 'G3.5 \u2014 South endcap of back gondola (faces back of store)',
     subtitle: 'Adaptogen Discovery station \u2014 Magic Mind, Recess, 5-Hour, Liquid IV Energy, LMNT. High-margin functional discovery zone for the wellness-curious customer.',
-    dims: '30" W \u00d7 60" H \u00d7 24" D',
+    dims: '32" W \u00d7 60" H \u00d7 24" D',
     cost: '$280 planned',
     status: 'NEW',
     accent: '#efb045',
@@ -8788,94 +8850,46 @@ ${renderGondolaRealScale({ shelves: g4Shelves, sectionLabels: { A:'Curated wine'
     parentName: 'Back Gondolas (G3+G4)',
     shelves: [
       {tier:'eye-up', tiles: [
-        {name:'Magic Mind', format:'Productivity 2oz', cost:'9.99', facings:4, status:'new'},
-        {name:'Magic Mind', format:'Sleep 2oz', cost:'9.99', facings:3, status:'new'},
+        {name:'Magic Mind', format:'Productivity 2oz', cost:'9.99', facings:11, status:'new'},
+        {name:'Magic Mind', format:'Sleep 2oz', cost:'9.99', facings:10, status:'new'},
       ]},
       {tier:'eye-level', tiles: [
-        {name:'5-Hour Energy', format:'Berry', cost:'2.50', facings:2, status:'new'},
+        {name:'5-Hour Energy', format:'Berry', cost:'2.50', facings:3, status:'new'},
         {name:'5-Hour Energy', format:'Orange', cost:'2.50', facings:2, status:'new'},
-        {name:'5-Hour Energy', format:'Grape', cost:'2.50', facings:1, status:'new'},
-        {name:'5-Hour Energy', format:'Pomegranate', cost:'2.50', facings:1, status:'new'},
+        {name:'5-Hour Energy', format:'Grape', cost:'2.50', facings:2, status:'new'},
+        {name:'5-Hour Energy', format:'Pomegranate', cost:'2.50', facings:2, status:'new'},
         {name:'5-Hour Extra', format:'Tropical Burst', cost:'2.75', facings:2, status:'new'},
+        {name:'5-Hour Energy', format:'Decaf shot', cost:'2.50', facings:1, status:'new'},
       ]},
       {tier:'mid-reach', tiles: [
         {name:'Recess', format:'Pomegranate Hibiscus', cost:'3.50', facings:2, status:'new'},
         {name:'Recess', format:'Blackberry Chai', cost:'3.50', facings:2, status:'new'},
-        {name:'Recess', format:'Coconut Lime', cost:'3.50', facings:1, status:'new'},
+        {name:'Recess', format:'Coconut Lime', cost:'3.50', facings:2, status:'new'},
         {name:'Recess Mood', format:'Magic Mango', cost:'3.99', facings:2, status:'new'},
-        {name:'Recess Mood', format:'Wild Berry', cost:'3.99', facings:1, status:'new'},
+        {name:'Recess Mood', format:'Wild Berry', cost:'3.99', facings:3, status:'new'},
+        {name:'Recess', format:'Half-Day shot', cost:'3.50', facings:1, status:'new'},
       ]},
       {tier:'low-reach', tiles: [
-        {name:'Liquid IV Energy', format:'Tropical Punch', cost:'2.25', facings:2, status:'new'},
+        {name:'Liquid IV Energy', format:'Tropical Punch', cost:'2.25', facings:3, status:'new'},
         {name:'Liquid IV Energy', format:'Citrus', cost:'2.25', facings:2, status:'new'},
-        {name:'Liquid IV Energy', format:'Yuzu Pineapple', cost:'2.25', facings:1, status:'new'},
-        {name:'Liquid IV Energy', format:'Strawberry Lemonade', cost:'2.25', facings:1, status:'new'},
-        {name:'Liquid IV Energy', format:'Watermelon Twist', cost:'2.25', facings:1, status:'new'},
+        {name:'Liquid IV Energy', format:'Yuzu Pineapple', cost:'2.25', facings:2, status:'new'},
+        {name:'Liquid IV Energy', format:'Strawberry Lemonade', cost:'2.25', facings:2, status:'new'},
+        {name:'Liquid IV Energy', format:'Watermelon Twist', cost:'2.25', facings:2, status:'new'},
+        {name:'Liquid IV Energy', format:'Focus stick', cost:'2.25', facings:1, status:'new'},
       ]},
       {tier:'kick-plate', tiles: [
-        {name:'LMNT Singles', format:'Citrus caddy', cost:'2.00', facings:2, status:'new'},
+        {name:'LMNT Singles', format:'Citrus caddy', cost:'2.00', facings:3, status:'new'},
         {name:'LMNT Singles', format:'Raspberry caddy', cost:'2.00', facings:2, status:'new'},
-        {name:'LMNT Singles', format:'Watermelon caddy', cost:'2.00', facings:1, status:'new'},
+        {name:'LMNT Singles', format:'Watermelon caddy', cost:'2.00', facings:2, status:'new'},
+        {name:'LMNT Singles', format:'Mango Chili caddy', cost:'2.00', facings:2, status:'new'},
         {name:'LMNT Singles', format:'Variety pack', cost:'2.00', facings:2, status:'new'},
+        {name:'LMNT Singles', format:'Chocolate stick', cost:'2.00', facings:1, status:'new'},
       ]},
     ],
     footerNote: '<strong style="color:var(--amber);">Strategy:</strong> Mood/productivity adjacent to the protein bar wall. Captures wellness-curious browsers who came for the bars and discover an upgrade.',
   }),
 
-  'endcap-g45': () => renderTileFixture({
-    tag: 'G4.5',
-    title: 'G4.5 \u2014 North endcap of back gondola (faces entrance)',
-    subtitle: 'Sake / Soju / Japanese Whisky discovery station. Captures the Asian demographic + Cubs Asian-fan tourist trade. Faces the main entrance for high visibility.',
-    dims: '30" W \u00d7 60" H \u00d7 24" D',
-    cost: '$240 planned',
-    status: 'NEW',
-    accent: '#efb045',
-    distributor: 'BREAKTHRU',
-    distSlide: 'pkt-breakthru',
-    parentSlide: 'gondolas-back',
-    parentName: 'Back Gondolas (G3+G4)',
-    shelves: [
-      // SH 5 (premium tier)
-      {tier:'eye-up', tiles: [
-        {name:'Hibiki', format:'Japanese Harmony', cost:'78.00', facings:1, status:'new'},
-        {name:'Hakushu', format:'12yr Single Malt', cost:'95.00', facings:1, status:'new'},
-        {name:'Yamazaki', format:'12yr (limited)', cost:'160.00', facings:1, status:'new'},
-      ]},
-      // SH 4: Suntory Toki + Nikka
-      {tier:'eye-level', tiles: [
-        {name:'Suntory', format:'Toki blended', cost:'32.00', facings:2, status:'new'},
-        {name:'Nikka', format:'Coffey Grain', cost:'68.00', facings:1, status:'new'},
-        {name:'Nikka', format:'From The Barrel', cost:'72.00', facings:1, status:'new'},
-        {name:'Hibiki', format:'Master Select', cost:'85.00', facings:1, status:'new'},
-      ]},
-      // SH 3: Premium sake
-      {tier:'mid-reach', tiles: [
-        {name:'Hakkaisan', format:'Junmai Ginjo 720ml', cost:'42.00', facings:2, status:'new'},
-        {name:'Dassai 39', format:'Junmai Daiginjo', cost:'72.00', facings:1, status:'new'},
-        {name:'Dassai 50', format:'Junmai Daiginjo', cost:'52.00', facings:1, status:'new'},
-        {name:'Sho Chiku Bai', format:'Premium 720ml', cost:'18.00', facings:1, status:'new'},
-        {name:'Tyku', format:'Junmai 720ml', cost:'24.00', facings:1, status:'new'},
-      ]},
-      // SH 2: Cold sake + cup sake
-      {tier:'low-reach', tiles: [
-        {name:'Tozai', format:'Snow Maiden 720ml', cost:'22.00', facings:2, status:'new'},
-        {name:'Tyku', format:'Cucumber 720ml', cost:'18.00', facings:1, status:'new'},
-        {name:'Hakutsuru', format:'Cup sake 180ml', cost:'4.50', facings:2, status:'new'},
-        {name:'Sho Chiku Bai', format:'Cup sake 180ml', cost:'4.50', facings:2, status:'new'},
-      ]},
-      // SH 1 (kick-plate): Korean soju
-      {tier:'kick-plate', tiles: [
-        {name:'Jinro', format:'Original 375ml', cost:'8.00', facings:3, status:'new'},
-        {name:'Jinro', format:'Grapefruit 375ml', cost:'8.00', facings:2, status:'new'},
-        {name:'Jinro', format:'Strawberry 375ml', cost:'8.00', facings:2, status:'new'},
-        {name:'Chum Churum', format:'Original 375ml', cost:'7.50', facings:2, status:'new'},
-        {name:'Hwayo 25', format:'Premium 375ml', cost:'18.00', facings:1, status:'new'},
-      ]},
-    ],
-    footerNote: '<strong style="color:var(--amber);">Strategy:</strong> 32% of Cubs season ticket holders come from outside Chicago, with significant Asian-American + tourist trade from Japan/Korea. Premium Japanese whisky alone justifies the endcap \u2014 average bottle $52+ vs. $14 for the macro shelves.',
-  }),
-
-  historical: () => {
+    historical: () => {
     const years = [
       {y:'2021', rev:449106, cogs:309184, gp:139922, gpct:31.2, ni:17553, notes:'Post-COVID rebound'},
       {y:'2022', rev:350478, cogs:198369, gp:152109, gpct:43.4, ni:35772, notes:'Best margin discipline'},
@@ -9512,15 +9526,15 @@ ${renderGondolaRealScale({ shelves: g4Shelves, sectionLabels: { A:'Curated wine'
     <h2 class="slide-title">⚖️ Break-even monthly revenue</h2>
     <p class="slide-subtitle">Single number that defines whether this store survives. Based on documented monthly fixed costs + blended 31% gross margin from <span onclick="window.goToSlide('margin-by-cat')" style="cursor:pointer;color:var(--accent);text-decoration:underline;">repositioning mix</span>.</p>
     <div class="stat-grid" style="margin-top:14px;">
-      <div class="stat"><div class="label">Monthly fixed costs</div><div class="val">$21,008</div><div class="sub">Rent + 3-line payroll + ops + ins + licenses</div></div>
+      <div class="stat"><div class="label">Monthly fixed costs</div><div class="val">$16,508</div><div class="sub">Rent + 3-line payroll + ops + ins + licenses</div></div>
       <div class="stat"><div class="label">Blended margin</div><div class="val">31%</div><div class="sub">Post-repositioning</div></div>
-      <div class="stat"><div class="label">BREAK-EVEN REV</div><div class="val" style="color:var(--accent);">$67,770</div><div class="sub">$21,008 ÷ 0.31</div></div>
-      <div class="stat"><div class="label">Per day (30-day mo)</div><div class="val">$2,410</div><div class="sub">Avg daily ticket count × ATV</div></div>
+      <div class="stat"><div class="label">BREAK-EVEN REV</div><div class="val" style="color:var(--accent);">$53,250</div><div class="sub">$16,508 ÷ 0.31</div></div>
+      <div class="stat"><div class="label">Per day (30-day mo)</div><div class="val">$1,775</div><div class="sub">Avg daily ticket count × ATV</div></div>
     </div>
     <h3 style="font-size:13px;color:var(--accent);letter-spacing:1px;margin-top:18px;border-bottom:1px solid var(--accent);padding-bottom:6px;">Monthly fixed-cost breakdown</h3>
     <table style="width:100%;border-collapse:collapse;font-size:11.5px;margin-top:8px;">
       <tbody>
-        <tr><td style="padding:5px 0;color:#cbd5e0;">Rent (per lease)</td><td style="padding:5px 0;text-align:right;font-family:monospace;color:#fff;font-weight:600;">$8,500</td></tr>
+        <tr><td style="padding:5px 0;color:#cbd5e0;">Rent (per lease)</td><td style="padding:5px 0;text-align:right;font-family:monospace;color:#fff;font-weight:600;">$4,000</td></tr>
         <tr style="background:rgba(255,255,255,0.02);"><td style="padding:5px 0;color:#cbd5e0;">Owner salary · $40k/yr (Bradley)</td><td style="padding:5px 0;text-align:right;font-family:monospace;color:#fff;font-weight:600;">$3,333</td></tr>
         <tr><td style="padding:5px 0;color:#cbd5e0;">W-2 employee · 39 hrs/wk × $18/hr · no healthcare</td><td style="padding:5px 0;text-align:right;font-family:monospace;color:#fff;font-weight:600;">$3,042</td></tr>
         <tr style="background:rgba(255,255,255,0.02);"><td style="padding:5px 0;color:#cbd5e0;">Payroll burden (FICA + FUTA + SUTA + WC ~13.25%)</td><td style="padding:5px 0;text-align:right;font-family:monospace;color:#fff;font-weight:600;">$433</td></tr>
@@ -9531,7 +9545,7 @@ ${renderGondolaRealScale({ shelves: g4Shelves, sectionLabels: { A:'Curated wine'
         <tr><td style="padding:5px 0;color:#cbd5e0;">Cleaning + janitorial</td><td style="padding:5px 0;text-align:right;font-family:monospace;color:#fff;font-weight:600;">$420</td></tr>
         <tr style="background:rgba(255,255,255,0.02);"><td style="padding:5px 0;color:#cbd5e0;">Internet / phone / security monitoring</td><td style="padding:5px 0;text-align:right;font-family:monospace;color:#fff;font-weight:600;">$310</td></tr>
         <tr><td style="padding:5px 0;color:#cbd5e0;">Misc / repairs / supplies</td><td style="padding:5px 0;text-align:right;font-family:monospace;color:#fff;font-weight:600;">$780</td></tr>
-        <tr style="border-top:1.5px solid var(--accent);"><td style="padding:8px 0;color:var(--accent);font-weight:800;letter-spacing:0.5px;">TOTAL MONTHLY FIXED · 11 line items</td><td style="padding:8px 0;text-align:right;font-family:monospace;color:var(--accent);font-weight:800;font-size:13.5px;">$21,008</td></tr>
+        <tr style="border-top:1.5px solid var(--accent);"><td style="padding:8px 0;color:var(--accent);font-weight:800;letter-spacing:0.5px;">TOTAL MONTHLY FIXED · 11 line items</td><td style="padding:8px 0;text-align:right;font-family:monospace;color:var(--accent);font-weight:800;font-size:13.5px;">$16,508</td></tr>
       </tbody>
     </table>
     <h3 style="font-size:13px;color:#5dcaa5;letter-spacing:1px;margin-top:18px;border-bottom:1px solid #5dcaa5;padding-bottom:6px;">Non-merchandise contribution stack &mdash; annual GP that offsets fixed cost</h3>
@@ -9545,37 +9559,34 @@ ${renderGondolaRealScale({ shelves: g4Shelves, sectionLabels: { A:'Curated wine'
       </tbody>
     </table>
     <div class="card" style="border-left:3px solid #5dcaa5;padding:12px 18px;margin-top:14px;font-size:12px;color:var(--muted);">
-      <strong style="color:#5dcaa5;">Effective break-even:</strong> these four non-merchandise lines deliver <strong style="color:#5dcaa5;">$114,370/yr (~$9,531/mo)</strong> of gross profit before a single SKU sells &mdash; covering ~45% of the $21,008 monthly fixed cost. Net merchandise fixed cost to cover drops to ~$11,477/mo, so the <strong style="color:#5dcaa5;">effective merchandise break-even falls from $67,770 to ~$37,030/mo</strong> at the 31% blended margin.
+      <strong style="color:#5dcaa5;">Effective break-even:</strong> these four non-merchandise lines deliver <strong style="color:#5dcaa5;">$114,370/yr (~$9,531/mo)</strong> of gross profit before a single SKU sells &mdash; covering ~58% of the $16,508 monthly fixed cost. Net merchandise fixed cost to cover drops to ~$6,977/mo, so the <strong style="color:#5dcaa5;">effective merchandise break-even falls from $53,250 to ~$22,500/mo</strong> at the 31% blended margin.
     </div>
 
     <div class="card" style="border-left:3px solid var(--accent);padding:12px 18px;margin-top:14px;font-size:12px;color:var(--muted);">
-      <strong style="color:var(--accent);">Sensitivity:</strong> if blended margin slips to 28% (under-execution), break-even rises to <strong style="color:var(--coral);">$75,030/mo</strong>. If margin hits 34% (premium-tier execution), break-even drops to <strong style="color:#5dcaa5;">$61,790/mo</strong>. <span onclick="window.goToSlide('financials')" style="cursor:pointer;color:var(--accent);text-decoration:underline;">→ See 36-month projection</span> for revenue trajectory.
+      <strong style="color:var(--accent);">Sensitivity:</strong> if blended margin slips to 28% (under-execution), break-even rises to <strong style="color:var(--coral);">$58,950/mo</strong>. If margin hits 34% (premium-tier execution), break-even drops to <strong style="color:#5dcaa5;">$48,550/mo</strong>. <span onclick="window.goToSlide('financials')" style="cursor:pointer;color:var(--accent);text-decoration:underline;">→ See 36-month projection</span> for revenue trajectory.
     </div>`,
 
   'working-capital': () => `
     <h2 class="slide-title">💵 Working capital + 90-day buffer</h2>
-    <p class="slide-subtitle">Total Day-0 cash to close &mdash; <strong style="color:var(--accent);">$216,259</strong>. Covers the asset purchase, $94,359 of all-new opening inventory across 9 distributors, license/permit reserve, fixtures (SC-1/CG-1 + D19/D20 retrofit), and a 60-day operating cushion. 100% new inventory at open &mdash; no inherited stock.</p>
+    <p class="slide-subtitle">Total Day-0 cash to close &mdash; <strong style="color:var(--accent);">$187,771</strong>. Covers the asset purchase, $98,371 of all-new opening inventory across 9 distributors, license/permit reserve, fixtures (SC-1/CG-1), and a 60-day operating cushion. 100% new inventory at open &mdash; no inherited stock.</p>
     <div class="stat-grid" style="margin-top:14px;">
-      <div class="stat"><div class="label">DAY-0 CASH TO CLOSE</div><div class="val" style="color:var(--accent);">$216,259</div><div class="sub">Itemized below</div></div>
+      <div class="stat"><div class="label">DAY-0 CASH TO CLOSE</div><div class="val" style="color:var(--accent);">$187,771</div><div class="sub">Itemized below</div></div>
       <div class="stat"><div class="label">Asset purchase</div><div class="val">$50,000</div><div class="sub">Business + fixtures (asset deal)</div></div>
-      <div class="stat"><div class="label">Opening inventory</div><div class="val">$94,359</div><div class="sub">All-new &middot; 9 distributors</div></div>
-      <div class="stat"><div class="label">60-day cushion</div><div class="val">$28,000</div><div class="sub">Rent + payroll + slow-pay terms</div></div>
+      <div class="stat"><div class="label">Opening inventory</div><div class="val">$98,371</div><div class="sub">All-new &middot; 9 distributors</div></div>
+      <div class="stat"><div class="label">60-day cushion</div><div class="val">$10,000</div><div class="sub">Rent + payroll + slow-pay terms</div></div>
     </div>
     <h3 style="font-size:13px;color:var(--accent);letter-spacing:1px;margin-top:18px;border-bottom:1px solid var(--accent);padding-bottom:6px;">Day-0 cash build &mdash; cash required at close</h3>
     <table style="width:100%;border-collapse:collapse;font-size:11.5px;margin-top:8px;">
       <tbody>
         <tr><td style="padding:5px 0;color:#cbd5e0;">Business + fixtures asset purchase</td><td style="padding:5px 0;text-align:right;font-family:monospace;color:#fff;font-weight:600;">$50,000</td></tr>
-        <tr style="background:rgba(255,255,255,0.02);"><td style="padding:5px 0;color:#cbd5e0;">Opening inventory (all-new &middot; 9 distributors incl. Hannah&rsquo;s)</td><td style="padding:5px 0;text-align:right;font-family:monospace;color:#fff;font-weight:600;">$94,359</td></tr>
+        <tr style="background:rgba(255,255,255,0.02);"><td style="padding:5px 0;color:#cbd5e0;">Opening inventory (all-new &middot; 9 distributors incl. Hannah&rsquo;s)</td><td style="padding:5px 0;text-align:right;font-family:monospace;color:#fff;font-weight:600;">$98,371</td></tr>
         <tr><td style="padding:5px 0;color:#cbd5e0;">Liquor license + permits (Class B &middot; tobacco &middot; vape &middot; lottery &middot; THC)</td><td style="padding:5px 0;text-align:right;font-family:monospace;color:#fff;font-weight:600;">$7,500</td></tr>
-        <tr style="background:rgba(255,255,255,0.02);"><td style="padding:5px 0;color:#cbd5e0;">Security deposit (2 mo rent)</td><td style="padding:5px 0;text-align:right;font-family:monospace;color:#fff;font-weight:600;">$8,000</td></tr>
         <tr><td style="padding:5px 0;color:#cbd5e0;">POS + back-office (Clover)</td><td style="padding:5px 0;text-align:right;font-family:monospace;color:#fff;font-weight:600;">$4,500</td></tr>
         <tr style="background:rgba(255,255,255,0.02);"><td style="padding:5px 0;color:#cbd5e0;">ATM placement</td><td style="padding:5px 0;text-align:right;font-family:monospace;color:#fff;font-weight:600;">$2,500</td></tr>
-        <tr><td style="padding:5px 0;color:#cbd5e0;">D19/D20 low-temp retrofit (frozen + ice cream conversion)</td><td style="padding:5px 0;text-align:right;font-family:monospace;color:#fff;font-weight:600;">$8,000</td></tr>
         <tr style="background:rgba(255,255,255,0.02);"><td style="padding:5px 0;color:#cbd5e0;">SC-1 sandwich cooler + CG-1 candy gondola</td><td style="padding:5px 0;text-align:right;font-family:monospace;color:#fff;font-weight:600;">$8,900</td></tr>
         <tr><td style="padding:5px 0;color:#cbd5e0;">Opening marketing + signage</td><td style="padding:5px 0;text-align:right;font-family:monospace;color:#fff;font-weight:600;">$6,000</td></tr>
-        <tr style="background:rgba(255,255,255,0.02);"><td style="padding:5px 0;color:#cbd5e0;">60-day operating cushion (rent + payroll + slow-pay terms)</td><td style="padding:5px 0;text-align:right;font-family:monospace;color:#fff;font-weight:600;">$28,000</td></tr>
-        <tr><td style="padding:5px 0;color:#cbd5e0;">Less: freezer salvage credit</td><td style="padding:5px 0;text-align:right;font-family:monospace;color:#5dcaa5;font-weight:600;">($1,500)</td></tr>
-        <tr style="border-top:1.5px solid var(--accent);"><td style="padding:8px 0;color:var(--accent);font-weight:800;letter-spacing:0.5px;">TOTAL DAY-0 CASH AT CLOSE</td><td style="padding:8px 0;text-align:right;font-family:monospace;color:var(--accent);font-weight:800;font-size:13.5px;">$216,259</td></tr>
+        <tr style="background:rgba(255,255,255,0.02);"><td style="padding:5px 0;color:#cbd5e0;">60-day operating cushion (rent + payroll + slow-pay terms)</td><td style="padding:5px 0;text-align:right;font-family:monospace;color:#fff;font-weight:600;">$10,000</td></tr>
+        <tr style="border-top:1.5px solid var(--accent);"><td style="padding:8px 0;color:var(--accent);font-weight:800;letter-spacing:0.5px;">TOTAL DAY-0 CASH AT CLOSE</td><td style="padding:8px 0;text-align:right;font-family:monospace;color:var(--accent);font-weight:800;font-size:13.5px;">$187,771</td></tr>
       </tbody>
     </table>
     <h3 style="font-size:13px;color:var(--accent);letter-spacing:1px;margin-top:18px;border-bottom:1px solid var(--accent);padding-bottom:6px;">90-day cash burn waterfall (worst case)</h3>
@@ -9589,14 +9600,14 @@ ${renderGondolaRealScale({ shelves: g4Shelves, sectionLabels: { A:'Curated wine'
         <th style="padding:7px 10px;text-align:right;color:var(--accent);font-family:monospace;letter-spacing:0.8px;font-size:10px;">CUM</th>
       </tr></thead>
       <tbody>
-        <tr><td style="padding:7px 10px;color:#fff;font-weight:600;">Month 1 (soft re-open)</td><td style="padding:7px 10px;text-align:right;font-family:monospace;color:#cbd5e0;">$58,000</td><td style="padding:7px 10px;text-align:right;font-family:monospace;color:#cbd5e0;">$40,020</td><td style="padding:7px 10px;text-align:right;font-family:monospace;color:#cbd5e0;">$21,008</td><td style="padding:7px 10px;text-align:right;font-family:monospace;color:#5dcaa5;font-weight:700;">−$3,028</td><td style="padding:7px 10px;text-align:right;font-family:monospace;color:var(--coral);font-weight:700;">−$3,028</td></tr>
-        <tr style="background:rgba(255,255,255,0.02);"><td style="padding:7px 10px;color:#fff;font-weight:600;">Month 2 (Cubs season starts)</td><td style="padding:7px 10px;text-align:right;font-family:monospace;color:#cbd5e0;">$72,000</td><td style="padding:7px 10px;text-align:right;font-family:monospace;color:#cbd5e0;">$49,680</td><td style="padding:7px 10px;text-align:right;font-family:monospace;color:#cbd5e0;">$21,008</td><td style="padding:7px 10px;text-align:right;font-family:monospace;color:#5dcaa5;font-weight:700;">+$1,312</td><td style="padding:7px 10px;text-align:right;font-family:monospace;color:var(--coral);font-weight:700;">−$1,716</td></tr>
-        <tr><td style="padding:7px 10px;color:#fff;font-weight:600;">Month 3 (full mix in flow)</td><td style="padding:7px 10px;text-align:right;font-family:monospace;color:#cbd5e0;">$83,500</td><td style="padding:7px 10px;text-align:right;font-family:monospace;color:#cbd5e0;">$57,615</td><td style="padding:7px 10px;text-align:right;font-family:monospace;color:#cbd5e0;">$21,008</td><td style="padding:7px 10px;text-align:right;font-family:monospace;color:#5dcaa5;font-weight:700;">+$4,877</td><td style="padding:7px 10px;text-align:right;font-family:monospace;color:#5dcaa5;font-weight:700;">+$3,161</td></tr>
-        <tr style="border-top:1.5px solid var(--accent);background:rgba(93,202,165,0.08);"><td style="padding:9px 10px;color:var(--accent);font-weight:800;letter-spacing:0.5px;">90-DAY POSITION</td><td style="padding:9px 10px;text-align:right;font-family:monospace;color:#5dcaa5;font-weight:700;">$213,500</td><td style="padding:9px 10px;text-align:right;font-family:monospace;color:#cbd5e0;">$147,315</td><td style="padding:9px 10px;text-align:right;font-family:monospace;color:#cbd5e0;">$63,024</td><td colspan="2" style="padding:9px 10px;text-align:right;font-family:monospace;color:var(--accent);font-weight:800;font-size:13.5px;">+$3,161 (cash-flow positive Mo 2)</td></tr>
+        <tr><td style="padding:7px 10px;color:#fff;font-weight:600;">Month 1 (soft re-open)</td><td style="padding:7px 10px;text-align:right;font-family:monospace;color:#cbd5e0;">$58,000</td><td style="padding:7px 10px;text-align:right;font-family:monospace;color:#cbd5e0;">$40,020</td><td style="padding:7px 10px;text-align:right;font-family:monospace;color:#cbd5e0;">$16,508</td><td style="padding:7px 10px;text-align:right;font-family:monospace;color:#5dcaa5;font-weight:700;">+$1,472</td><td style="padding:7px 10px;text-align:right;font-family:monospace;color:#5dcaa5;font-weight:700;">+$1,472</td></tr>
+        <tr style="background:rgba(255,255,255,0.02);"><td style="padding:7px 10px;color:#fff;font-weight:600;">Month 2 (Cubs season starts)</td><td style="padding:7px 10px;text-align:right;font-family:monospace;color:#cbd5e0;">$72,000</td><td style="padding:7px 10px;text-align:right;font-family:monospace;color:#cbd5e0;">$49,680</td><td style="padding:7px 10px;text-align:right;font-family:monospace;color:#cbd5e0;">$16,508</td><td style="padding:7px 10px;text-align:right;font-family:monospace;color:#5dcaa5;font-weight:700;">+$5,812</td><td style="padding:7px 10px;text-align:right;font-family:monospace;color:#5dcaa5;font-weight:700;">+$7,284</td></tr>
+        <tr><td style="padding:7px 10px;color:#fff;font-weight:600;">Month 3 (full mix in flow)</td><td style="padding:7px 10px;text-align:right;font-family:monospace;color:#cbd5e0;">$83,500</td><td style="padding:7px 10px;text-align:right;font-family:monospace;color:#cbd5e0;">$57,615</td><td style="padding:7px 10px;text-align:right;font-family:monospace;color:#cbd5e0;">$16,508</td><td style="padding:7px 10px;text-align:right;font-family:monospace;color:#5dcaa5;font-weight:700;">+$9,377</td><td style="padding:7px 10px;text-align:right;font-family:monospace;color:#5dcaa5;font-weight:700;">+$16,661</td></tr>
+        <tr style="border-top:1.5px solid var(--accent);background:rgba(93,202,165,0.08);"><td style="padding:9px 10px;color:var(--accent);font-weight:800;letter-spacing:0.5px;">90-DAY POSITION</td><td style="padding:9px 10px;text-align:right;font-family:monospace;color:#5dcaa5;font-weight:700;">$213,500</td><td style="padding:9px 10px;text-align:right;font-family:monospace;color:#cbd5e0;">$147,315</td><td style="padding:9px 10px;text-align:right;font-family:monospace;color:#cbd5e0;">$49,524</td><td colspan="2" style="padding:9px 10px;text-align:right;font-family:monospace;color:var(--accent);font-weight:800;font-size:13.5px;">+$16,661 (cash-flow positive Mo 1)</td></tr>
       </tbody>
     </table>
     <div class="card" style="border-left:3px solid var(--accent);padding:12px 18px;margin-top:14px;font-size:12px;color:var(--muted);">
-      <strong style="color:var(--accent);">Day-0 cash to close = $216,259.</strong> Asset purchase $50k + $94.4k all-new opening inventory + $7.5k license + $8k deposit + $4.5k POS + $2.5k ATM + $8k D19/D20 retrofit + $8.9k SC-1/CG-1 + $6k marketing + $28k 60-day cushion, less $1.5k freezer salvage. Net-15 IL statutory credit on alcohol means a large share of the $94.4k inventory lands before invoice, so true cash-at-close runs lower than the sticker. The 60-day cushion carries rent + payroll until the new mix ramps.
+      <strong style="color:var(--accent);">Day-0 cash to close = $187,771.</strong> Asset purchase $50k + $98.4k all-new opening inventory + $7.5k license + $4.5k POS + $2.5k ATM + $8.9k SC-1/CG-1 + $6k marketing + $10k 60-day cushion. Net-15 IL statutory credit on alcohol means a large share of the $98.4k inventory lands before invoice, so true cash-at-close runs lower than the sticker. The 60-day cushion carries rent + payroll until the new mix ramps.
     </div>`,
 
   'insurance': () => `
@@ -9824,6 +9835,28 @@ ${renderGondolaRealScale({ shelves: g4Shelves, sectionLabels: { A:'Curated wine'
       </tbody>
     </table>
     <div class=\"card\" style=\"border-left:3px solid var(--accent);padding:12px 18px;margin-top:14px;font-size:12px;color:var(--muted);\"><strong style=\"color:var(--accent);\">At-counter advantage:</strong> moving candy from a poorly-placed gondola to a dedicated 5-shelf at-counter unit typically <strong>2-3×s velocity</strong> on the same SKUs. Net incremental ~$9k/yr at 45% impulse-candy margin. Restock cadence: biweekly Eby-Brown order; weekly during baseball season (Apr–Oct).</div>`,
+
+  'fixture-pr1': () => `
+    <h2 class="slide-title">🥬 PR-1 — Fresh produce rack</h2>
+    <p class="slide-subtitle">5-tier produce display set beside <span onclick="window.goToSlide('fixture-sc1')" style="cursor:pointer;color:var(--accent);text-decoration:underline;">SC-1</span> — <strong>36"W × 24"D × 60"H</strong>. 19 high-turn SKUs: cocktail citrus, grab-go fruit, avocados + aromatics. The modern-bodega fresh credential that also feeds the BC-1 cocktail program. Restock 2-3x/week via KeHE / local produce DSD.</p>
+    <div class="stat-grid">
+      <div class="stat"><div class="label">Fixture cost</div><div class="val">$400</div><div class="sub">Tiered wood-crate display</div></div>
+      <div class="stat"><div class="label">SKUs</div><div class="val">19</div><div class="sub">5 tiers · perishable</div></div>
+      <div class="stat"><div class="label">Initial fill</div><div class="val">$435</div><div class="sub">low standing / high turn</div></div>
+      <div class="stat"><div class="label">Margin</div><div class="val" style="color:#5dcaa5;">~45-55%</div><div class="sub">citrus + herbs carry it</div></div>
+    </div>
+    <h3 style="font-size:13px;color:var(--accent);letter-spacing:1px;margin-top:18px;border-bottom:1px solid var(--accent);padding-bottom:6px;">19-SKU produce planogram (top → bottom)</h3>
+    <table style="width:100%;border-collapse:collapse;font-size:11.5px;margin-top:8px;">
+      <thead><tr style="background:rgba(255,255,255,0.04);border-bottom:1.5px solid var(--accent);"><th style="padding:8px 10px;text-align:left;color:var(--accent);font-size:10px;font-family:monospace;letter-spacing:0.8px;">TIER</th><th style="padding:8px 10px;text-align:left;color:var(--accent);font-size:10px;font-family:monospace;letter-spacing:0.8px;">ROLE</th><th style="padding:8px 10px;text-align:left;color:var(--accent);font-size:10px;font-family:monospace;letter-spacing:0.8px;">SKUs</th></tr></thead>
+      <tbody>
+        <tr style="border-bottom:1px solid rgba(255,255,255,0.06);"><td style="padding:7px 10px;color:#fff;font-weight:600;">Tier 1 — eye-level citrus</td><td style="padding:7px 10px;color:#cbd5e0;">Cocktail + everyday</td><td style="padding:7px 10px;color:#cbd5e0;">Limes · Lemons · Navel Oranges</td></tr>
+        <tr style="background:rgba(255,255,255,0.02);border-bottom:1px solid rgba(255,255,255,0.06);"><td style="padding:7px 10px;color:#fff;font-weight:600;">Tier 2 — grab-go fruit</td><td style="padding:7px 10px;color:#cbd5e0;">Snack / on-the-go</td><td style="padding:7px 10px;color:#cbd5e0;">Bananas · Honeycrisp Apples · Cuties Clementines</td></tr>
+        <tr style="border-bottom:1px solid rgba(255,255,255,0.06);"><td style="padding:7px 10px;color:#fff;font-weight:600;">Tier 3 — avocado + berries</td><td style="padding:7px 10px;color:#cbd5e0;">Premium / toast</td><td style="padding:7px 10px;color:#cbd5e0;">Hass Avocados · Roma Tomatoes · Strawberries · Blueberries</td></tr>
+        <tr style="background:rgba(255,255,255,0.02);border-bottom:1px solid rgba(255,255,255,0.06);"><td style="padding:7px 10px;color:#fff;font-weight:600;">Tier 4 — aromatics + herbs</td><td style="padding:7px 10px;color:#cbd5e0;">Cooking + cocktail</td><td style="padding:7px 10px;color:#cbd5e0;">Yellow + Red Onions · Garlic · Ginger · Jalapeños · Cilantro · Mint</td></tr>
+        <tr style="border-bottom:1px solid rgba(255,255,255,0.06);"><td style="padding:7px 10px;color:#fff;font-weight:600;">Tier 5 — salad / sandwich</td><td style="padding:7px 10px;color:#cbd5e0;">Fresh support</td><td style="padding:7px 10px;color:#cbd5e0;">Romaine Hearts · Baby Spinach</td></tr>
+      </tbody>
+    </table>
+    <div class="card" style="border-left:3px solid var(--accent);padding:12px 18px;margin-top:14px;font-size:12px;color:var(--muted);"><strong style="color:var(--accent);">Why it works:</strong> a tight 19-SKU rack signals 'real bodega,' not liquor store — and the citrus + herbs attach straight to the cocktail/mixer program (grab a lime with your tequila). Keep it small and high-turn to limit spoilage: limes, lemons, bananas, avocados do the volume; restock 2-3x/week and pull anything past peak into a markdown bin. Low standing inventory ($435), 45-55% margin.</div>`,
 
   'lottery-revenue': () => `
     <h2 class="slide-title">🎰 Lottery revenue model</h2>
@@ -10383,8 +10416,8 @@ ${renderGondolaRealScale({ shelves: g4Shelves, sectionLabels: { A:'Curated wine'
       { tag:"SG (Southern Glazer's)", slide:'pkt-sg', cat:'BevAlc wholesale', scope:'Mass-market wine + spirits secondary source', open:12497, annual:6200,   restock:'Monthly (backup)', terms:'Net 30',  margin:'27%', primary:'Backup BevAlc when Breakthru is out of stock', anchor:false },
       { tag:'Reyes Beverage Group', slide:'pkt-reyes', cat:'Beer / RTD + Coca-Cola (Chicago Beverage Systems)', scope:'Molson Coors, Constellation (Modelo/Corona), Heineken, craft (Revolution/Half Acre), Athletic NA, + Coca-Cola/Topo Chico CSD', open:8983, annual:23700, restock:'2-3x/week', terms:'Net 14', margin:'27%', primary:'D7-D18 beer/RTD wall, D22 RTD, CSD cooler program', anchor:true },
       { tag:'Lakeshore',  slide:'pkt-lakeshore',  cat:'Beer DSD (regional craft)', scope:'Half Acre, Revolution, Goose Island, regional craft', open:11131, annual:12000, restock:'Weekly', terms:'Net 14',  margin:'30%', primary:'D7 craft IPA, D8 craft + Cutwater, D9 craft + imports', anchor:true },
-      { tag:'KeHE / UNFI',slide:'pkt-kehe',       cat:'Natural / specialty foods', scope:'Functional bev (Liquid IV, LMNT, Magic Mind), better-for-you snacks, premium chocolate', open:9186, annual:8200,  restock:'Weekly', terms:'Net 30',  margin:'35%', primary:'D3-D6 functional cooler, G1.5 hangover endcap, G3 international snacks', anchor:true },
-      { tag:'Eby-Brown',  slide:'pkt-eby',        cat:'C-store wholesale',   scope:'Cigarettes, candy, snacks, salty (chips, jerky), pantry, HBA, vape', open:22999, annual:13800, restock:'Weekly', terms:'Net 7',   margin:'24%', primary:'G1B salty heroes, G2B pantry, S4 vape, candy rack, pantry HBA', anchor:true },
+      { tag:'KeHE / UNFI',slide:'pkt-kehe',       cat:'Natural / specialty foods', scope:'Functional bev (Liquid IV, LMNT, Magic Mind), better-for-you snacks, premium chocolate', open:13480, annual:8200,  restock:'Weekly', terms:'Net 30',  margin:'35%', primary:'D3-D6 functional cooler, G1.5 hangover endcap, G3 international snacks', anchor:true },
+      { tag:'Eby-Brown',  slide:'pkt-eby',        cat:'C-store wholesale',   scope:'Cigarettes, candy, snacks, salty (chips, jerky), pantry, HBA, vape', open:22717, annual:13800, restock:'Weekly', terms:'Net 7',   margin:'24%', primary:'G1B salty heroes, G2B pantry, S4 vape, candy rack, pantry HBA', anchor:true },
       { tag:'THC Direct', slide:'pkt-thc',        cat:'IL-licensed THC bev',  scope:'Cresco, House of Saka, Cycling Frog, Cheech & Chong, Houseplant, Quirk', open:1729, annual:6500, restock:'Biweekly', terms:'Prepay first 90 days, then Net 14', margin:'55%', primary:'D16 THC bev cooler, G3C functional endcap', anchor:true },
       { tag:'Red Bull DSD',slide:'pkt-redbull',  cat:'Energy drink DSD (single-brand)', scope:'Red Bull full SKU set, Red Bull Editions (Sugar-Free, Watermelon, Coconut, etc.)', open:927, annual:5500,  restock:'Weekly (DSD merch)', terms:'Net 14',  margin:'26%', primary:'D3 energy door (anchor SKUs), D21 single-can impulse', anchor:false },
       { tag:"Hannah's Bretzel", slide:'fresh-food-program', cat:'Fresh food (daily DSD)', scope:'Pretzel-bread sandwiches, breakfast + lunch daypart, daily own-fleet delivery', open:350, annual:39000, restock:'Daily 6am', terms:'Net 7', margin:'55%', primary:'SC-1 sandwich cooler (60 SKU)', anchor:true },
@@ -10395,7 +10428,7 @@ ${renderGondolaRealScale({ shelves: g4Shelves, sectionLabels: { A:'Curated wine'
     const pillCss = 'display:inline-flex;align-items:center;gap:6px;font-size:11px;color:#a4b3ff;background:rgba(139,158,255,0.10);border:1px solid rgba(139,158,255,0.35);padding:4px 9px;border-radius:14px;font-family:monospace;letter-spacing:0.5px;cursor:pointer;';
     return `
     <h2 class="slide-title">Distributor overview &mdash; the 9-vendor wholesale stack</h2>
-    <p class="slide-subtitle">Consolidated view of all wholesale distributor relationships. <strong>9 vendors</strong> placing <strong>$94,359 of all-new opening orders</strong> (Day-1 buy) to stock the repositioned store; the remaining differentiation comes from local Chicago vendors (next slide). Click any row to drill into the full packet.</p>
+    <p class="slide-subtitle">Consolidated view of all wholesale distributor relationships. <strong>9 vendors</strong> placing <strong>$98,371 of all-new opening orders</strong> (Day-1 buy) to stock the repositioned store; the remaining differentiation comes from local Chicago vendors (next slide). Click any row to drill into the full packet.</p>
 
     <div class="stat-grid" style="grid-template-columns:repeat(4,1fr);">
       <div class="stat" style="border-left:3px solid var(--accent);">
@@ -11438,7 +11471,7 @@ ${renderGondolaRealScale({ shelves: g4Shelves, sectionLabels: { A:'Curated wine'
           <div style="display:flex;align-items:baseline;justify-content:space-between;gap:8px;">
             <div>
               <span style="font-family:monospace;font-size:14px;font-weight:700;color:#fff;letter-spacing:1px;">C</span>
-              <span style="font-size:9px;color:var(--muted);font-family:monospace;letter-spacing:1px;margin-left:6px;">NORTH (by G4.5 sake endcap)</span>
+              <span style="font-size:9px;color:var(--muted);font-family:monospace;letter-spacing:1px;margin-left:6px;">NORTH (by G4 sake/soju)</span>
             </div>
             <span style="font-family:monospace;font-size:10px;color:#efb045;font-weight:700;letter-spacing:0.5px;">45–55%</span>
           </div>
@@ -11453,7 +11486,7 @@ ${renderGondolaRealScale({ shelves: g4Shelves, sectionLabels: { A:'Curated wine'
       <h3 style="color:var(--amber);font-size:13px;margin-bottom:6px;">Why "late-night fuel" isn&rsquo;t a 12 ft category</h3>
       <p style="line-height:1.55;">Late-night fuel doesn&rsquo;t need 12 feet &mdash; the demand window is real but the SKU count to satisfy it is small. Spreading it across <strong>3 well-placed bays sized to actual demand</strong> beats a sprawling single zone:</p>
       <ul style="padding-left:18px;margin-top:8px;line-height:1.55;font-size:12px;">
-        <li><strong style="color:#5dcaa5;">G2.5 endcap (30")</strong> &mdash; the <em>anchor</em> showpiece: spicy chips, jerky, hot ramen sampler. ~25 SKUs, premium-priced, impulse capture.</li>
+        <li><strong style="color:#5dcaa5;">G2.5 endcap</strong> &mdash; the <em>anchor</em> showpiece, repositioned <strong>protein-forward</strong>: RXBAR / Built / Barebells / Quest bars + Chomps meat sticks up top, late-night munchies (spicy chips, ramen, candy) below. ~22 SKUs, premium impulse capture.</li>
         <li><strong style="color:#5dcaa5;">G2A section (4 ft)</strong> &mdash; the <em>workhorse</em>: deep ramen + heat-and-eat (Buldak, Cup Noodles, Annie&rsquo;s mac cups). ~20 SKUs, depth merchandising.</li>
         <li><strong style="color:#5dcaa5;">G1B section (4 ft)</strong> &mdash; the <em>spicy chip bay</em>: Takis Fuego, Hot Cheetos XXTRA, Buldak chips, regulars. ~15 SKUs.</li>
       </ul>
@@ -12444,7 +12477,7 @@ window.cwEditor = (function () {
 // PHASE 17 — Uptown Store fixture-grouped category table
 // ============================================================
 (function () {
-  const DATA = [{"category": "D1 Pepsi-Coke CSD Wall", "fixtureType": "D", "zone": "D1", "distributor": "COKE/PEPSI DSD", "products": "Canada Dry Ginger Ale · Coca-Cola · Crush Orange · Diet Pepsi · Dr Pepper · Mountain Dew · Mug Root Beer · Pepsi · Sprite · Squirt · Squirt Soda", "productCount": 16, "popularity": 70, "trend": "flat", "trendCount": {"up": 1, "flat": 14, "down": 1}}, {"category": "D2 Specialty Soda + Mixers", "fixtureType": "D", "zone": "D2", "distributor": "UNKNOWN", "products": "Mexican Coca-Cola · Vitaminwater · Jarritos Glass · Jarritos Mandarin · Jarritos Tamarind · Mexican Coca-Cola Glass · Sidral Mundet Apple Soda Glass", "productCount": 7, "popularity": 56, "trend": "flat", "trendCount": {"up": 2, "flat": 5, "down": 0}}, {"category": "D3 Energy + Premium Water", "fixtureType": "D", "zone": "D3", "distributor": "KEHE", "products": "Monster Energy · Monster Energy Original · Monster Energy Ultra Sunrise · Monster Energy Ultra White · Monster Java Loca Mocha · NOS Energy Drink · Reign Total Body Fuel · Rockstar Energy · Glaceau Smartwater · Topo Chico Mineral Water · Topo Chico Sparkling Water Glass · ...", "productCount": 32, "popularity": 61, "trend": "up", "trendCount": {"up": 14, "flat": 14, "down": 4}}, {"category": "D4 Protein + Sport + N.A. Craft", "fixtureType": "D", "zone": "D4", "distributor": "COKE/PEPSI DSD", "products": "Bodyarmor Sport Drink", "productCount": 1, "popularity": 65, "trend": "up", "trendCount": {"up": 1, "flat": 0, "down": 0}}, {"category": "D5 Tea + AriZona + Yerba", "fixtureType": "D", "zone": "D5", "distributor": "COKE/PEPSI DSD", "products": "Lipton Iced Tea · Snapple assorted varieties · Snapple Lemon Tea · AriZona Green Tea · Snapple Iced Tea", "productCount": 5, "popularity": 56, "trend": "flat", "trendCount": {"up": 0, "flat": 5, "down": 0}}, {"category": "D6 Juice + Dairy + Eggs", "fixtureType": "D", "zone": "D6", "distributor": "LOCAL", "products": "Naked Juice Green Machine · Califia Oat Milk · Kerrygold Irish Butter · Oatly Oat Milk · 2% milk gallon · Activia yogurt drink multipack · Aerosol whipped cream · Almond milk · Block cheese assorted varieties · Cream cheese tubs assorted · Half & half quart · Hillshire Farm deli meat · ...", "productCount": 31, "popularity": 58, "trend": "flat", "trendCount": {"up": 5, "flat": 23, "down": 3}}, {"category": "D7-D10 Beer Cooler (Craft + Imports + Macros)", "fixtureType": "D", "zone": "D7-D10", "distributor": "Reyes Beverage Group", "products": "Bud Light · Budweiser · Coors Light · Corona Extra · Heineken Lager · Michelob Ultra · Miller High Life · Miller Lite · Modelo Especial · Modelo Negra · Modelo Oro · Pacifico · Stella Artois · Tecate · Yuengling Traditional Lager · All Gash Tripel Belgian Ale · Allagash Curieux · ...", "productCount": 32, "popularity": 71, "trend": "flat", "trendCount": {"up": 11, "flat": 21, "down": 0}}, {"category": "D11 Bodega Functional Bev", "fixtureType": "D", "zone": "D11", "distributor": "KEHE", "products": "La Colombe Draft Latte · La Colombe Triple Draft Latte · GT's Synergy Kombucha · GT's Synergy Kombucha Trilogy · Health-Ade Kombucha · KeVita Master Brew Kombucha · KeVita Sparkling Probiotic Drink · Olipop Cream Soda · Olipop Strawberry Vanilla · Olipop Vintage Cola · ...", "productCount": 14, "popularity": 51, "trend": "up", "trendCount": {"up": 12, "flat": 2, "down": 0}}, {"category": "D12 Fresh Food Cooler", "fixtureType": "D", "zone": "D12", "distributor": "LOCAL", "products": "Fresh Apples (assorted) · Fresh Bananas · Fresh Lettuce/Greens · Fresh Onions · Fresh Potatoes · Hamburger Buns · Hot Dog Buns · Oat Bread Loaf · Sara Lee White Bread Loaf · Wonder Bread Classic White Loaf · Pret a Manger Sandwich Wrap · Frozen Sausage Roll · Jimmy Dean Breakfast Sandwich", "productCount": 13, "popularity": 51, "trend": "flat", "trendCount": {"up": 3, "flat": 10, "down": 0}}, {"category": "D15 Singles + 4-pks (RTD / Hard Seltzer)", "fixtureType": "D", "zone": "D15", "distributor": "Reyes Beverage Group", "products": "Cutwater Tequila Margarita · Cutwater Vodka Mule · High Noon Vodka Seltzer · Surfside Iced Tea Vodka · Truly Hard Seltzer · White Claw Black Cherry · White Claw Hard Seltzer · White Claw Mango · Smirnoff Ice · Twisted Tea Original · Fun Times Punch RTD · Fun Times Tropical RTD · ...", "productCount": 15, "popularity": 63, "trend": "up", "trendCount": {"up": 11, "flat": 4, "down": 0}}, {"category": "D16 High Noon + Canned Cocktails 8/12-pks", "fixtureType": "D", "zone": "D16", "distributor": "UNKNOWN", "products": "High Noon Pineapple · High Noon Sun Sips Variety · High Noon Watermelon", "productCount": 3, "popularity": 78, "trend": "up", "trendCount": {"up": 3, "flat": 0, "down": 0}}, {"category": "D17/D18 Champagne + Sparkling", "fixtureType": "D", "zone": "D17", "distributor": "BREAKTHRU", "products": "Champagne · Chandon Brut · La Marca Prosecco · Mionetto Prosecco · Riondo Prosecco · Veuve Clicquot Brut Yellow Label · Cocktail Hearts Sparkling · Sparkling Rose", "productCount": 8, "popularity": 55, "trend": "flat", "trendCount": {"up": 2, "flat": 6, "down": 0}}, {"category": "D19/D20 White Wine + Rosé (chilled)", "fixtureType": "D", "zone": "D19", "distributor": "UNKNOWN", "products": "Chardonnay White Wine · Pinot Grigio White Wine · Santa Margherita Pinot Grigio · Sauvignon Blanc White Wine · Whispering Angel Rose · Bogle Sauvignon Blanc · Cavit Pinot Grigio · Kim Crawford Sauvignon Blanc · Moscato White Wine · Riesling White Wine · Sweet White Wine", "productCount": 11, "popularity": 41, "trend": "flat", "trendCount": {"up": 1, "flat": 8, "down": 2}}, {"category": "D21 Red Bull DSD", "fixtureType": "D", "zone": "D21", "distributor": "RED BULL", "products": "Red Bull · Red Bull Blueberry Edition · Red Bull Energy Drink · Red Bull Sugar Free · Red Bull Tropical Edition · Red Bull Watermelon Edition", "productCount": 6, "popularity": 92, "trend": "flat", "trendCount": {"up": 0, "flat": 6, "down": 0}}, {"category": "G1 BFY Snacks", "fixtureType": "G", "zone": "G1", "distributor": "UNKNOWN", "products": "Bobo's Oat Bites · G.H. Cretors Popped Corn · Hippeas Chickpea Puffs · Pirate's Booty Aged White Cheddar · Quest Tortilla Chips · Skinny Pop Popcorn · Tate's Bake Shop Cookies assorted · Tate's Bake Shop Waffle Cones · Abbracci cookies · Crispo Selecta cookies · ...", "productCount": 26, "popularity": 37, "trend": "flat", "trendCount": {"up": 8, "flat": 18, "down": 0}}, {"category": "G2 Late-Night Fuel", "fixtureType": "G", "zone": "G2", "distributor": "UNKNOWN", "products": "Beef Jerky", "productCount": 1, "popularity": 50, "trend": "up", "trendCount": {"up": 1, "flat": 0, "down": 0}}, {"category": "G3 Baking + Sweeteners", "fixtureType": "G", "zone": "G3", "distributor": "UNKNOWN", "products": "Bob's Red Mill Baking Powder · Argo Corn Starch · Arm & Hammer Baking Soda · Aunt Jemima Original Pancake Mix · Domino Confectioners Sugar · Domino Granulated Sugar · Domino Light Brown Sugar · Five Roses All Purpose Flour · Gold Medal Flour · Honey · Maple syrup · ...", "productCount": 14, "popularity": 48, "trend": "flat", "trendCount": {"up": 1, "flat": 11, "down": 2}}, {"category": "G3 Cereal + Breakfast", "fixtureType": "G", "zone": "G3", "distributor": "EBY-BROWN", "products": "Cheerios Cereal · Cocoa Pebbles Cereal · Frosted Flakes Cereal · Fruity Pebbles Cereal · Jif Peanut Butter · Lucky Charms Cereal · Maruchan Instant Lunch cup ramen · Nissin Cup Noodles assorted · Reese's Puffs Cereal · Skippy Peanut Butter · Special K Red Berries Cereal · ...", "productCount": 12, "popularity": 60, "trend": "flat", "trendCount": {"up": 0, "flat": 10, "down": 2}}, {"category": "G3 Cleaning + Household", "fixtureType": "G", "zone": "G3", "distributor": "UNKNOWN", "products": "LED Light Bulb · Persil ProClean Liquid Detergent · Plastic cups multipack assorted · Snuggle Fabric Softener · Sponges/dish brushes assorted · Tide Pods · Travel Coffee Mug", "productCount": 7, "popularity": 42, "trend": "flat", "trendCount": {"up": 0, "flat": 6, "down": 1}}, {"category": "G3 Hispanic Pantry", "fixtureType": "G", "zone": "G3", "distributor": "UNKNOWN", "products": "Cholula Hot Sauce · Frank's RedHot Original · Goya black beans · Goya kidney beans · Herdez Salsa Verde · La Banderita Tostadas · La Mas Costena Salsa Casera · Tabasco Original · Tabasco Original Hot Sauce · Valentina Hot Sauce · Gamesa Cookies Variety · Gansito Marinela Snack Cake · ...", "productCount": 14, "popularity": 48, "trend": "flat", "trendCount": {"up": 3, "flat": 11, "down": 0}}, {"category": "G3 Mainstream Chips", "fixtureType": "G", "zone": "G3", "distributor": "EBY-BROWN", "products": "Cheetos Crunchy Large · Cheetos Flamin Hot Fries Large · Cheetos Flamin' Hot · Cheetos Fries · Chesters Hot Fries Large · Doritos Cool Ranch · Doritos Cool Ranch Large · Doritos Flamin Hot Large · Doritos Nacho Cheese · Doritos Nacho Cheese Large · Fritos Original · Fritos Scoops · ...", "productCount": 31, "popularity": 59, "trend": "flat", "trendCount": {"up": 7, "flat": 24, "down": 0}}, {"category": "G3 Pet Food", "fixtureType": "G", "zone": "G3", "distributor": "UNKNOWN", "products": "9 Lives cat food · Friskies cat food", "productCount": 2, "popularity": 38, "trend": "down", "trendCount": {"up": 0, "flat": 1, "down": 1}}, {"category": "G3 Sauces + Pantry", "fixtureType": "G", "zone": "G3", "distributor": "UNKNOWN", "products": "Pasta Sauce · Spice · Vienna Sausages · Double Stuf Oreo Cookies · Honey Maid Graham Crackers · Hostess Cupcakes · Hostess Donettes · Oreo Cookies Family Size · Pirouline Wafer Tin · Twinkies · Ritz Crackers · Saltine Crackers · Wheat Thins · Carbone Marinara Sauce · ...", "productCount": 47, "popularity": 54, "trend": "flat", "trendCount": {"up": 5, "flat": 40, "down": 2}}, {"category": "G4 Curated Wine Wall", "fixtureType": "G", "zone": "G4", "distributor": "UNKNOWN", "products": "Cabernet Sauvignon Red Wine · Caymus Cabernet · Clos du Bois Wine · Pinot Noir Red Wine · 19 Crimes Red Blend · Apothic Red · Black · Bogle Cabernet · Bota · Cabernet Sauvignon · Franzia · Josh Cellars Cabernet · Malbec · Pinot Noir · Zolo Malbec", "productCount": 16, "popularity": 36, "trend": "flat", "trendCount": {"up": 0, "flat": 11, "down": 5}}, {"category": "G4.5 Sake / Soju Endcap", "fixtureType": "G", "zone": "G4.5", "distributor": "BREAKTHRU", "products": "Soon Hari Apple Soju · Soon Hari Original Soju · Soon Hari Strawberry Soju · Sake", "productCount": 4, "popularity": 49, "trend": "up", "trendCount": {"up": 4, "flat": 0, "down": 0}}, {"category": "F1 Late-Night Novelty Freezer", "fixtureType": "F", "zone": "F1", "distributor": "UNKNOWN", "products": "Bagel Bites Family Pack · Hot Pockets Ham & Cheese · Hot Pockets Pepperoni Pizza · Totino's Party Pizza Cheese · Totino's Party Pizza Pepperoni · Ben & Jerry's Pint (assorted flavors) · Ben & Jerry's Pint (assorted) · Drumstick Sundae Cones · Haagen-Dazs Pint (assorted) · ...", "productCount": 16, "popularity": 64, "trend": "flat", "trendCount": {"up": 3, "flat": 10, "down": 3}}, {"category": "F2 Premium Meals Freezer", "fixtureType": "F", "zone": "F2", "distributor": "UNKNOWN", "products": "Banquet Salisbury Steak Meal · Birds Eye Frozen Vegetables · DiGiorno Rising Crust Pepperoni Pizza · DiGiorno Three Meat Pizza · Eggo Waffles Buttermilk · Eggo Waffles Homestyle · Frozen White Bread Loaf (bagged) · Healthy Choice Bowls · Hungry-Man TV Dinner · Lean Cuisine Frozen Entree · ...", "productCount": 18, "popularity": 58, "trend": "flat", "trendCount": {"up": 0, "flat": 16, "down": 2}}, {"category": "OC-1 Candy Tower", "fixtureType": "OC-1", "zone": "OC-1", "distributor": "EBY-BROWN", "products": "Airheads Xtremes · Haribo Goldbears · Haribo Sour Gold-Bears · Lifesavers Gummies · Skittles Original · Sour Patch Kids · Starburst", "productCount": 7, "popularity": 66, "trend": "flat", "trendCount": {"up": 1, "flat": 6, "down": 0}}, {"category": "OC-1 Energy + Functional Shots", "fixtureType": "OC-1", "zone": "OC-1", "distributor": "EBY-BROWN", "products": "5-hour Energy Shot", "productCount": 1, "popularity": 50, "trend": "down", "trendCount": {"up": 0, "flat": 0, "down": 1}}, {"category": "OC-1 Gum + Breath Mints", "fixtureType": "OC-1", "zone": "OC-1", "distributor": "EBY-BROWN", "products": "Tic Tac Mints (assorted)", "productCount": 1, "popularity": 60, "trend": "flat", "trendCount": {"up": 0, "flat": 1, "down": 0}}, {"category": "OC-1 Mini Spirits Locked Case", "fixtureType": "OC-1", "zone": "OC-1", "distributor": "SOUTHERN GLAZER'S", "products": "Cardenal Mendoza Brandy · Disaronno Amaretto · Peach Schnapps · Sobieski Vodka · Baileys Irish Cream · Hennessy VS Cognac · Jameson Caskmates · Jameson Irish Whiskey · Smirnoff Vodka · Liqueur · Mini Spirit · Spiced Rum", "productCount": 12, "popularity": 51, "trend": "flat", "trendCount": {"up": 0, "flat": 9, "down": 3}}, {"category": "S2 Travel HBA + OTC", "fixtureType": "S", "zone": "S2", "distributor": "KEHE", "products": "Dove Body Wash · Olay Body Wash · Old Spice Deodorant · Speed Stick Deodorant · Suave Body Wash · Vaseline Lotion", "productCount": 6, "popularity": 59, "trend": "flat", "trendCount": {"up": 0, "flat": 5, "down": 1}}];
+  const DATA = [{"category": "D1 Pepsi-Coke CSD Wall", "fixtureType": "D", "zone": "D1", "distributor": "COKE/PEPSI DSD", "products": "Canada Dry Ginger Ale · Coca-Cola · Crush Orange · Diet Pepsi · Dr Pepper · Mountain Dew · Mug Root Beer · Pepsi · Sprite · Squirt · Squirt Soda", "productCount": 16, "popularity": 70, "trend": "flat", "trendCount": {"up": 1, "flat": 14, "down": 1}}, {"category": "D2 Specialty Soda + Mixers", "fixtureType": "D", "zone": "D2", "distributor": "UNKNOWN", "products": "Mexican Coca-Cola · Vitaminwater · Jarritos Glass · Jarritos Mandarin · Jarritos Tamarind · Mexican Coca-Cola Glass · Sidral Mundet Apple Soda Glass", "productCount": 7, "popularity": 56, "trend": "flat", "trendCount": {"up": 2, "flat": 5, "down": 0}}, {"category": "D3 Energy + Premium Water", "fixtureType": "D", "zone": "D3", "distributor": "KEHE", "products": "Monster Energy · Monster Energy Original · Monster Energy Ultra Sunrise · Monster Energy Ultra White · Monster Java Loca Mocha · NOS Energy Drink · Reign Total Body Fuel · Rockstar Energy · Glaceau Smartwater · Topo Chico Mineral Water · Topo Chico Sparkling Water Glass · ...", "productCount": 32, "popularity": 61, "trend": "up", "trendCount": {"up": 14, "flat": 14, "down": 4}}, {"category": "D4 Protein + Sport + N.A. Craft", "fixtureType": "D", "zone": "D4", "distributor": "COKE/PEPSI DSD", "products": "Bodyarmor Sport Drink", "productCount": 1, "popularity": 65, "trend": "up", "trendCount": {"up": 1, "flat": 0, "down": 0}}, {"category": "D5 Tea + AriZona + Yerba", "fixtureType": "D", "zone": "D5", "distributor": "COKE/PEPSI DSD", "products": "Lipton Iced Tea · Snapple assorted varieties · Snapple Lemon Tea · AriZona Green Tea · Snapple Iced Tea", "productCount": 5, "popularity": 56, "trend": "flat", "trendCount": {"up": 0, "flat": 5, "down": 0}}, {"category": "D6 Juice + Dairy + Eggs", "fixtureType": "D", "zone": "D6", "distributor": "LOCAL", "products": "Naked Juice Green Machine · Califia Oat Milk · Kerrygold Irish Butter · Oatly Oat Milk · 2% milk gallon · Activia yogurt drink multipack · Aerosol whipped cream · Almond milk · Block cheese assorted varieties · Cream cheese tubs assorted · Half & half quart · Hillshire Farm deli meat · ...", "productCount": 31, "popularity": 58, "trend": "flat", "trendCount": {"up": 5, "flat": 23, "down": 3}}, {"category": "D7-D10 Beer Cooler (Craft + Imports + Macros)", "fixtureType": "D", "zone": "D7-D10", "distributor": "Reyes Beverage Group", "products": "Bud Light · Budweiser · Coors Light · Corona Extra · Heineken Lager · Michelob Ultra · Miller High Life · Miller Lite · Modelo Especial · Modelo Negra · Modelo Oro · Pacifico · Stella Artois · Tecate · Yuengling Traditional Lager · All Gash Tripel Belgian Ale · Allagash Curieux · ...", "productCount": 32, "popularity": 71, "trend": "flat", "trendCount": {"up": 11, "flat": 21, "down": 0}}, {"category": "D11 Bodega Functional Bev", "fixtureType": "D", "zone": "D11", "distributor": "KEHE", "products": "La Colombe Draft Latte · La Colombe Triple Draft Latte · GT's Synergy Kombucha · GT's Synergy Kombucha Trilogy · Health-Ade Kombucha · KeVita Master Brew Kombucha · KeVita Sparkling Probiotic Drink · Olipop Cream Soda · Olipop Strawberry Vanilla · Olipop Vintage Cola · ...", "productCount": 14, "popularity": 51, "trend": "up", "trendCount": {"up": 12, "flat": 2, "down": 0}}, {"category": "D12 Fresh Food Cooler", "fixtureType": "D", "zone": "D12", "distributor": "LOCAL", "products": "Fresh Apples (assorted) · Fresh Bananas · Fresh Lettuce/Greens · Fresh Onions · Fresh Potatoes · Hamburger Buns · Hot Dog Buns · Oat Bread Loaf · Sara Lee White Bread Loaf · Wonder Bread Classic White Loaf · Pret a Manger Sandwich Wrap · Frozen Sausage Roll · Jimmy Dean Breakfast Sandwich", "productCount": 13, "popularity": 51, "trend": "flat", "trendCount": {"up": 3, "flat": 10, "down": 0}}, {"category": "D15 Singles + 4-pks (RTD / Hard Seltzer)", "fixtureType": "D", "zone": "D15", "distributor": "Reyes Beverage Group", "products": "Cutwater Tequila Margarita · Cutwater Vodka Mule · High Noon Vodka Seltzer · Surfside Iced Tea Vodka · Truly Hard Seltzer · White Claw Black Cherry · White Claw Hard Seltzer · White Claw Mango · Smirnoff Ice · Twisted Tea Original · Fun Times Punch RTD · Fun Times Tropical RTD · ...", "productCount": 15, "popularity": 63, "trend": "up", "trendCount": {"up": 11, "flat": 4, "down": 0}}, {"category": "D16 High Noon + Canned Cocktails 8/12-pks", "fixtureType": "D", "zone": "D16", "distributor": "UNKNOWN", "products": "High Noon Pineapple · High Noon Sun Sips Variety · High Noon Watermelon", "productCount": 3, "popularity": 78, "trend": "up", "trendCount": {"up": 3, "flat": 0, "down": 0}}, {"category": "D17/D18 Champagne + Sparkling", "fixtureType": "D", "zone": "D17", "distributor": "BREAKTHRU", "products": "Champagne · Chandon Brut · La Marca Prosecco · Mionetto Prosecco · Riondo Prosecco · Veuve Clicquot Brut Yellow Label · Cocktail Hearts Sparkling · Sparkling Rose", "productCount": 8, "popularity": 55, "trend": "flat", "trendCount": {"up": 2, "flat": 6, "down": 0}}, {"category": "D19/D20 White Wine + Rosé (chilled)", "fixtureType": "D", "zone": "D19", "distributor": "UNKNOWN", "products": "Chardonnay White Wine · Pinot Grigio White Wine · Santa Margherita Pinot Grigio · Sauvignon Blanc White Wine · Whispering Angel Rose · Bogle Sauvignon Blanc · Cavit Pinot Grigio · Kim Crawford Sauvignon Blanc · Moscato White Wine · Riesling White Wine · Sweet White Wine", "productCount": 11, "popularity": 41, "trend": "flat", "trendCount": {"up": 1, "flat": 8, "down": 2}}, {"category": "D21 Red Bull DSD", "fixtureType": "D", "zone": "D21", "distributor": "RED BULL", "products": "Red Bull · Red Bull Blueberry Edition · Red Bull Energy Drink · Red Bull Sugar Free · Red Bull Tropical Edition · Red Bull Watermelon Edition", "productCount": 6, "popularity": 92, "trend": "flat", "trendCount": {"up": 0, "flat": 6, "down": 0}}, {"category": "G1 BFY Snacks", "fixtureType": "G", "zone": "G1", "distributor": "UNKNOWN", "products": "Bobo's Oat Bites · G.H. Cretors Popped Corn · Hippeas Chickpea Puffs · Pirate's Booty Aged White Cheddar · Quest Tortilla Chips · Skinny Pop Popcorn · Tate's Bake Shop Cookies assorted · Tate's Bake Shop Waffle Cones · Abbracci cookies · Crispo Selecta cookies · ...", "productCount": 26, "popularity": 37, "trend": "flat", "trendCount": {"up": 8, "flat": 18, "down": 0}}, {"category": "G2 Late-Night Fuel", "fixtureType": "G", "zone": "G2", "distributor": "UNKNOWN", "products": "Beef Jerky", "productCount": 1, "popularity": 50, "trend": "up", "trendCount": {"up": 1, "flat": 0, "down": 0}}, {"category": "G3 Baking + Sweeteners", "fixtureType": "G", "zone": "G3", "distributor": "UNKNOWN", "products": "Bob's Red Mill Baking Powder · Argo Corn Starch · Arm & Hammer Baking Soda · Aunt Jemima Original Pancake Mix · Domino Confectioners Sugar · Domino Granulated Sugar · Domino Light Brown Sugar · Five Roses All Purpose Flour · Gold Medal Flour · Honey · Maple syrup · ...", "productCount": 14, "popularity": 48, "trend": "flat", "trendCount": {"up": 1, "flat": 11, "down": 2}}, {"category": "G3 Cereal + Breakfast", "fixtureType": "G", "zone": "G3", "distributor": "EBY-BROWN", "products": "Cheerios Cereal · Cocoa Pebbles Cereal · Frosted Flakes Cereal · Fruity Pebbles Cereal · Jif Peanut Butter · Lucky Charms Cereal · Maruchan Instant Lunch cup ramen · Nissin Cup Noodles assorted · Reese's Puffs Cereal · Skippy Peanut Butter · Special K Red Berries Cereal · ...", "productCount": 12, "popularity": 60, "trend": "flat", "trendCount": {"up": 0, "flat": 10, "down": 2}}, {"category": "G3 Cleaning + Household", "fixtureType": "G", "zone": "G3", "distributor": "UNKNOWN", "products": "LED Light Bulb · Persil ProClean Liquid Detergent · Plastic cups multipack assorted · Snuggle Fabric Softener · Sponges/dish brushes assorted · Tide Pods · Travel Coffee Mug", "productCount": 7, "popularity": 42, "trend": "flat", "trendCount": {"up": 0, "flat": 6, "down": 1}}, {"category": "G3 Hispanic Pantry", "fixtureType": "G", "zone": "G3", "distributor": "UNKNOWN", "products": "Cholula Hot Sauce · Frank's RedHot Original · Goya black beans · Goya kidney beans · Herdez Salsa Verde · La Banderita Tostadas · La Mas Costena Salsa Casera · Tabasco Original · Tabasco Original Hot Sauce · Valentina Hot Sauce · Gamesa Cookies Variety · Gansito Marinela Snack Cake · ...", "productCount": 14, "popularity": 48, "trend": "flat", "trendCount": {"up": 3, "flat": 11, "down": 0}}, {"category": "G3 Mainstream Chips", "fixtureType": "G", "zone": "G3", "distributor": "EBY-BROWN", "products": "Cheetos Crunchy Large · Cheetos Flamin Hot Fries Large · Cheetos Flamin' Hot · Cheetos Fries · Chesters Hot Fries Large · Doritos Cool Ranch · Doritos Cool Ranch Large · Doritos Flamin Hot Large · Doritos Nacho Cheese · Doritos Nacho Cheese Large · Fritos Original · Fritos Scoops · ...", "productCount": 31, "popularity": 59, "trend": "flat", "trendCount": {"up": 7, "flat": 24, "down": 0}}, {"category": "G3 Pet Food", "fixtureType": "G", "zone": "G3", "distributor": "UNKNOWN", "products": "9 Lives cat food · Friskies cat food", "productCount": 2, "popularity": 38, "trend": "down", "trendCount": {"up": 0, "flat": 1, "down": 1}}, {"category": "G3 Sauces + Pantry", "fixtureType": "G", "zone": "G3", "distributor": "UNKNOWN", "products": "Pasta Sauce · Spice · Vienna Sausages · Double Stuf Oreo Cookies · Honey Maid Graham Crackers · Hostess Cupcakes · Hostess Donettes · Oreo Cookies Family Size · Pirouline Wafer Tin · Twinkies · Ritz Crackers · Saltine Crackers · Wheat Thins · Carbone Marinara Sauce · ...", "productCount": 47, "popularity": 54, "trend": "flat", "trendCount": {"up": 5, "flat": 40, "down": 2}}, {"category": "G4 Curated Wine Wall", "fixtureType": "G", "zone": "G4", "distributor": "UNKNOWN", "products": "Cabernet Sauvignon Red Wine · Caymus Cabernet · Clos du Bois Wine · Pinot Noir Red Wine · 19 Crimes Red Blend · Apothic Red · Black · Bogle Cabernet · Bota · Cabernet Sauvignon · Franzia · Josh Cellars Cabernet · Malbec · Pinot Noir · Zolo Malbec", "productCount": 16, "popularity": 36, "trend": "flat", "trendCount": {"up": 0, "flat": 11, "down": 5}}, {"category": "F1 Late-Night Novelty Freezer", "fixtureType": "F", "zone": "F1", "distributor": "UNKNOWN", "products": "Bagel Bites Family Pack · Hot Pockets Ham & Cheese · Hot Pockets Pepperoni Pizza · Totino's Party Pizza Cheese · Totino's Party Pizza Pepperoni · Ben & Jerry's Pint (assorted flavors) · Ben & Jerry's Pint (assorted) · Drumstick Sundae Cones · Haagen-Dazs Pint (assorted) · ...", "productCount": 16, "popularity": 64, "trend": "flat", "trendCount": {"up": 3, "flat": 10, "down": 3}}, {"category": "F2 Premium Meals Freezer", "fixtureType": "F", "zone": "F2", "distributor": "UNKNOWN", "products": "Banquet Salisbury Steak Meal · Birds Eye Frozen Vegetables · DiGiorno Rising Crust Pepperoni Pizza · DiGiorno Three Meat Pizza · Eggo Waffles Buttermilk · Eggo Waffles Homestyle · Frozen White Bread Loaf (bagged) · Healthy Choice Bowls · Hungry-Man TV Dinner · Lean Cuisine Frozen Entree · ...", "productCount": 18, "popularity": 58, "trend": "flat", "trendCount": {"up": 0, "flat": 16, "down": 2}}, {"category": "OC-1 Candy Tower", "fixtureType": "OC-1", "zone": "OC-1", "distributor": "EBY-BROWN", "products": "Airheads Xtremes · Haribo Goldbears · Haribo Sour Gold-Bears · Lifesavers Gummies · Skittles Original · Sour Patch Kids · Starburst", "productCount": 7, "popularity": 66, "trend": "flat", "trendCount": {"up": 1, "flat": 6, "down": 0}}, {"category": "OC-1 Energy + Functional Shots", "fixtureType": "OC-1", "zone": "OC-1", "distributor": "EBY-BROWN", "products": "5-hour Energy Shot", "productCount": 1, "popularity": 50, "trend": "down", "trendCount": {"up": 0, "flat": 0, "down": 1}}, {"category": "OC-1 Gum + Breath Mints", "fixtureType": "OC-1", "zone": "OC-1", "distributor": "EBY-BROWN", "products": "Tic Tac Mints (assorted)", "productCount": 1, "popularity": 60, "trend": "flat", "trendCount": {"up": 0, "flat": 1, "down": 0}}, {"category": "OC-1 Mini Spirits Locked Case", "fixtureType": "OC-1", "zone": "OC-1", "distributor": "SOUTHERN GLAZER'S", "products": "Cardenal Mendoza Brandy · Disaronno Amaretto · Peach Schnapps · Sobieski Vodka · Baileys Irish Cream · Hennessy VS Cognac · Jameson Caskmates · Jameson Irish Whiskey · Smirnoff Vodka · Liqueur · Mini Spirit · Spiced Rum", "productCount": 12, "popularity": 51, "trend": "flat", "trendCount": {"up": 0, "flat": 9, "down": 3}}, {"category": "S2 Travel HBA + OTC", "fixtureType": "S", "zone": "S2", "distributor": "KEHE", "products": "Dove Body Wash · Olay Body Wash · Old Spice Deodorant · Speed Stick Deodorant · Suave Body Wash · Vaseline Lotion", "productCount": 6, "popularity": 59, "trend": "flat", "trendCount": {"up": 0, "flat": 5, "down": 1}}];
 
   let sortMode = 'zone';  // 'zone' | 'pop' | 'trend' | 'dist'
   let viewData = DATA.slice();
@@ -12537,7 +12570,7 @@ window.cwEditor = (function () {
       'F1':'elev-freezers','F2':'elev-freezers','F3':'elev-freezers',
       'OC-1':'elev-oc1','BC-1':'elev-bc1',
       'G1':'elev-g1','G2':'elev-g1','G3':'gondolas-back','G4':'gondolas-back',
-      'G1.5':'endcap-g15','G2.5':'endcap-g25','G3.5':'endcap-g35','G4.5':'endcap-g45'
+      'G1.5':'endcap-g15','G2.5':'endcap-g25','G3.5':'endcap-g35'
     };
     return map[z] || null;
   }
